@@ -1,3 +1,5 @@
+from typing import List
+
 class MoveFrameData:
     input: str
     first_active: str
@@ -23,3 +25,8 @@ class MoveFrameData:
         self.frame_adv = frame_adv
         self.proration = proration
         self.invuln = invuln
+
+class MeltyChar:
+    character_name: str
+    moon: str
+    moves: List[MoveFrameData]
