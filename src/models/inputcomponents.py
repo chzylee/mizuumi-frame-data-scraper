@@ -1,6 +1,6 @@
 import re
 from typing import Union
-from models.inputreader import input_matchers
+from data.inputreader import input_matchers
 
 class InputComponents:
     air: Union[str, None]
