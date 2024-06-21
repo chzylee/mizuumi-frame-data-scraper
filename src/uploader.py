@@ -4,6 +4,8 @@ import file_helper
 from data import melty
 
 def upload_all_melty_frame_data() -> None:
+    file_helper.ensure_json_dir_exists()
+
     dynamodb = boto3.resource("dynamodb", region_name="us-east-2")
     table = dynamodb.Table("MBAACC-Frame-Data")
 

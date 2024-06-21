@@ -16,6 +16,8 @@ def get_melty_char_frame_data(char_path: str, moon_path: str) -> MeltyChar:
     return melty_char
 
 def get_all_melty_frame_data() -> None:
+    file_helper.ensure_json_dir_exists()
+
     for char in melty.char_paths:
         for moon in melty.moon_paths:
             data = get_melty_char_frame_data(char, moon)
@@ -24,4 +26,5 @@ def get_all_melty_frame_data() -> None:
                 json.dump(data, json_file, indent=4)
 
 if __name__ == "__main__":
+
     get_all_melty_frame_data()
