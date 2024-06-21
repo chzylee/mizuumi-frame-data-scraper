@@ -17,7 +17,7 @@ class WikiInputComponents(InputComponents):
             button_start_index = directions_match.start() + len(directions)
         else:
             # If no directions, must be air normal, so start after air portion.
-            button_start_index = len(air)
+            button_start_index = len(air) if air is not None else 0
         buttons = input[button_start_index:]
 
         return cls(air=air, directions=directions, button=buttons)
