@@ -2,7 +2,7 @@ import requests
 import json
 import file_helper
 from scraper import Scraper
-from data import melty
+from data import melty, mizuumi
 from models.dynamodb import MeltyChar
 
 def get_melty_char_frame_data(char_path: str, moon_path: str) -> MeltyChar:
@@ -12,9 +12,15 @@ def get_melty_char_frame_data(char_path: str, moon_path: str) -> MeltyChar:
     # Placeholder to avoid accidentally making requests on runs during development.
     response = requests.get(wiki_url)
     scraper = Scraper(base_url=base_url, isLoggingOn=True)
-    melty_char = scraper.scrape_frame_data(wiki_html=response.text)
-    melty_char.character_name = char_path
-    melty_char.moon = moon_path
+    try:
+        melty_char = scraper.scrape_frame_data(wiki_html=response.text)
+        melty_char.character_name = char_path
+        melty_char.moon = moon_path
+    except:
+        char_short = mizuumi.get_char_name(char_path)
+        moon_short = mizuumi.get_moon_letter(moon_path)
+        print(f"Error occurred scraping frame data for {moon_short}-{char_short}")
+        raise
     return melty_char
 
 def get_all_melty_frame_data() -> None:
