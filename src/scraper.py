@@ -2,6 +2,7 @@ import logger
 from typing import List, Tuple
 from bs4 import BeautifulSoup
 from models.dynamodb import *
+from models.inputcomponents import InputComponents
 from models.wikiinput import WikiInputComponents
 
 class Scraper:
@@ -100,7 +101,8 @@ class Scraper:
                         if follow_up_index > -1:
                             current_move.follow_up = button_text[follow_up_index:]
                         else:
-                            current_move.button = button_text
+                            # Extract only the button part of the text if there is no follow up as this implies that direction is already stored.
+                            current_move.button = InputComponents.get_button_component_match(button_text).group()
                         logger.log_info(f"New button found: {current_move.button}", self.isLoggingOn)
 
                     image = self.base_url + images[image_index].get("src")

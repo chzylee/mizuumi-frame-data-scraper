@@ -16,25 +16,25 @@ class InputComponents:
         self.follow_up = follow_up
 
     @classmethod
-    def _get_air_component_match(cls, input: str) -> Union[re.Match, None]:
+    def get_air_component_match(cls, input: str) -> Union[re.Match, None]:
         air_match = re.search(r"j.", input)
         return air_match if air_match else None
 
     @classmethod
-    def _get_directions_component_match(cls, input: str) -> Union[re.Match, None]:
+    def get_directions_component_match(cls, input: str) -> Union[re.Match, None]:
         directions_match = re.search(r"(63214)|([1-9]{1,3})", input)
         return directions_match if directions_match else None
 
     @classmethod
-    def _get_button_component_match(cls, input: str) -> Union[re.Match, None]:
+    def get_button_component_match(cls, input: str) -> Union[re.Match, None]:
         button_match = re.search(r"(\[[ABCDX]\])|[ABCDX]", input)
         return button_match if button_match else None
 
     @classmethod
     def from_string(cls, input: str) -> "InputComponents":
-        air_match = cls._get_air_component_match(input)
-        directions_match = cls._get_directions_component_match(input)
-        button_match = cls._get_button_component_match(input)
+        air_match = cls.get_air_component_match(input)
+        directions_match = cls.get_directions_component_match(input)
+        button_match = cls.get_button_component_match(input)
 
         air = air_match.group() if air_match else None
         directions = directions_match.group() if directions_match else None

@@ -7,8 +7,8 @@ class WikiInputComponents(InputComponents):
     # Assumes given input string is from the wiki.
     @classmethod
     def from_string(cls, input: str) -> "WikiInputComponents":
-        air_match = cls._get_air_component_match(input)
-        directions_match = cls._get_directions_component_match(input)
+        air_match = cls.get_air_component_match(input)
+        directions_match = cls.get_directions_component_match(input)
 
         air = air_match.group() if air_match else None
         directions = directions_match.group() if directions_match else None
