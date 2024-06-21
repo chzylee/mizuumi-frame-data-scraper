@@ -3,8 +3,6 @@ from typing import List, Tuple
 from bs4 import BeautifulSoup
 from models.dynamodb import *
 from models.wikiinput import WikiInputComponents
-from normals_scraper import NormalsScraper
-from specials_scraper import SpecialsScraper
 
 class Scraper:
     base_url: str
@@ -18,16 +16,6 @@ class Scraper:
         wiki_soup = BeautifulSoup(markup=wiki_html, features="html.parser")
         normals_data = self.get_normals_data(wiki_soup)
         specials_data = self.get_specials_data(wiki_soup)
-        char_data = MeltyChar()
-        char_data.moves = normals_data + specials_data
-        return char_data
-
-    def scrape_frame_data_brute_force(self, wiki_html: str) -> MeltyChar:
-        wiki_soup = BeautifulSoup(markup=wiki_html, features="html.parser")
-        normals = NormalsScraper()
-        specials = SpecialsScraper()
-        normals_data = normals.scrape_normals(wiki_soup)
-        specials_data = specials.scrape_specials(wiki_soup)
         char_data = MeltyChar()
         char_data.moves = normals_data + specials_data
         return char_data
