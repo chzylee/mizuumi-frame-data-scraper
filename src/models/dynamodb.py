@@ -81,3 +81,10 @@ class MeltyChar:
     character_name: str
     moon: str
     moves: List[MoveData]
+
+    def to_dict(self) -> dict:
+        return {
+            "character_name": self.character_name,
+            "moon": self.moon,
+            "moves": [move.to_dict() for move in self.moves]
+        }
