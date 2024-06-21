@@ -123,21 +123,24 @@ class Scraper:
                                 image=image,
                                 frame_data=frame_data
                             )
-                            logger.log_data("Move Data", move_data, self.isLoggingOn)
+                            logger.log_data("Move Data", move_data.to_dict(), self.isLoggingOn)
                             move_list.append(move_data)
 
             current_tag = current_tag.find_next_sibling()
 
         return move_list
 
+    def _log_moves(self, label: str, move_list: List[MoveData]) -> None:
+        move_dicts = [move.to_dict() for move in move_list]
+        # Forcibly log move output every time so we can always sanity check output.
+        logger.log_json(label=label, data=move_dicts, isLoggingOn=True)
+
     def get_normals_data(self, soup: any) -> List[MoveData]:
         normals_data = self._get_move_data(soup=soup, start_move_category="Standing_Normals")
-        normals_dicts = [normal.to_dict() for normal in normals_data]
-        logger.log_json(label="NORMALS", data=normals_dicts, isLoggingOn=self.isLoggingOn)
+        self._log_moves("NORMALS", normals_data)
         return normals_data
 
     def get_specials_data(self, soup: any) -> List[MoveData]:
         specials_data = self._get_move_data(soup=soup, start_move_category="Grounded_Specials")
-        specials_dicts = [special.to_dict() for special in specials_data]
-        logger.log_json(label="SPECIALS", data=specials_dicts, isLoggingOn=self.isLoggingOn)
+        self._log_moves("SPECIALS", specials_data)
         return specials_data
