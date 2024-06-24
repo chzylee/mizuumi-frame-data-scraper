@@ -12,10 +12,12 @@ def upload_all_melty_frame_data() -> None:
     for char in melty.char_paths:
         for moon in melty.moon_paths:
             file_name = filehelper.get_filename(char_name=char, moon=moon)
-            with open(file_name) as json_file:
+            file_path = filehelper.get_upload_json_path(file_name)
+            print(f"Uploading data from file at {file_path}")
+            with open(file_path) as json_file:
                 data = json.load(json_file)
                 table.put_item(Item=data)
-                print(f"Inserted char data: {data}")
+            print(f"Inserted char data for {moon} {char}")
 
 if __name__ == "__main__":
     upload_all_melty_frame_data()

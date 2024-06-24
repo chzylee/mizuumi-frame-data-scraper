@@ -31,7 +31,8 @@ def get_all_melty_frame_data() -> None:
         for moon in melty.moon_paths:
             data = get_melty_char_frame_data(char, moon)
             file_name = filehelper.get_filename(char_name=char, moon=moon)
-            with open(file_name, "w") as json_file:
+            file_path = filehelper.get_json_save_path(file_name)
+            with open(file_path, "w") as json_file:
                 json.dump(data.to_dict(), json_file, indent=4)
 
 if __name__ == "__main__":
