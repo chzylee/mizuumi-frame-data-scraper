@@ -28,6 +28,7 @@ class MoveFrameData:
 class MoveData(MoveFrameData):
     input: str
     image: str
+    alts: List[str]
 
     # All properties required.
     def __init__(
@@ -39,7 +40,8 @@ class MoveData(MoveFrameData):
         recovery: str,
         frame_adv: str,
         proration: str,
-        invuln: str
+        invuln: str,
+        alts: List[str] = []
     ):
         self.input = input
         self.image = image
@@ -49,12 +51,14 @@ class MoveData(MoveFrameData):
         self.frame_adv = frame_adv
         self.proration = proration
         self.invuln = invuln
+        self.alts = alts
 
     def __init__(
         self,
         input: str,
         image: str,
-        frame_data: MoveFrameData
+        frame_data: MoveFrameData,
+        alts: List[str] = []
     ):
         self.input = input
         self.image = image
@@ -64,6 +68,7 @@ class MoveData(MoveFrameData):
         self.frame_adv = frame_data.frame_adv
         self.proration = frame_data.proration
         self.invuln = frame_data.invuln
+        self.alts = alts
 
     def to_dict(self) -> dict:
         return {
@@ -74,7 +79,8 @@ class MoveData(MoveFrameData):
             "recovery": self.recovery,
             "frame_adv": self.frame_adv,
             "proration": self.proration,
-            "invuln": self.invuln
+            "invuln": self.invuln,
+            "alts": self.alts
         }
 
 class MeltyChar:

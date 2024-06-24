@@ -1,3 +1,4 @@
+import re
 import logger
 from typing import List, Tuple
 from bs4 import BeautifulSoup
@@ -65,6 +66,86 @@ class Scraper:
         )
         return frame_data
 
+    def _get_alt_inputs(self, move_input: str) -> List[str]:
+        alts = []
+        logger.log_info(f"Finding alts for {move_input}", self.isLoggingOn)
+
+        if move_input == "5A~6A~6A":
+            alts.append("5A6AA")
+
+        if "X" in move_input:
+            alts.append(move_input.replace("X", "A"))
+            alts.append(move_input.replace("X", "B"))
+            alts.append(move_input.replace("X", "C"))
+
+        move_parts = move_input.split("~")
+        logger.log_data("Move parts", move_parts, self.isLoggingOn)
+        if len(move_parts) > 1: # i.e. case of move with follow ups
+            alts.append("".join(move_parts)) # include an alt of input without ~'s.
+
+            directions = []
+            for part in move_parts:
+                direction_match = InputComponents.get_directions_component_match(part)
+                if direction_match is not None:
+                    directions.append(direction_match.group())
+
+            logger.log_data("Directions", directions, self.isLoggingOn)
+            if len(directions) > 1:
+                prev_dir = directions[0]
+                follow_up_parts = []
+                for index in range(1, len(directions)):
+                    curr_dir = directions[index]
+                    if len(curr_dir) == 1: # Only care about single-direction followups (e.g. 4B)
+                        if curr_dir == prev_dir[-1]: # check if dir matches last dir of previous input
+                            follow_up_parts.append(move_parts[index][1:]) # Add just the button part of the move (e.g. B)
+
+                    prev_dir = curr_dir
+
+                edited_follow_up_count = len(follow_up_parts)
+                if edited_follow_up_count > 0:
+                    move_start = "".join(move_parts[0:len(move_parts) - edited_follow_up_count])
+                    logger.log_info(f"Simplified follow ups for {move_start}", self.isLoggingOn)
+                    # Merge trimmed parts of follow ups with the preserved parts of move.
+                    alts.append(f"{move_start}{"".join(follow_up_parts)}")
+                    alts.append(f"{move_start}~{"".join(follow_up_parts)}") # Have alt with ~ before trims.
+
+        for alt in alts:
+            if "X" in alt:
+                alts.append(alt.replace("X", "A"))
+                alts.append(alt.replace("X", "B"))
+                alts.append(alt.replace("X", "C"))
+
+        if "[A/B]" in move_input:
+            alts.append(move_input.replace("[A/B]", "[A]"))
+            alts.append(move_input.replace("[A/B]", "[B]"))
+            alts.append(move_input.replace("[A/B]", "[A]").replace("~", ""))
+            alts.append(move_input.replace("[A/B]", "[B]").replace("~", ""))
+        if "[B/C]" in move_input:
+            alts.append(move_input.replace("[B/C]", "[B]"))
+            alts.append(move_input.replace("[B/C]", "[C]"))
+            alts.append(move_input.replace("[B/C]", "[B]").replace("~", ""))
+            alts.append(move_input.replace("[B/C]", "[C]").replace("~", ""))
+        if "A/B" in move_input and "[A/B]" not in move_input:
+            alts.append(move_input.replace("A/B", "A"))
+            alts.append(move_input.replace("A/B", "B"))
+            alts.append(move_input.replace("A/B", "A").replace("~", ""))
+            alts.append(move_input.replace("A/B", "B").replace("~", ""))
+        if "B/C" in move_input and "[B/C]" not in move_input:
+            alts.append(move_input.replace("B/C", "B"))
+            alts.append(move_input.replace("B/C", "C"))
+            alts.append(move_input.replace("B/C", "B").replace("~", ""))
+            alts.append(move_input.replace("B/C", "C").replace("~", ""))
+
+        # Use a set to track seen items
+        seen = set()
+        distinct_alts = []
+        for alt in alts:
+            if alt not in seen:
+                seen.add(alt)
+                distinct_alts.append(alt)
+
+        return distinct_alts
+
     def _get_move_data_from_tag(self, soup: any, start_tag: any) -> List[MoveData]:
         current_tag = start_tag.find_next_sibling()
 
@@ -84,11 +165,12 @@ class Scraper:
             if current_tag.name == "table" and current_move is not None:
                 logger.log_info("in table", self.isLoggingOn)
                 images = current_tag.find_all("img", {"class": "lazyimg"})
+                logger.log_data("Images", images, self.isLoggingOn)
                 inner_table = current_tag.find("table", {"class": "wikitable"})
 
                 rows = inner_table.find_all("tr")
                 next_row_index = -1 # Used to mark rows we can skip due to processing relative to move header row.
-                current_move.index = -1
+                current_move.index = 0
 
                 for index in range(len(rows)):
                     if index < next_row_index:
@@ -102,20 +184,29 @@ class Scraper:
                         logger.log_info("No button header found", self.isLoggingOn)
                         image_index = 0
                     else: # Found a variant of a move for a specific button.
+                        logger.log_data("Button Header", button_header, self.isLoggingOn)
                         # Get image at index most closely matching index of the move variant
                         # as some moves have different hitbox images for different variations.
+                        logger.log_info(f"Total move images: {len(images)}", self.isLoggingOn)
+                        logger.log_info(f"Curent move index: {current_move.index}", self.isLoggingOn)
                         image_index = current_move.index if current_move.index < len(images) else len(images) - 1
 
                         button_text = WikiInputComponents.standardize_button_text(button_header.text)
                         logger.log_info(f"Button text: {button_text}", self.isLoggingOn)
+                        if button_text[0] != "~": # Is not a follow-up and therefore separate move.
+                            current_move.follow_up = "" # Refresh follow ups since it is new move.
 
                         follow_up_index = button_text.find("~")
-                        if follow_up_index > -1:
-                            current_move.follow_up = button_text[follow_up_index:]
+                        if follow_up_index > -1: # If ~ was found.
+                            current_move.follow_up += button_text[follow_up_index:]
                         else:
                             # Extract only the button part of the text if there is no follow up as this implies that direction is already stored.
                             try:
-                                current_move.button = InputComponents.get_button_component_match(button_text).group()
+                                multiple_buttons_match = InputComponents.get_multiple_buttons_match(button_text)
+                                if multiple_buttons_match is not None:
+                                    current_move.button = multiple_buttons_match.group()
+                                else:
+                                    current_move.button = InputComponents.get_button_component_match(button_text).group()
                             except:
                                 # If we cannot extract button only, must be an odd case of text, so use full text found.
                                 current_move.button = button_text
@@ -126,9 +217,9 @@ class Scraper:
                     logger.log_info(f"Image URL: {image}", self.isLoggingOn)
 
                     # Header for damage in frame data table spans more columns than all other move attributes.
-                    damage_header = row.find("th", {"colspan": "2"})
+                    damage_header = row.find(text="Damage")
                     if damage_header is not None:
-                        damage_text = damage_header.contents[0].get_text()
+                        damage_text = damage_header.get_text()
                         if damage_text == "Damage":
                             logger.log_info("Found start of move data table", self.isLoggingOn)
                             # Next is row after the one with frame data for this move as we will process in this iteration rel to this row.
@@ -136,10 +227,15 @@ class Scraper:
                             current_move.index += 1 # Increment to count which variation of the move we are on.
 
                             frame_data = self._parse_frame_data(inner_table, index)
+
+                            move_input = current_move.get_full_input()
+                            alts = self._get_alt_inputs(move_input)
+
                             move_data = MoveData(
-                                input=current_move.get_full_input(),
+                                input=move_input,
                                 image=image,
-                                frame_data=frame_data
+                                frame_data=frame_data,
+                                alts=alts
                             )
                             logger.log_data("Move Data", move_data.to_dict(), self.isLoggingOn)
                             move_list.append(move_data)

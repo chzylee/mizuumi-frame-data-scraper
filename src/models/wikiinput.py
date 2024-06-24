@@ -25,9 +25,6 @@ class WikiInputComponents(InputComponents):
     @classmethod
     def standardize_button_text(cls, button_text: str) -> str:
         formatted_text = button_text.replace(" ", "").replace("\n", "").replace("\r", "")
-        extra_text_index = formatted_text.find("(")
-        if extra_text_index > -1:
-            formatted_text = formatted_text[:extra_text_index]
         if "EX" in formatted_text:
             formatted_text = formatted_text.replace("EX", "C")
 

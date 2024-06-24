@@ -5,14 +5,14 @@ moon_paths = [
 ]
 
 char_paths = [
-    "Akiha_Tohno",
-    "Aoko_Aozaki",
-    "Arcueid_Brunestud",
-    "Ciel",
-    "Archetype:_Earth",
-    "Hisui",
-    "Koha_%26_Mech",
-    "Kohaku",
+    # "Akiha_Tohno",
+    # "Aoko_Aozaki",
+    # "Arcueid_Brunestud",
+    # "Ciel",
+    # "Archetype:_Earth",
+    # "Hisui",
+    # "Koha_%26_Mech",
+    # "Kohaku",
     "Kouma_Kishima",
     "Len",
     # "Hisui_%26_Kohaku",

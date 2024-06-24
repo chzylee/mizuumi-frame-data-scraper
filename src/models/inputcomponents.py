@@ -7,13 +7,15 @@ class InputComponents:
     directions: Union[str, None]
     button: Union[str, None]
     follow_up: Union[str, None]
+    extra: Union[str, None]
 
     # All components optional to cover all types.
-    def __init__(self, air=None, directions=None, button=None, follow_up=None):
+    def __init__(self, air=None, directions=None, button=None, follow_up=None, extra=None):
         self.air = air
         self.directions = directions
         self.button = button
         self.follow_up = follow_up
+        self.extra = extra
 
     @classmethod
     def get_air_component_match(cls, input: str) -> Union[re.Match, None]:
@@ -27,8 +29,13 @@ class InputComponents:
 
     @classmethod
     def get_button_component_match(cls, input: str) -> Union[re.Match, None]:
-        button_match = re.search(r"(\[[ABCDX]\])|[ABCDX]", input)
+        button_match = re.search(r"(\[[ABCDX]\])|(\{[ABCDX]\})|[ABCDX]", input)
         return button_match if button_match else None
+
+    @classmethod
+    def get_multiple_buttons_match(cls, input: str) -> Union[re.Match, None]:
+        multiple_buttons_match = re.search(r"((\[[ABCDX]\])|(\{[ABCDX]\})|[ABCDX])(\/((\[[ABCDX]\])|(\{[ABCDX]\})|[ABCDX]))+", input)
+        return multiple_buttons_match if multiple_buttons_match else None
 
     @classmethod
     def from_string(cls, input: str) -> "InputComponents":
