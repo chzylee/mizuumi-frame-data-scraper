@@ -11,3 +11,9 @@ The meat of this app will not be tested as it would be self explanatory from dat
 Run unit tests with `python -m unittest discover -s tests -p "*_tests.py"` from the project.
 
 Test run the scraper on saved wiki page HTML by running script directly: `python "./tests/scraper_integrationtest.py"`
+
+## Updating DynamoDB
+
+[uploader.py](./src/uploader.py) loops thru ALL characters and finds data which is stored locally and not committed.
+
+[edit_data.py](./src/edit_data.py) has Character and Moon set **in the code** and updates the data to match what is in the corresponding file.
