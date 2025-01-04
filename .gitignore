@@ -1,3 +1,6 @@
+# Ignore Jupyter notebooks used for testing.
+*.ipynb
+
 # Ignore output dir for frame data JSONs
 json/
 
