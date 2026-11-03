@@ -7,7 +7,7 @@
  * the pending changes and are never saved.
  */
 import { setKey, valueKey, type Json } from "./pyjson";
-import { cloneJson, type Workspace } from "./workspace";
+import { cloneJson, EXPECTED_FIELDS, type MoveState, type Workspace } from "./workspace";
 
 export interface EditorState {
   ws: Workspace;
@@ -32,12 +32,21 @@ export function isEditable(field: string, value: Json | undefined): boolean {
   return typeof value === "string" || (Array.isArray(value) && value.every((v) => typeof v === "string"));
 }
 
-function currentValue(ws: Workspace, itemId: string, uid: string, field: string): Json | undefined {
+/** The data/ move being edited; undefined for a scrape-only preview, which is read-only. */
+function editableMove(ws: Workspace, itemId: string, uid: string): MoveState | undefined {
   const item = ws.items.find((it) => it.id === itemId);
   const move = item?.moves.find((m) => m.uid === uid);
-  // Scrape-only previews are read-only: nothing on them can be unlocked or set.
   if (!item || !move || item.isNew || move.isNew) return undefined;
-  return move.fields[field];
+  return move;
+}
+
+function currentValue(ws: Workspace, itemId: string, uid: string, field: string): Json | undefined {
+  return editableMove(ws, itemId, uid)?.fields[field];
+}
+
+/** An expected field the move lacks can be unlocked and filled in: it starts empty. */
+function emptyValue(field: string): Json {
+  return field === "alts" ? [] : "";
 }
 
 export function setField(ws: Workspace, itemId: string, uid: string, field: string, value: Json): Workspace {
@@ -69,9 +78,12 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       return initialEditor(action.ws);
     case "unlock": {
       const key = draftKey(action.uid, action.field);
-      const value = currentValue(state.ws, action.itemId, action.uid, action.field);
-      if (key in state.drafts || !isEditable(action.field, value)) return state;
-      return { ...state, drafts: { ...state.drafts, [key]: cloneJson(value!) } };
+      const move = editableMove(state.ws, action.itemId, action.uid);
+      if (!move || key in state.drafts) return state;
+      const value = move.fields[action.field];
+      const fillable = value === undefined && action.field !== "image" && EXPECTED_FIELDS.includes(action.field);
+      if (!fillable && !isEditable(action.field, value)) return state;
+      return { ...state, drafts: { ...state.drafts, [key]: fillable ? emptyValue(action.field) : cloneJson(value!) } };
     }
     case "draft": {
       const key = draftKey(action.uid, action.field);
@@ -83,11 +95,13 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       if (!(key in state.drafts)) return state;
       const { [key]: draft, ...drafts } = state.drafts;
       const current = currentValue(state.ws, action.itemId, action.uid, action.field);
-      const ws = valueKey(draft) === valueKey(current) ? state.ws : setField(state.ws, action.itemId, action.uid, action.field, draft!);
+      // Re-locking a missing field left empty adds nothing (it stays missing).
+      const unchanged = valueKey(draft) === valueKey(current) || (current === undefined && draft === "");
+      const ws = unchanged ? state.ws : setField(state.ws, action.itemId, action.uid, action.field, draft!);
       return { ...state, ws, drafts };
     }
     case "setImage":
-      if (currentValue(state.ws, action.itemId, action.uid, "image") === undefined) return state;
+      if (!editableMove(state.ws, action.itemId, action.uid)) return state;
       return { ...state, ws: setField(state.ws, action.itemId, action.uid, "image", action.value) };
   }
 }

@@ -2,6 +2,7 @@ import { memo, useState, type Dispatch } from "react";
 import { draftKey, isEditable, type EditorAction } from "../../shared/editing";
 import { has, type Json } from "../../shared/pyjson";
 import { displayValue, fieldOrder, type MoveState, type MoveStatus } from "../../shared/workspace";
+import type { JsonObject } from "../../shared/pyjson";
 import { STATUS_TEXT, StatusDot } from "./CharacterList";
 import { LockIcon } from "./icons";
 
@@ -20,25 +21,30 @@ interface Props {
 /** One move: its hitbox image and every field present, rendered generically. */
 export const MoveCard = memo(function MoveCard({ itemId, move, label, status, drafts, dispatch, showDiffs, preview }: Props) {
   const image = move.fields.image;
-  const fields = fieldOrder(move.fields).filter((field) => field !== "image");
-  // Fields only the scrape has: shown in blue when diffs are on, never saved.
-  const scrapeOnly = showDiffs && !preview ? move.scrapeOnlyFields : [];
+  // Expected fields the move lacks get a red "missing" row in their usual place.
+  const absent = status.missing.filter((field) => field !== "image" && !has(move.fields, field));
+  const placeholders = Object.fromEntries(absent.map((field) => [field, ""])) as JsonObject;
+  const fields = fieldOrder({ ...placeholders, ...move.fields } as JsonObject).filter((field) => field !== "image");
+  // Fields only the scrape has: shown in blue when diffs are on, never saved. A missing
+  // expected field shows the scraped value as a hint in its own row instead.
+  const scrapeOnly = showDiffs && !preview ? move.scrapeOnlyFields.filter((field) => !absent.includes(field)) : [];
   return (
-    <article className={`move${showDiffs ? ` s-${status.status}` : ""}${preview ? " preview" : ""}`} aria-label={`Move ${label}`}>
+    <article className={`move s-${status.status}${preview ? " preview" : ""}`} aria-label={`Move ${label}`}>
       <header className="move-head">
         <h3>{label}</h3>
         {preview && <span className="tag">only in scrape · preview, not saved</span>}
-        <StatusDot status={status.status} show={showDiffs} />
+        <StatusDot status={status.status} />
+        {status.missing.length > 0 && <span className="tag missing-tag">missing: {status.missing.join(", ")}</span>}
       </header>
       <div className="move-body">
         <div className="hitbox">
           <HitboxPreview src={typeof image === "string" ? image : ""} label={label} />
-          {typeof image === "string" && !preview ? (
-            <label className="image-field">
-              <span className="field-name">image</span>
+          {(typeof image === "string" || image === undefined) && !preview ? (
+            <label className={`image-field${status.missing.includes("image") ? " s-red" : ""}`}>
+              <span className="field-name">image{status.missing.includes("image") && " (missing)"}</span>
               <input
                 type="url"
-                value={image}
+                value={image ?? ""}
                 spellCheck={false}
                 onChange={(e) => dispatch({ type: "setImage", itemId, uid: move.uid, value: e.target.value })}
               />
@@ -55,11 +61,12 @@ export const MoveCard = memo(function MoveCard({ itemId, move, label, status, dr
                 itemId={itemId}
                 uid={move.uid}
                 field={field}
-                value={move.fields[field]!}
+                value={move.fields[field]}
                 draft={drafts[draftKey(move.uid, field)]}
                 unlocked={draftKey(move.uid, field) in drafts}
-                fieldStatus={showDiffs ? status.fields[field] ?? "none" : "none"}
-                scraped={status.scraped && has(status.scraped, field) ? status.scraped[field] : undefined}
+                fieldStatus={status.fields[field] ?? "none"}
+                missing={status.missing.includes(field)}
+                scraped={showDiffs && status.scraped && has(status.scraped, field) ? status.scraped[field] : undefined}
                 dispatch={dispatch}
                 readOnly={preview}
               />
@@ -106,16 +113,18 @@ function FieldRow(props: {
   itemId: string;
   uid: string;
   field: string;
-  value: Json;
+  value: Json | undefined;
   draft: Json | undefined;
   unlocked: boolean;
   fieldStatus: MoveStatus["fields"][string];
   scraped: Json | undefined;
   dispatch: Dispatch<EditorAction>;
   readOnly: boolean;
+  /** Expected but absent or empty: shown in red, and can be unlocked and filled in. */
+  missing: boolean;
 }) {
-  const { itemId, uid, field, value, draft, unlocked, fieldStatus, scraped, dispatch, readOnly } = props;
-  const editable = !readOnly && isEditable(field, value);
+  const { itemId, uid, field, value, draft, unlocked, fieldStatus, scraped, dispatch, readOnly, missing } = props;
+  const editable = !readOnly && (isEditable(field, value) || (missing && value === undefined));
   const toggle = () => dispatch({ type: unlocked ? "relock" : "unlock", itemId, uid, field });
   const setDraft = (next: Json) => dispatch({ type: "draft", uid, field, value: next });
   return (
@@ -138,8 +147,10 @@ function FieldRow(props: {
           ) : (
             <span className="muted">none</span>
           )
+        ) : missing ? (
+          <span className="missing">missing</span>
         ) : (
-          <span className={editable ? "" : "readonly"}>{displayValue(value) || <span className="muted">empty</span>}</span>
+          <span className={editable ? "" : "readonly"}>{displayValue(value!) || <span className="muted">empty</span>}</span>
         )}
         {fieldStatus === "red" && <span className="scraped" title="scraped value">{displayValue(scraped)}</span>}
       </td>
