@@ -127,7 +127,8 @@ export function isUnmapped(path: string): boolean {
 /** A move's identity: (input, occurrence), as a string usable as a Map key. */
 export type Identity = string;
 
-function inputKey(move: Json): string {
+/** The input part of a move's identity, as a string (move.get("input")). */
+export function inputKey(move: Json): string {
   const input = isObject(move) && has(move, "input") ? move.input! : null; // move.get("input")
   // Non-string inputs are invalid data; they still get a stable identity.
   return typeof input === "string" ? `s:${input}` : `j:${encodeJson(input)}`;
