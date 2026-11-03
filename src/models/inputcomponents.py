@@ -1,6 +1,7 @@
 import re
 from typing import Union
-from data.inputreader import input_matchers
+# inputreader exposes the match_* functions; is_normal() calls them as attributes.
+from data import inputreader as input_matchers
 
 class InputComponents:
     air: Union[str, None]
