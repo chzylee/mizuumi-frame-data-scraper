@@ -10,6 +10,7 @@
       "recovery": "11",
       "frame_adv": "-3",
       "proration": "75% (O)",
+      "guard": "H(Whiffs vs Crouch.)",
       "invuln": "-",
       "alts": []
     },
@@ -21,6 +22,7 @@
       "recovery": "16",
       "frame_adv": "-4",
       "proration": "80% (M)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "5A6A"
@@ -34,6 +36,7 @@
       "recovery": "19",
       "frame_adv": "-5",
       "proration": "60% (O)",
+      "guard": "LH",
       "invuln": "Clash 11-14",
       "alts": [
         "5A6AA",
@@ -49,6 +52,7 @@
       "recovery": "18",
       "frame_adv": "-6",
       "proration": "80% (O)",
+      "guard": "LH",
       "invuln": "Clash 9-11",
       "alts": []
     },
@@ -60,6 +64,7 @@
       "recovery": "18",
       "frame_adv": "-4",
       "proration": "70% (O)",
+      "guard": "LH",
       "invuln": "Clash 5-7",
       "alts": [
         "5BB"
@@ -73,6 +78,7 @@
       "recovery": "17",
       "frame_adv": "-4",
       "proration": "100%",
+      "guard": "LH",
       "invuln": "Clash 14-18",
       "alts": []
     },
@@ -84,6 +90,7 @@
       "recovery": "9",
       "frame_adv": "-1",
       "proration": "75% (O)",
+      "guard": "L",
       "invuln": "-",
       "alts": []
     },
@@ -95,6 +102,7 @@
       "recovery": "17",
       "frame_adv": "-3",
       "proration": "90% (O)",
+      "guard": "L",
       "invuln": "Clash 9-11",
       "alts": []
     },
@@ -106,6 +114,7 @@
       "recovery": "28",
       "frame_adv": "-12",
       "proration": "55% (O)",
+      "guard": "L",
       "invuln": "-",
       "alts": []
     },
@@ -117,6 +126,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "75% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -128,6 +138,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "80% (O)",
+      "guard": "HA",
       "invuln": "-",
       "alts": []
     },
@@ -139,6 +150,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "90% (O)",
+      "guard": "HA",
       "invuln": "-",
       "alts": []
     },
@@ -150,6 +162,7 @@
       "recovery": "17 (20)",
       "frame_adv": "1",
       "proration": "65% (O)",
+      "guard": "L",
       "invuln": "-",
       "alts": []
     },
@@ -161,6 +174,7 @@
       "recovery": "35",
       "frame_adv": "-9",
       "proration": "45% (O)",
+      "guard": "H",
       "invuln": "-",
       "alts": []
     },
@@ -172,6 +186,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "80% (O)",
+      "guard": "HA",
       "invuln": "-",
       "alts": []
     },
@@ -183,6 +198,7 @@
       "recovery": "21",
       "frame_adv": "-7",
       "proration": "80% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": []
     },
@@ -194,6 +210,7 @@
       "recovery": "33",
       "frame_adv": "-18",
       "proration": "80% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": []
     },
@@ -324,6 +341,7 @@
       "recovery": "25",
       "frame_adv": "-13",
       "proration": "80% (O)/(M)",
+      "guard": "LH",
       "invuln": "Full 1-6",
       "alts": []
     },
@@ -335,6 +353,7 @@
       "recovery": "31",
       "frame_adv": "-7",
       "proration": "80% (O)",
+      "guard": "L",
       "invuln": "-",
       "alts": []
     },
@@ -346,6 +365,7 @@
       "recovery": "30",
       "frame_adv": "-6",
       "proration": "55% (O)",
+      "guard": "L",
       "invuln": "-",
       "alts": []
     },
@@ -357,6 +377,7 @@
       "recovery": "28",
       "frame_adv": "-4",
       "proration": "55% (O)",
+      "guard": "L",
       "invuln": "-",
       "alts": []
     },
@@ -368,6 +389,7 @@
       "recovery": "30",
       "frame_adv": "-6",
       "proration": "55% (O)",
+      "guard": "H",
       "invuln": "-",
       "alts": []
     },
@@ -379,6 +401,7 @@
       "recovery": "35",
       "frame_adv": "-7",
       "proration": "60% (O)",
+      "guard": "L",
       "invuln": "9-23",
       "alts": []
     },
@@ -390,6 +413,7 @@
       "recovery": "29",
       "frame_adv": "-6",
       "proration": "55% (O)",
+      "guard": "L",
       "invuln": "9-23",
       "alts": []
     },
@@ -401,6 +425,7 @@
       "recovery": "20",
       "frame_adv": "-6",
       "proration": "(90% (M)), 85% (M)",
+      "guard": "H",
       "invuln": "-",
       "alts": []
     },
@@ -412,6 +437,7 @@
       "recovery": "24",
       "frame_adv": "-8",
       "proration": "50% (O)",
+      "guard": "H",
       "invuln": "-",
       "alts": []
     },
@@ -423,6 +449,7 @@
       "recovery": "22",
       "frame_adv": "-9\n16 (Jump cancel)",
       "proration": "50% (M)",
+      "guard": "LH",
       "invuln": "Full 1",
       "alts": []
     },
@@ -456,6 +483,7 @@
       "recovery": "9",
       "frame_adv": "-",
       "proration": "45%",
+      "guard": "-",
       "invuln": "-",
       "alts": []
     },
@@ -467,6 +495,7 @@
       "recovery": "22",
       "frame_adv": "5",
       "proration": "60% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -478,6 +507,7 @@
       "recovery": "18",
       "frame_adv": "-3",
       "proration": "60% (O)",
+      "guard": "LA",
       "invuln": "-",
       "alts": []
     },
@@ -489,6 +519,7 @@
       "recovery": "21",
       "frame_adv": "3 (min)",
       "proration": "90% (M)*4",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -520,6 +551,7 @@
       "recovery": "18",
       "frame_adv": "3 (min)24 (jump cancel)",
       "proration": "90% (M)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -531,6 +563,7 @@
       "recovery": "12",
       "frame_adv": "3 (min)",
       "proration": "90% (M)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -542,6 +575,7 @@
       "recovery": "29",
       "frame_adv": "3 (min)",
       "proration": "50% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -553,6 +587,7 @@
       "recovery": "15",
       "frame_adv": "-17 (TK)",
       "proration": "75% (O)",
+      "guard": "HA",
       "invuln": "-",
       "alts": []
     },
@@ -564,6 +599,7 @@
       "recovery": "3",
       "frame_adv": "-5 (TK)",
       "proration": "75% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -575,6 +611,7 @@
       "recovery": "6",
       "frame_adv": "-6 (TK)",
       "proration": "40% (O)",
+      "guard": "HA",
       "invuln": "Full 1-14",
       "alts": []
     },
@@ -608,6 +645,7 @@
       "recovery": "17",
       "frame_adv": "-",
       "proration": "50% (M)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
