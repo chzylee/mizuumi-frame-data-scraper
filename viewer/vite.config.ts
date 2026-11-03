@@ -1,6 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import { DEFAULT_API_PORT, HOST } from "./server/config";
+import { DEFAULT_API_PORT, HOST } from "./server/config.ts";
 
 const apiPort = Number(process.env.VIEWER_API_PORT ?? DEFAULT_API_PORT);
 

@@ -42,7 +42,8 @@ export function SaveModal(props: {
       <div className="modal-body">
         {openDrafts > 0 && (
           <p className="banner banner-warn">
-            {openDrafts} field{openDrafts === 1 ? " is" : "s are"} still unlocked. Unstaged edits are not saved; lock them first to include them.
+            {openDrafts} field{openDrafts === 1 ? " is" : "s are"} still unlocked. Unlocked edits are not staged: they are not saved, and
+            they are discarded when the viewer reloads after saving. Cancel and lock them first to include them.
           </p>
         )}
         {state.kind === "error" && (

@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { dumps, moveIdentities } from "../shared/dataset";
-import { loads, type JsonObject } from "../shared/pyjson";
+import { loads, PyNumber, type JsonObject } from "../shared/pyjson";
 import {
   buildWorkspace,
   countChanges,
+  displayValue,
   groupCharacters,
   itemStatus,
   moveLabels,
@@ -254,5 +255,14 @@ describe("loading", () => {
     ((expected.moves as JsonObject[])[0]!).guard = "LH";
     expect(file!.text).toBe(dumps(expected));
     expect(file!.text).toContain('"top_extra": "keep too"');
+  });
+});
+
+describe("displayValue", () => {
+  it("shows lists, empty lists and numbers readably", () => {
+    expect(displayValue(["a", "b"])).toBe("a, b");
+    expect(displayValue([])).toBe("[]");
+    expect(displayValue(PyNumber.fromLexeme("2.50"))).toBe("2.5");
+    expect(displayValue(undefined)).toBe("");
   });
 });

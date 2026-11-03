@@ -31,7 +31,7 @@ export function App({ source }: { source: DataSource }) {
   const [selected, setSelected] = useState<{ character: string | null; itemId: string | null }>({ character: null, itemId: null });
   const [modalOpen, setModalOpen] = useState(false);
   const [saveState, setSaveState] = useState<SaveState>({ kind: "idle" });
-  const [notice, setNotice] = useState<string | null>(null);
+  const [notice, setNotice] = useState<{ files: number; warnings: string[] } | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -84,10 +84,7 @@ export function App({ source }: { source: DataSource }) {
       const n = result.written.filter((w) => w.status !== "unchanged").length;
       setModalOpen(false);
       setSaveState({ kind: "idle" });
-      setNotice(
-        `Saved ${n} file${n === 1 ? "" : "s"}. Commit and push to main (or merge your PR), then run Push to DynamoDB to sync.` +
-          (result.warnings.length ? ` Warnings: ${result.warnings.join("; ")}` : ""),
-      );
+      setNotice({ files: n, warnings: result.warnings });
       await load();
     } catch (error) {
       const problems = error instanceof SaveRefused ? error.problems : [];
@@ -113,7 +110,11 @@ export function App({ source }: { source: DataSource }) {
       />
       {notice && (
         <div className="banner banner-ok" role="status">
-          <span>{notice}</span>
+          <span>
+            Saved {notice.files} file{notice.files === 1 ? "" : "s"}. Commit and push to main (or merge your PR), then
+            run <em>Push to DynamoDB</em> to sync.
+            {notice.warnings.length > 0 && <> Warnings: {notice.warnings.join("; ")}</>}
+          </span>
           <button className="link" onClick={() => setNotice(null)}>Dismiss</button>
         </div>
       )}

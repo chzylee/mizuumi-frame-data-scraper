@@ -318,6 +318,7 @@ export function displayValue(value: Json | undefined): string {
   if (value === undefined) return "";
   if (typeof value === "string") return value;
   if (value instanceof PyNumber) return value.text;
+  if (Array.isArray(value) && value.length === 0) return "[]";
   if (Array.isArray(value) && value.every((v) => typeof v === "string")) return value.join(", ");
   return encodeJson(value);
 }
