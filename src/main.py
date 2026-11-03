@@ -8,7 +8,7 @@ from urllib3.util.retry import Retry
 import dataset
 import filehelper
 from scraper import Scraper
-from data import melty
+from data import errata, melty
 from models.dynamodb import MeltyChar
 
 BASE_URL = "https://mizuumi.wiki"
@@ -53,6 +53,8 @@ def get_melty_char_frame_data(session: requests.Session, char_path: str, moon_pa
     melty_char = scraper.scrape_frame_data(wiki_html=response.text)
     melty_char.character_name = char_path
     melty_char.moon = moon_path
+    for warning in errata.apply_input_corrections(melty_char, scraper._get_alt_inputs):
+        print(warning)
     return melty_char
 
 
