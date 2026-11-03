@@ -184,6 +184,22 @@ class Scraper:
 
         return distinct_alts
 
+    # Maids (Hisui & Kohaku) moves depend on which maid leads, and the wiki names each
+    # move table H5A / K5A, Hj.B / Kj.B, H236X / K236X. The section heading and the
+    # variant buttons drop that letter, so read it from the table's own name cell.
+    # An H or K followed by a number or "j." can't start any other character's move.
+    _LEAD_PATTERN = re.compile(r"^([HK])(?=\d|j\.)")
+
+    _GROUP_LEADS = {"Hisui_Specials": "H", "Kohaku_Specials": "K"}
+
+    def _table_lead(self, table: any) -> str:
+        name_cell = table.find("th")
+        if name_cell is None:
+            return ""
+        label = name_cell.find("big") or name_cell
+        match = self._LEAD_PATTERN.match(" ".join(label.get_text().split()))
+        return match.group(1) if match else ""
+
     def _get_move_data_from_tag(self, soup: any, start_tag: any) -> List[MoveData]:
         # A missing section yields no moves rather than crashing on None.parent.
         # The caller decides whether to try another starting heading.
@@ -193,6 +209,8 @@ class Scraper:
 
         move_list = []
         current_move = None
+        section_lead = ""
+        group_lead = ""
 
         # <h3>s separate "Normal Moves", "Universal Mechanics", "Special Moves".
         # Start from Normal Moves and continue until the next <h3>. Also stop at the
@@ -204,18 +222,27 @@ class Scraper:
                 logger.log_info(f"Current heading: <{heading.name}>", self.isLoggingOn)
                 if heading.name == "h3":
                     break  # Reached the next top-level section.
+                if heading.name == "h4":
+                    # Maids group each maid's specials under "Hisui Specials" /
+                    # "Kohaku Specials"; a move there without its own H/K (e.g.
+                    # 1632143C) still belongs to that lead.
+                    group_lead = self._GROUP_LEADS.get(self._heading_id(heading) or "", "")
                 if heading.name == "h5":
                     h5_id = self._heading_id(heading)
                     logger.log_info(f"h5 id: {h5_id}", self.isLoggingOn)
                     # Avoid odd cases such as special dashes.
                     if h5_id is not None and "(" not in h5_id and "dash" not in h5_id.lower():
                         current_move = WikiInputComponents.from_string(h5_id)
+                        # Maids specials carry the lead on the heading (H236X, Kj.214X).
+                        heading_lead = self._LEAD_PATTERN.match(h5_id)
+                        section_lead = heading_lead.group(1) if heading_lead else ""
                 current_tag = current_tag.find_next_sibling()
                 continue
             if current_tag.name == "table" and current_move is not None:
                 logger.log_info("in table", self.isLoggingOn)
                 images = self._find_move_images(current_tag)
                 logger.log_data("Images", images, self.isLoggingOn)
+                lead = self._table_lead(current_tag) or section_lead or group_lead
                 inner_table = current_tag.find("table", {"class": "wikitable"})
 
                 rows = inner_table.find_all("tr")
@@ -293,6 +320,8 @@ class Scraper:
                             frame_data = self._parse_frame_data(inner_table, index)
 
                             move_input = current_move.get_full_input()
+                            if lead and not move_input.startswith(lead):
+                                move_input = lead + move_input
                             alts = self._get_alt_inputs(move_input)
 
                             move_data = MoveData(

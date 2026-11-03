@@ -12,7 +12,7 @@ except ImportError:
     _HAS_SCRAPER_DEPS = False
 
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
-BASE_URL = "https://wiki.gbl.gg"
+BASE_URL = "https://mizuumi.wiki"
 
 
 def _fixture(name):
@@ -55,7 +55,7 @@ class TestScraperAgainstSavedPages(unittest.TestCase):
         self.assertEqual(five_a.frame_adv, "0")
         # Guard is the new field: the column two past Proration on the top row.
         self.assertEqual(five_a.guard, "LH")
-        self.assertTrue(five_a.image.startswith("https://wiki.gbl.gg/"))
+        self.assertTrue(five_a.image.startswith("https://mizuumi.wiki/"))
 
     def test_cumulative_follow_up_labels_are_not_doubled(self):
         # Akiha's 2B chain is labelled 2B / ~2B / ~2B~2B: the last label spells out the
@@ -67,6 +67,19 @@ class TestScraperAgainstSavedPages(unittest.TestCase):
         self.assertIn("2B~2B", inputs)  # step-by-step labels still accumulate
         three = next(move for move in _scrape(name).moves if move.input == "2B~2B~2B")
         self.assertEqual(three.alts, ["2B2B2B", "2BBB", "2B~BB"])
+
+    def test_maids_moves_carry_the_lead_maid(self):
+        # Each maid can lead, and the wiki names the move tables H5A / K5A and the
+        # special headings H236X / K236X. Inputs keep that letter.
+        name = self._require("maids_C.html")
+        inputs = [move.input for move in _scrape(name).moves]
+        for expected in ("H5A", "K5A", "Hj.B~B", "K2B~2B", "H236A", "K236[B]~A~B~C", "Kj.214A"):
+            self.assertIn(expected, inputs)
+        self.assertNotIn("5A", inputs)
+        self.assertIn("22D", inputs)  # shared moves have no lead
+        # Listed under "Kohaku Specials" with no K on its own heading.
+        self.assertIn("K1632143C", inputs)
+        self.assertNotIn("1632143C", inputs)
 
     def test_guard_is_populated_for_scraped_moves(self):
         # Every move on a standard page should carry a (non-None) guard string.
