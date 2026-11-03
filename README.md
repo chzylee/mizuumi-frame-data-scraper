@@ -4,14 +4,30 @@ Scrapes MBAACC frame data from the Mizuumi wiki (`requests` + `BeautifulSoup4`) 
 keeps the `MBAACC-Frame-Data` DynamoDB table that
 [melty-frame-data-bot](https://github.com/chzylee/melty-frame-data-bot) reads.
 
-**`data/` on `main` is the truth.** Whenever a change to `data/` lands on `main`, a
-GitHub Actions workflow makes the table match it. Nothing on a local machine writes to
-DynamoDB; every change goes through a reviewed PR to `data/`.
+**`data/` on `main` is the truth.** The *Push to DynamoDB* workflow makes the table
+match it. Nothing on a local machine writes to DynamoDB; every change goes through
+`data/` on `main`.
 
 There is exactly one table, shared by the dev and prod bot. **A push is live for both
 bots right away.** Every workflow is manually triggered: merging to `main` changes
 nothing in the table until someone runs *Push to DynamoDB*. Run it with `dry_run`
 checked first; that plan is the only preview.
+
+## Start the viewer
+
+The viewer is a local app for browsing and editing `data/`. It needs Node.js 22 or newer.
+
+```sh
+cd viewer
+npm start
+```
+
+Then open http://127.0.0.1:5174. The first time, run `npm install` in `viewer/` before
+`npm start`. Keep the terminal open while you use it; saving needs the local server.
+
+To ship an edit: **Save edits** in the viewer, commit and push the `data/` change to
+`main` (or merge a PR), then run *Push to DynamoDB* from the Actions tab, with `dry_run`
+checked first. More in [Viewer](#viewer).
 
 ## Layout
 
