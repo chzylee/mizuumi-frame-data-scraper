@@ -245,18 +245,6 @@
       "alts": []
     },
     {
-      "input": "214A",
-      "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBCWarachia214A.png/175px-MBCWarachia214A.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "55",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "HA",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "214A (Akiha)",
       "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBCWarachia214A.png/175px-MBCWarachia214A.png",
       "first_active": "36",
@@ -274,18 +262,6 @@
       ]
     },
     {
-      "input": "214B",
-      "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBCWarachia214B.png/175px-MBCWarachia214B.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "36",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "LHA",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "214B (Nanaya)",
       "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBCWarachia214B.png/175px-MBCWarachia214B.png",
       "first_active": "58",
@@ -301,18 +277,6 @@
         "214 Nanaya",
         "Nanaya Summon"
       ]
-    },
-    {
-      "input": "214C",
-      "image": "https://wiki.gbl.gg/images/thumb/c/c9/MBCWarachia214C.png/175px-MBCWarachia214C.png",
-      "first_active": "-",
-      "active": "49",
-      "recovery": "-",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "LH",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "214C (Nero)",
@@ -428,18 +392,6 @@
       "alts": []
     },
     {
-      "input": "63214C",
-      "image": "https://wiki.gbl.gg/images/thumb/f/f6/MBCWarachia63214C.png/175px-MBCWarachia63214C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "2+55",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "LHA",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "63214C (Warc)",
       "image": "https://wiki.gbl.gg/images/thumb/f/f6/MBCWarachia63214C.png/175px-MBCWarachia63214C.png",
       "first_active": "2+2",
@@ -493,18 +445,6 @@
       "alts": []
     },
     {
-      "input": "j.214A",
-      "image": "https://wiki.gbl.gg/images/thumb/1/16/MBCWarachiaj214A.png/175px-MBCWarachiaj214A.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "20",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "LHA",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "j.214A (Akiha)",
       "image": "https://wiki.gbl.gg/images/thumb/1/16/MBCWarachiaj214A.png/175px-MBCWarachiaj214A.png",
       "first_active": "52",
@@ -522,18 +462,6 @@
       ]
     },
     {
-      "input": "j.214B",
-      "image": "https://wiki.gbl.gg/images/thumb/8/81/MBCWarachiaj214B.png/175px-MBCWarachiaj214B.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "20",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "LHA",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "j.214B (Nanaya)",
       "image": "https://wiki.gbl.gg/images/thumb/8/81/MBCWarachiaj214B.png/175px-MBCWarachiaj214B.png",
       "first_active": "81",
@@ -549,18 +477,6 @@
         "j.214 Nanaya",
         "Air Nanaya Summon"
       ]
-    },
-    {
-      "input": "j.214C",
-      "image": "https://wiki.gbl.gg/images/thumb/b/bb/MBCWarachiaj214C.png/175px-MBCWarachiaj214C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "20",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "LHA",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "j.214C (Nero)",
@@ -654,18 +570,6 @@
       "frame_adv": "-",
       "proration": "-",
       "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
-      "input": "j.63214C",
-      "image": "https://wiki.gbl.gg/images/thumb/f/f6/MBCWarachia63214C.png/175px-MBCWarachia63214C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "20",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },

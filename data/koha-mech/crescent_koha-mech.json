@@ -271,18 +271,6 @@
       "alts": []
     },
     {
-      "input": "214C",
-      "image": "https://wiki.gbl.gg/images/thumb/d/dc/MBCKohaMech214C.png/175px-MBCKohaMech214C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "56",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "214C (Mech-Hisui)",
       "image": "https://wiki.gbl.gg/images/thumb/d/dc/MBCKohaMech214C.png/175px-MBCKohaMech214C.png",
       "first_active": "31 ~ 65",
@@ -335,18 +323,6 @@
       "alts": []
     },
     {
-      "input": "22A",
-      "image": "https://wiki.gbl.gg/images/thumb/0/04/MBCKohaMech22A.png/175px-MBCKohaMech22A.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "24",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "22A (Mech-Hisui)",
       "image": "https://wiki.gbl.gg/images/thumb/0/04/MBCKohaMech22A.png/175px-MBCKohaMech22A.png",
       "first_active": "62",
@@ -363,18 +339,6 @@
       ]
     },
     {
-      "input": "22B",
-      "image": "https://wiki.gbl.gg/images/thumb/0/04/MBCKohaMech22B.png/175px-MBCKohaMech22B.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "24",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "22B (Mech-Hisui)",
       "image": "https://wiki.gbl.gg/images/thumb/0/04/MBCKohaMech22B.png/175px-MBCKohaMech22B.png",
       "first_active": "62",
@@ -389,18 +353,6 @@
         "22B (Mech)",
         "22B Mech"
       ]
-    },
-    {
-      "input": "22C",
-      "image": "https://wiki.gbl.gg/images/thumb/b/b0/MBCKohaMech22C.png/175px-MBCKohaMech22C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "60",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "22C (Mech-Hisui)",
@@ -451,18 +403,6 @@
       "frame_adv": "2",
       "proration": "60% (O)",
       "guard": "LHA",
-      "invuln": "-",
-      "alts": []
-    },
-    {
-      "input": "j.214C",
-      "image": "https://wiki.gbl.gg/images/thumb/1/16/MBCKohaMechj214C.png/175px-MBCKohaMechj214C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "12",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
       "invuln": "-",
       "alts": []
     },

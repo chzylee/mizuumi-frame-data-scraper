@@ -303,18 +303,6 @@
       "alts": []
     },
     {
-      "input": "214C",
-      "image": "https://wiki.gbl.gg/images/thumb/4/47/MBCMech214C.png/175px-MBCMech214C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "21+31",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "Full 11-36",
-      "alts": []
-    },
-    {
       "input": "214C (Missile)",
       "image": "https://wiki.gbl.gg/images/thumb/4/47/MBCMech214C.png/175px-MBCMech214C.png",
       "first_active": "21+40",
@@ -325,7 +313,8 @@
       "guard": "LHA",
       "invuln": "-",
       "alts": [
-        "214C Missile"
+        "214C Missile",
+        "214C"
       ]
     },
     {

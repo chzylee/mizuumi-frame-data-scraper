@@ -321,18 +321,6 @@
       "alts": []
     },
     {
-      "input": "63214A",
-      "image": "https://wiki.gbl.gg/images/thumb/6/6a/MBHMech63214A.png/175px-MBHMech63214A.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "42",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "63214A (Assist)",
       "image": "https://wiki.gbl.gg/images/thumb/6/6a/MBHMech63214A.png/175px-MBHMech63214A.png",
       "first_active": "31",
@@ -345,7 +333,8 @@
       "alts": [
         "63214A Assist",
         "63214A (Mech)",
-        "63214A Mech"
+        "63214A Mech",
+        "63214A"
       ]
     },
     {
@@ -360,20 +349,9 @@
       "invuln": "-",
       "alts": [
         "63214A Takeuchi Assist",
-        "63214A Takeuchi"
+        "63214A Takeuchi",
+        "63214A"
       ]
-    },
-    {
-      "input": "63214B",
-      "image": "https://wiki.gbl.gg/images/thumb/7/74/MBHMech63214B.png/175px-MBHMech63214B.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "38",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "63214B (Assist)",
@@ -388,20 +366,9 @@
       "alts": [
         "63214B Assist",
         "63214B (Mech)",
-        "63214B Mech"
+        "63214B Mech",
+        "63214B"
       ]
-    },
-    {
-      "input": "63214C",
-      "image": "https://wiki.gbl.gg/images/thumb/a/a1/MBHMech63214C.png/175px-MBHMech63214C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "15+86",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "63214C (Assist Lasers)",
@@ -419,7 +386,8 @@
         "63214C (Lasers)",
         "63214C Lasers",
         "63214C (Galaga)",
-        "63214C Galaga"
+        "63214C Galaga",
+        "63214C"
       ]
     },
     {
@@ -436,7 +404,8 @@
         "63214C Missiles Assist",
         "63214C Assist Missiles",
         "63214C (Missiles)",
-        "63214C Missiles"
+        "63214C Missiles",
+        "63214C"
       ]
     },
     {

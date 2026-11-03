@@ -301,18 +301,6 @@
       "alts": []
     },
     {
-      "input": "623C",
-      "image": "https://wiki.gbl.gg/images/thumb/6/6a/MBHKohaMech623C.png/175px-MBHKohaMech623C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "56",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "623C (Mech-Hisui)",
       "image": "https://wiki.gbl.gg/images/thumb/6/6a/MBHKohaMech623C.png/175px-MBHKohaMech623C.png",
       "first_active": "5+12",
@@ -353,18 +341,6 @@
       "alts": []
     },
     {
-      "input": "214C",
-      "image": "https://wiki.gbl.gg/images/thumb/8/87/MBHKohaMech214C.png/175px-MBHKohaMech214C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "39",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "214C (Mech-Hisui)",
       "image": "https://wiki.gbl.gg/images/thumb/4/46/MBHKohaMech214XC.png/175px-MBHKohaMech214XC.png",
       "first_active": "26 ~ 29",
@@ -379,18 +355,6 @@
         "214C (Mech)",
         "214C Mech"
       ]
-    },
-    {
-      "input": "214[C]",
-      "image": "https://wiki.gbl.gg/images/thumb/4/46/MBHKohaMech214XC.png/175px-MBHKohaMech214XC.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "51",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "214[C] (Mech-Hisui)",
@@ -409,18 +373,6 @@
       ]
     },
     {
-      "input": "22A",
-      "image": "https://wiki.gbl.gg/images/thumb/2/22/MBHKohaMech22AB.png/175px-MBHKohaMech22AB.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "37",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "22A (Mech-Hisui)",
       "image": "https://wiki.gbl.gg/images/thumb/2/22/MBHKohaMech22AB.png/175px-MBHKohaMech22AB.png",
       "first_active": "40 ~ 63",
@@ -437,18 +389,6 @@
       ]
     },
     {
-      "input": "22B",
-      "image": "https://wiki.gbl.gg/images/thumb/2/22/MBHKohaMech22AB.png/175px-MBHKohaMech22AB.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "41",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "22B (Mech-Hisui)",
       "image": "https://wiki.gbl.gg/images/thumb/2/22/MBHKohaMech22AB.png/175px-MBHKohaMech22AB.png",
       "first_active": "44 ~ 63",
@@ -463,18 +403,6 @@
         "22B (Mech)",
         "22B Mech"
       ]
-    },
-    {
-      "input": "22C",
-      "image": "https://wiki.gbl.gg/images/thumb/1/14/MBHKohaMech22C.png/175px-MBHKohaMech22C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "60",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "22C (Mech-Hisui)",

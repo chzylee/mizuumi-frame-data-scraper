@@ -337,18 +337,6 @@
       ]
     },
     {
-      "input": "22A",
-      "image": "https://wiki.gbl.gg/images/thumb/4/41/MBFKohaMech22A.png/175px-MBFKohaMech22A.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "49",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "22A (Mech-Hisui)",
       "image": "https://wiki.gbl.gg/images/thumb/4/41/MBFKohaMech22A.png/175px-MBFKohaMech22A.png",
       "first_active": "61",
@@ -363,18 +351,6 @@
         "22A (Mech)",
         "22A Mech"
       ]
-    },
-    {
-      "input": "22B",
-      "image": "https://wiki.gbl.gg/images/thumb/3/3b/MBFKohaMech22B.png/175px-MBFKohaMech22B.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "60",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "22B (Mech-Hisui)",
@@ -393,18 +369,6 @@
       ]
     },
     {
-      "input": "22C",
-      "image": "https://wiki.gbl.gg/images/thumb/9/9d/MBFKohaMech22C.png/175px-MBFKohaMech22C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "60",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "22C (Rocket)",
       "image": "https://wiki.gbl.gg/images/thumb/9/9d/MBFKohaMech22C.png/175px-MBFKohaMech22C.png",
       "first_active": "101",
@@ -415,7 +379,8 @@
       "guard": "HA(Whiffs vs Crouch.)",
       "invuln": "-",
       "alts": [
-        "22C Rocket"
+        "22C Rocket",
+        "22C"
       ]
     },
     {
@@ -429,7 +394,8 @@
       "guard": "LH",
       "invuln": "-",
       "alts": [
-        "22C Backblast"
+        "22C Backblast",
+        "22C"
       ]
     },
     {

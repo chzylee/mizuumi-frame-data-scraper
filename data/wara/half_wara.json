@@ -237,18 +237,6 @@
       "alts": []
     },
     {
-      "input": "214A",
-      "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBCWarachia214A.png/175px-MBCWarachia214A.png",
-      "first_active": "",
-      "active": "",
-      "recovery": "55",
-      "frame_adv": "-6",
-      "proration": "80% (O)",
-      "guard": "HA",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "214A (Akiha)",
       "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBCWarachia214A.png/175px-MBCWarachia214A.png",
       "first_active": "36",
@@ -266,18 +254,6 @@
       ]
     },
     {
-      "input": "214B",
-      "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBCWarachia214B.png/175px-MBCWarachia214B.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "36",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "LHA",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "214B (Nanaya)",
       "image": "https://wiki.gbl.gg/images/thumb/c/c9/MBCWarachia214C.png/175px-MBCWarachia214C.png",
       "first_active": "58",
@@ -293,18 +269,6 @@
         "214 Nanaya",
         "Nanaya Summon"
       ]
-    },
-    {
-      "input": "214C",
-      "image": "https://wiki.gbl.gg/images/thumb/c/c9/MBCWarachia214C.png/175px-MBCWarachia214C.png",
-      "first_active": "-",
-      "active": "49",
-      "recovery": "-",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "LH",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "214C (Nero)",
@@ -415,18 +379,6 @@
       "recovery": "44",
       "frame_adv": "-8",
       "proration": "100%",
-      "guard": "LHA",
-      "invuln": "-",
-      "alts": []
-    },
-    {
-      "input": "63214C",
-      "image": "https://wiki.gbl.gg/images/thumb/f/f6/MBCWarachia63214C.png/175px-MBCWarachia63214C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "2+55",
-      "frame_adv": "-",
-      "proration": "-",
       "guard": "LHA",
       "invuln": "-",
       "alts": []

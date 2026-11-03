@@ -303,18 +303,6 @@
       "alts": []
     },
     {
-      "input": "22A",
-      "image": "https://wiki.gbl.gg/images/thumb/1/1c/MBFMech22A.png/175px-MBFMech22A.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "46",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
-    },
-    {
       "input": "22A (Summon)",
       "image": "https://wiki.gbl.gg/images/thumb/1/1c/MBFMech22A.png/175px-MBFMech22A.png",
       "first_active": "67",
@@ -325,20 +313,9 @@
       "guard": "LH",
       "invuln": "-",
       "alts": [
-        "22A Summon"
+        "22A Summon",
+        "22A"
       ]
-    },
-    {
-      "input": "22B",
-      "image": "https://wiki.gbl.gg/images/thumb/b/b4/MBFMech22B.png/175px-MBFMech22B.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "35",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "22B (Summon)",
@@ -351,20 +328,9 @@
       "guard": "LH",
       "invuln": "-",
       "alts": [
-        "22B Summon"
+        "22B Summon",
+        "22B"
       ]
-    },
-    {
-      "input": "22C",
-      "image": "https://wiki.gbl.gg/images/thumb/1/18/MBFMech22C.png/175px-MBFMech22C.png",
-      "first_active": "-",
-      "active": "-",
-      "recovery": "46",
-      "frame_adv": "-",
-      "proration": "-",
-      "guard": "-",
-      "invuln": "-",
-      "alts": []
     },
     {
       "input": "22C (Machine)",
@@ -379,7 +345,8 @@
       "alts": [
         "22C Machine",
         "22C (Summon)",
-        "22C Summon"
+        "22C Summon",
+        "22C"
       ]
     }
   ]
