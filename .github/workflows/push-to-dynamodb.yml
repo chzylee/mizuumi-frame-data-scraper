@@ -1,31 +1,30 @@
-# Write data/ on main to the DynamoDB table. The table is live for both bots;
-# the dry run is the only preview. Logic: src/push_to_dynamodb.py.
+# Make the DynamoDB table match data/ on main. The table is live for both bots.
+# Logic: src/push_to_dynamodb.py.
 #
-# Jobs:
-#   plan  - always runs: read role, no environment, dry run. Its job summary
-#           is the plan to review before approving `write`.
-#   write - only when dry_run is false: `dynamodb` environment (required
-#           reviewers), write role. Re-plans against the live table, writes,
-#           and on full success moves the dynamodb-deployed tag to this commit.
+# Runs on every push to main that changes data/ (writes for real), and on manual
+# dispatch (dry run by default).
+#   plan  - read role, no environment: prints the per-item diff to the job
+#           summary. A dispatch dry run stops here.
+#   write - `dynamodb` environment, write role: re-plans and writes the items
+#           that differ. Never deletes table items.
 name: Push to DynamoDB
 
 on:
+  push:
+    branches: [main]
+    paths: ["data/**"]
   workflow_dispatch:
     inputs:
       dry_run:
         description: "Dry run: plan only, write nothing"
         type: boolean
         default: true
-      force:
-        description: "Items to overwrite despite drift, comma-separated (e.g. akiha-C,ciel-H)"
-        type: string
-        default: ""
-      allow_move_removal:
-        description: "Items allowed to lose moves, comma-separated"
-        type: string
-        default: ""
 
 permissions: {}
+
+defaults:
+  run:
+    shell: bash  # GitHub runs this as bash -eo pipefail
 
 concurrency:
   group: dynamodb-push
@@ -46,8 +45,6 @@ jobs:
           exit 1
 
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0  # full history + tags: the drift baseline is read from git
 
       - uses: actions/setup-python@v7
         with:
@@ -62,20 +59,15 @@ jobs:
 
       - name: Plan (dry run)
         working-directory: src
-        env:
-          FORCE: ${{ inputs.force }}
-          ALLOW_MOVE_REMOVAL: ${{ inputs.allow_move_removal }}
-        run: |
-          python -m push_to_dynamodb --head "$GITHUB_SHA" \
-            --force "$FORCE" --allow-move-removal "$ALLOW_MOVE_REMOVAL"
+        run: python -m push_to_dynamodb
 
   write:
     needs: plan
-    if: ${{ !inputs.dry_run }}
+    if: ${{ github.event_name == 'push' || !inputs.dry_run }}
     runs-on: ubuntu-latest
     environment: dynamodb  # write role trusts ...:environment:dynamodb
     permissions:
-      contents: write  # move the dynamodb-deployed tag
+      contents: read
       id-token: write
     steps:
       - name: Require main
@@ -85,8 +77,6 @@ jobs:
           exit 1
 
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-python@v7
         with:
@@ -101,16 +91,4 @@ jobs:
 
       - name: Write
         working-directory: src
-        env:
-          FORCE: ${{ inputs.force }}
-          ALLOW_MOVE_REMOVAL: ${{ inputs.allow_move_removal }}
-        # Exits non-zero if any item was refused or conflicted, which skips the
-        # tag move below.
-        run: |
-          python -m push_to_dynamodb --write --head "$GITHUB_SHA" \
-            --force "$FORCE" --allow-move-removal "$ALLOW_MOVE_REMOVAL"
-
-      - name: Move dynamodb-deployed tag to this commit
-        run: |
-          git tag -f dynamodb-deployed "$GITHUB_SHA"
-          git push --force origin refs/tags/dynamodb-deployed
+        run: python -m push_to_dynamodb --write

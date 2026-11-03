@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash  # GitHub runs this as bash -eo pipefail
+
 jobs:
   check:
     runs-on: ubuntu-latest
