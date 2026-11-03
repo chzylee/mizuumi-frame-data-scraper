@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { draftKey, editorReducer, initialEditor, isEditable, openDrafts, type EditorState } from "../shared/editing";
-import { PyNumber } from "../shared/pyjson";
-import { buildWorkspace, countChanges, itemStatus, pendingChanges, saveRequest } from "../shared/workspace";
+import { loads, PyNumber, type JsonObject } from "../shared/pyjson";
+import { buildWorkspace, countChanges, fillableFields, itemStatus, pendingChanges, saveRequest } from "../shared/workspace";
 import { item, move, snapshot } from "./helpers";
 
 function setup(): { state: EditorState; itemId: string; uid: string } {
@@ -105,7 +105,7 @@ describe("lock / stage", () => {
     const ws = buildWorkspace(
       snapshot(
         [item([move("2C", { first_active: "5" }), move("2C", { first_active: "7" })])],
-        [item([move("2C", { first_active: "5", guard: "L" }), move("2C", { first_active: "7", guard: "H" })])],
+        [item([move("2C", { first_active: "5", heat: "L" }), move("2C", { first_active: "7", heat: "H" })])],
       ),
     );
     const it = ws.items[0]!;
@@ -115,9 +115,9 @@ describe("lock / stage", () => {
     const after = itemStatus(s.ws.items[0]!).moves.get(second!.uid)!;
     expect(after).toEqual(before);
     expect(after.fields.first_active).toBe("green");
-    expect(after.fields.guard).toBe("blue");
-    expect(after.scraped!.guard).toBe("H"); // still the scrape's second 2C
-    expect(s.ws.items[0]!.moves[1]!.scrapeOnlyFields).toEqual(["guard"]);
+    expect(after.fields.heat).toBe("blue");
+    expect(after.scraped!.heat).toBe("H"); // still the scrape's second 2C
+    expect(s.ws.items[0]!.moves[1]!.scrapeOnlyFields).toEqual(["heat"]);
   });
 
   it("non-string values are read-only", () => {
@@ -148,11 +148,62 @@ describe("scrape-only previews", () => {
     expect(countChanges(pendingChanges(s.ws))).toBe(0);
   });
 
-  it("a field only the scrape has can't be unlocked on a data move (it's a preview)", () => {
-    const ws = buildWorkspace(snapshot([item([move("5A")])], [item([move("5A", { guard: "LH" })])]));
+  it("a non-expected field only the scrape has can't be unlocked on a data move (it's a preview)", () => {
+    const ws = buildWorkspace(snapshot([item([move("5A")])], [item([move("5A", { heat: "x" })])]));
     const it = ws.items[0]!;
     const uid = it.moves[0]!.uid;
-    expect(editorReducer(initialEditor(ws), { type: "unlock", itemId: it.id, uid, field: "guard" }).drafts).toEqual({});
+    expect(editorReducer(initialEditor(ws), { type: "unlock", itemId: it.id, uid, field: "heat" }).drafts).toEqual({});
     expect(pendingChanges(ws)).toEqual([]);
+  });
+
+  it("a missing field is typed into directly (no lock), and clearing it makes it missing again", () => {
+    const data = move("5A");
+    delete data.guard;
+    const ws = buildWorkspace(snapshot([item([data])], [item([move("5A")])]));
+    const it = ws.items[0]!;
+    const uid = it.moves[0]!.uid;
+    expect(fillableFields(it, it.moves[0]!)).toEqual(["guard"]);
+    let s = editorReducer(initialEditor(ws), { type: "fill", itemId: it.id, uid, field: "guard", value: "LHA" });
+    expect(openDrafts(s)).toBe(0); // nothing to unlock or re-lock
+    expect(pendingChanges(s.ws)[0]!.moves[0]!.fields).toEqual([{ field: "guard", old: undefined, new: "LHA" }]);
+    expect(itemStatus(s.ws.items[0]!, false).status).toBe("none"); // no longer missing
+    // Still fillable while being typed (missing at load), so the row stays an input.
+    expect(fillableFields(s.ws.items[0]!, s.ws.items[0]!.moves[0]!)).toEqual(["guard"]);
+    s = editorReducer(s, { type: "fill", itemId: it.id, uid, field: "guard", value: "" });
+    expect(s.ws.items[0]!.moves[0]!.fields).not.toHaveProperty("guard");
+    expect(pendingChanges(s.ws)).toEqual([]);
+    expect(itemStatus(s.ws.items[0]!, false).moves.get(uid)!.missing).toEqual(["guard"]);
+  });
+
+  it("after saving, a filled field is locked again (it's no longer missing on disk)", () => {
+    const data = move("5A");
+    delete data.guard;
+    const ws = buildWorkspace(snapshot([item([data])], [item([move("5A")])]));
+    const it = ws.items[0]!;
+    const s = editorReducer(initialEditor(ws), { type: "fill", itemId: it.id, uid: it.moves[0]!.uid, field: "guard", value: "LHA" });
+    // Saving writes the file; the viewer then reloads from disk.
+    const savedText = saveRequest(pendingChanges(s.ws)).files[0]!.text;
+    const reloaded = buildWorkspace(snapshot([loads(savedText) as JsonObject], [item([move("5A")])]));
+    const r = reloaded.items[0]!;
+    expect(fillableFields(r, r.moves[0]!)).toEqual([]); // rendered as a normal locked field
+    expect(isEditable("guard", r.moves[0]!.fields.guard)).toBe(true); // ...behind its lock
+  });
+
+  it("typing into a preview does nothing", () => {
+    const ws = buildWorkspace(snapshot([item([move("5A")])], [item([move("5A"), move("6C")])]));
+    const it = ws.items[0]!;
+    const preview = it.moves.find((m) => m.isNew)!;
+    expect(fillableFields(it, preview)).toEqual([]);
+    const s = editorReducer(initialEditor(ws), { type: "fill", itemId: it.id, uid: preview.uid, field: "guard", value: "L" });
+    expect(s.ws).toBe(ws);
+  });
+
+  it("a missing image can be typed in directly", () => {
+    const data = move("5A");
+    delete data.image;
+    const ws = buildWorkspace(snapshot([item([data])], null));
+    const it = ws.items[0]!;
+    const s = editorReducer(initialEditor(ws), { type: "setImage", itemId: it.id, uid: it.moves[0]!.uid, value: "https://x.test/5A.png" });
+    expect(s.ws.items[0]!.moves[0]!.fields.image).toBe("https://x.test/5A.png");
   });
 });

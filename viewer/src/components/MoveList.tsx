@@ -1,7 +1,7 @@
 import type { Dispatch } from "react";
 import type { EditorAction } from "../../shared/editing";
 import type { Json } from "../../shared/pyjson";
-import { moonLabel, moveLabels, type CharacterGroup, type ItemState, type ItemStatus, type Status } from "../../shared/workspace";
+import { fillableFields, moonLabel, moveLabels, type CharacterGroup, type ItemState, type ItemStatus, type Status } from "../../shared/workspace";
 import { StatusDot } from "./CharacterList";
 import { MoveCard } from "./MoveCard";
 
@@ -35,7 +35,7 @@ export function MoveList(props: {
             >
               {moonLabel(it.key.moon)}
               {it.isNew && <span className="tag">preview</span>}
-              <StatusDot status={props.statusOfItem(it.id)} show={showDiffs} />
+              <StatusDot status={props.statusOfItem(it.id)} />
             </button>
           ))}
         </div>
@@ -58,6 +58,7 @@ export function MoveList(props: {
             move={move}
             label={label}
             preview={item.isNew || move.isNew}
+            fillable={fillableFields(item, move)}
             status={status.moves.get(move.uid)!}
             drafts={props.drafts}
             dispatch={props.dispatch}

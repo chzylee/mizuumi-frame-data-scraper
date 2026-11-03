@@ -96,10 +96,11 @@ details.banner { display: block; }
 .tag.new { color: var(--blue); border-color: var(--blue); }
 
 .moves { display: grid; gap: 12px; }
-.move { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 8px; padding: 10px 14px; }
-.move.s-green { border-left-color: var(--green); }
-.move.s-red { border-left-color: var(--red); }
-.move.s-blue { border-left-color: var(--blue); }
+.move { background: var(--panel); border: 2px solid var(--line); border-radius: 8px; padding: 10px 14px; }
+/* Whole outline plus a light tint (lighter than the field rows, so they still stand out). */
+.move.s-green { border-color: var(--green); background: color-mix(in srgb, var(--green-bg) 45%, var(--panel)); }
+.move.s-red { border-color: var(--red); background: color-mix(in srgb, var(--red-bg) 45%, var(--panel)); }
+.move.s-blue { border-color: var(--blue); background: color-mix(in srgb, var(--blue-bg) 45%, var(--panel)); }
 .move-head { display: flex; align-items: center; gap: 8px; }
 .move-head h3 { margin: 0; font-size: 15px; }
 .move-body { display: grid; grid-template-columns: 220px 1fr; gap: 16px; margin-top: 8px; }
@@ -157,3 +158,13 @@ button.icon { padding: 0 8px; }
 .move.preview { opacity: 0.75; border-style: dashed; }
 .scraped.scrape-only { color: var(--blue, #3b82f6); font-style: italic; }
 .image-url { display: block; margin-top: 6px; word-break: break-all; font-size: 12px; }
+
+/* Missing expected fields: always red, so gaps are easy to find and fill. */
+.missing { color: var(--red); font-style: italic; font-weight: 600; }
+.tag.missing-tag { color: var(--red); border-color: var(--red); }
+.image-field.s-red .field-name { color: var(--red); }
+.field.fill input::placeholder { color: var(--red); font-style: italic; }
+.field.fill.s-red input { border-color: var(--red); }
+
+/* Character name and moon tabs stay visible under the navbar while scrolling moves. */
+.item-head { position: sticky; top: var(--nav-h); z-index: 5; background: var(--bg); padding: 10px 0 8px; margin-bottom: 8px; border-bottom: 1px solid var(--line); }

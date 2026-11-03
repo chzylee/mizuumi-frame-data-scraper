@@ -9,7 +9,7 @@ export const mappings = parseCharMappings(readFileSync(MAPPINGS_FILE, "utf-8"));
 
 type Fields = Record<string, string | string[]>;
 
-/** A complete move, as data/ holds it (no guard: data/ predates the guard scrape). */
+/** A complete move, as data/ holds it: every expected field, so nothing is "missing". */
 export function move(input: string, extra: Fields = {}): JsonObject {
   return loads(
     JSON.stringify({
@@ -20,6 +20,7 @@ export function move(input: string, extra: Fields = {}): JsonObject {
       recovery: "8",
       frame_adv: "1",
       proration: "75%",
+      guard: "LH",
       invuln: "-",
       alts: [],
       ...extra,

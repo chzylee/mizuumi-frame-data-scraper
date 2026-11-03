@@ -263,6 +263,8 @@ export function buildWorkspace(snapshot: Snapshot): Workspace {
 export interface MoveStatus {
   status: Status;
   fields: Record<string, Status>;
+  /** Expected fields this data/ move lacks or has empty: always red, diffs on or off. */
+  missing: string[];
   /** The matched scraped move (for showing scraped values); null when none. */
   scraped: JsonObject | null;
 }
@@ -272,12 +274,31 @@ export interface ItemStatus {
   moves: Map<string, MoveStatus>;
 }
 
+/** Every field a move is expected to have (the canonical move fields). */
+export const EXPECTED_FIELDS: readonly string[] = MOVE_ORDER;
+
+/** Expected fields that are absent or an empty string. */
+export function missingFields(fields: JsonObject): string[] {
+  return EXPECTED_FIELDS.filter((field) => !has(fields, field) || fields[field] === "");
+}
+
 /**
- * Diff status of every move and field. Each move is compared with the scraped
- * move it was paired with at load (MoveState.scrapedIndex), so an edit, even to
- * `input`, changes only the edited move's colors.
+ * Fields the move was missing when loaded (image aside, which is always typed in):
+ * they are typed into directly, with no lock, and stay that way while being filled.
  */
-export function itemStatus(item: ItemState): ItemStatus {
+export function fillableFields(item: ItemState, move: MoveState): string[] {
+  if (item.isNew || move.isNew || move.dataIndex === null) return [];
+  const base = ((item.base?.moves ?? []) as JsonObject[])[move.dataIndex];
+  return base ? missingFields(base).filter((field) => field !== "image") : [];
+}
+
+/**
+ * Status of every move and field. With diffs on, each move is compared with the
+ * scraped move it was paired with at load (MoveState.scrapedIndex), so an edit,
+ * even to `input`, changes only the edited move's colors. Missing expected fields
+ * are red either way, so gaps are easy to find and fill.
+ */
+export function itemStatus(item: ItemState, showDiffs = true): ItemStatus {
   const scrapedMoves = (item.scraped?.moves ?? []) as JsonObject[];
   const moves = new Map<string, MoveStatus>();
   item.moves.forEach((move) => {
@@ -291,9 +312,15 @@ export function itemStatus(item: ItemState): ItemStatus {
       else fields[field] = valueKey(move.fields[field]) === valueKey(scraped[field]) ? "green" : "red";
     }
     for (const field of move.scrapeOnlyFields) fields[field] = "blue";
-    moves.set(move.uid, { status: move.isNew ? "blue" : rollup(Object.values(fields)), fields, scraped });
+    if (!showDiffs) for (const field of Object.keys(fields)) fields[field] = "none";
+    const preview = item.isNew || move.isNew;
+    const missing = preview ? [] : missingFields(move.fields);
+    for (const field of missing) fields[field] = "red";
+    const status = preview ? (showDiffs ? "blue" : "none") : rollup(Object.values(fields));
+    moves.set(move.uid, { status, fields, scraped, missing });
   });
-  return { status: item.isNew ? "blue" : rollup([...moves.values()].map((m) => m.status)), moves };
+  const status = item.isNew ? (showDiffs ? "blue" : "none") : rollup([...moves.values()].map((m) => m.status));
+  return { status, moves };
 }
 
 // --- navigation ----------------------------------------------------------------------

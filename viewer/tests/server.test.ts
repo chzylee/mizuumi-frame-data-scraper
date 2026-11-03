@@ -84,7 +84,7 @@ describe("POST /api/save", () => {
   const baseHash = () => sha256(read(KOUMA));
 
   it("writes canonical bytes for an edited item, even from non-canonical text", async () => {
-    const edited = item([move("5A", { guard: "LH" }), move("5B")]);
+    const edited = item([move("5A", { heat: "x" }), move("5B")]);
     const base = await start();
     const res = await save(base, { files: [{ path: KOUMA, baseHash: baseHash(), text: JSON.stringify(edited, null, 4) }] });
     expect(res).toEqual({ status: 200, body: { written: [{ path: KOUMA, status: "updated" }], warnings: [] } });
