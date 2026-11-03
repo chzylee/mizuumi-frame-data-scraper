@@ -4,8 +4,10 @@
  *
  * `JSON.parse` is not enough for byte-for-byte parity: it turns `2.0` into `2`,
  * loses integers past 2^53, and rejects the `NaN`/`Infinity` literals Python
- * accepts on read. So this module has its own small parser that keeps every
- * number as the text Python would print for it, and a writer that mirrors
+ * accepts on read. So this module has its own small parser, which normalizes
+ * every number to the text Python would print for it after json.loads (`1E2`
+ * becomes `100.0`, `-0` becomes `0`, `2.50` becomes `2.5`; the original text is
+ * not kept, just as Python doesn't keep it), and a writer that mirrors
  * `json.dumps(obj, indent=2, ensure_ascii=False, allow_nan=False)`.
  *
  * Known divergence (documented, not reachable through valid data): JS objects
@@ -14,7 +16,10 @@
  * those keys anyway, so `dumps` is unaffected.
  */
 
-/** A JSON number, held as the text Python's repr would print for it. */
+/**
+ * A JSON number, normalized to the text Python prints for the value json.loads
+ * gives it (int, or float repr). Not the original lexeme: "1E2" is held as "100.0".
+ */
 export class PyNumber {
   private constructor(
     readonly kind: "int" | "float",

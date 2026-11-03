@@ -4,6 +4,7 @@
  * Runs Python (tests/parity_helper.py) and TS over the same files and compares
  * canonical bytes, path_for, validation messages and error classes:
  *   - every edge-case fixture in tests/fixtures/parity/ and the sample fixtures,
+ *   - every file in the repo's data/ when it exists (CI, once data/ is committed),
  *   - every file in local-data/scraped/ when it exists (not in CI),
  *   - a seeded batch of generated files with awkward strings and numbers,
  *   - path_for for every CHAR_MAPPINGS name x moon, plus awkward keys.
@@ -24,6 +25,8 @@ import { item, move, snapshot } from "./helpers";
 
 const FIXTURES = join(import.meta.dirname, "fixtures");
 const SCRAPED = join(REPO_ROOT, "local-data", "scraped");
+// The committed data/, once the first pull lands (absent until then: skipped).
+const DATA = join(REPO_ROOT, "data");
 const HELPER = join(import.meta.dirname, "parity_helper.py");
 const mappings: CharMappings = parseCharMappings(readFileSync(MAPPINGS_FILE, "utf-8"));
 
@@ -138,7 +141,8 @@ describe("parity with src/dataset.py", () => {
   });
   const fixtureFiles = listJsonFiles(FIXTURES).map((rel) => join(FIXTURES, rel));
   const scrapedFiles = listJsonFiles(SCRAPED).map((rel) => join(SCRAPED, rel));
-  const files = [...fixtureFiles, ...scrapedFiles, ...generated];
+  const dataFiles = listJsonFiles(DATA).map((rel) => join(DATA, rel));
+  const files = [...fixtureFiles, ...dataFiles, ...scrapedFiles, ...generated];
   const keys = [
     ...wikiNames.flatMap((name) => [...MOON_ORDER, "Blood_Moon"].map((moon) => ({ character_name: name, moon }))),
     ...["Some: Weird/Char?", "..", ".", "a.b", "New_%26_Char", "tab\there", "\u{1F600}", "<>|*\"\\"].map((name) => ({
@@ -163,10 +167,14 @@ describe("parity with src/dataset.py", () => {
     keys: Described[];
   };
 
-  it("covers the fixtures, and local-data/scraped when present", () => {
+  it("covers the fixtures, and data/ and local-data/scraped when present", () => {
     expect(fixtureFiles.length).toBeGreaterThan(30);
     if (existsSync(SCRAPED)) expect(scrapedFiles.length).toBeGreaterThan(0);
-    console.log(`parity: ${fixtureFiles.length} fixture, ${scrapedFiles.length} scraped, ${generated.length} generated files`);
+    if (existsSync(DATA)) expect(dataFiles.length).toBeGreaterThan(0);
+    console.log(
+      `parity: ${fixtureFiles.length} fixture, ${dataFiles.length} data/, ${scrapedFiles.length} scraped, ` +
+        `${generated.length} generated files`,
+    );
   });
 
   it("reads CHAR_MAPPINGS from mizuumi.py in the same order", () => {
