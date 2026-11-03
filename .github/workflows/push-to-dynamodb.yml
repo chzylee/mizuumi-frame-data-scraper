@@ -5,7 +5,7 @@
 # dispatch (dry run by default).
 #   plan  - read role, no environment: prints the per-item diff to the job
 #           summary. A dispatch dry run stops here.
-#   write - `dynamodb` environment, write role: re-plans and writes the items
+#   write - write role (also trusts ...:ref:refs/heads/main): re-plans and writes the items
 #           that differ. Never deletes table items.
 name: Push to DynamoDB
 
@@ -65,7 +65,7 @@ jobs:
     needs: plan
     if: ${{ github.event_name == 'push' || !inputs.dry_run }}
     runs-on: ubuntu-latest
-    environment: dynamodb  # write role trusts ...:environment:dynamodb
+    # No environment: the write role trusts ...:ref:refs/heads/main.
     permissions:
       contents: read
       id-token: write

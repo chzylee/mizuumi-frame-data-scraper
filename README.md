@@ -137,9 +137,9 @@ Concurrent runs queue rather than race.
 
 - The `plan` job (read role, no environment) prints every insert/update with a per-move
   diff to the log and the job summary. A dry run stops there.
-- The `write` job (`dynamodb` environment, write role) re-plans against the live table
-  and writes the items that differ. If the environment has required reviewers, it waits
-  for approval; read the `plan` summary first.
+- The `write` job (write role) re-plans against the live table and writes the items
+  that differ. There is no approval step: merging a `data/` change to `main` is the
+  approval.
 
 Per item, the plan is `insert`, `update`, `unchanged`, or `table-only` (in the table with
 no `data/` file: reported, **never deleted**). An item counts as unchanged when its
@@ -167,10 +167,8 @@ workflow also runs the data check itself and puts the result in the PR body.
 - Repo secrets `DYNAMODB_READ_ROLE_ARN` (used by pull and the push `plan` job; the role
   trusts `repo:chzylee/mizuumi-frame-data-scraper:ref:refs/heads/main`) and
   `DYNAMODB_WRITE_ROLE_ARN` (used by the push `write` job; the role trusts
-  `repo:chzylee/mizuumi-frame-data-scraper:environment:dynamodb`). Region `us-east-2`.
+  `repo:chzylee/mizuumi-frame-data-scraper:ref:refs/heads/main`). Region `us-east-2`.
   The code calls only `dynamodb:Scan` (both roles) and `dynamodb:PutItem` (write role).
-- GitHub environment `dynamodb` with a deployment-branch rule allowing only `main`
-  (required reviewers optional).
 - Settings → Actions → General → "Allow GitHub Actions to create and approve pull
   requests" turned on, so the pull workflow can open its PR.
 
