@@ -5,14 +5,18 @@ import tempfile
 from typing import Any
 from data import mizuumi
 
-JSON_DIRECTORY = './json'
-# Scrape output and upload source are the same directory: main.py writes here and
-# uploader.py reads from here. (Kept as a separate name for the upload call sites.)
-JSON_UPLOAD_DIRECTORY = JSON_DIRECTORY
+# Paths are anchored at the repo root so it doesn't matter where you run from.
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# local-data/ is gitignored working space, never the record of the table:
+#   scraped/   - main.py's scrape output (one file per char/moon)
+#   overrides/ - reserved for local hand edits (future local web app)
+LOCAL_DATA_DIRECTORY = os.path.join(REPO_ROOT, "local-data")
+SCRAPED_DIRECTORY = os.path.join(LOCAL_DATA_DIRECTORY, "scraped")
+OVERRIDES_DIRECTORY = os.path.join(LOCAL_DATA_DIRECTORY, "overrides")
 
-def ensure_json_dir_exists() -> None:
-    # Create the directory if it doesn't exist
-    os.makedirs(JSON_DIRECTORY, exist_ok=True)
+def ensure_local_data_dirs_exist() -> None:
+    for directory in (SCRAPED_DIRECTORY, OVERRIDES_DIRECTORY):
+        os.makedirs(directory, exist_ok=True)
 
 def content_hash(data: Any) -> str:
     # Canonical hash of the data's meaning, independent of key order or formatting,
@@ -66,10 +70,5 @@ def get_filename(char_name: str, moon: str) -> str:
     file_name = f"{char_short}-{moon_short}.json"
     return file_name
 
-def get_json_save_path(file_name: str) -> str:
-    file_path = f"{JSON_DIRECTORY}/{file_name}"
-    return file_path
-
-def get_upload_json_path(file_name: str) -> str:
-    file_path = f"{JSON_UPLOAD_DIRECTORY}/{file_name}"
-    return file_path
+def get_scraped_path(file_name: str) -> str:
+    return os.path.join(SCRAPED_DIRECTORY, file_name)

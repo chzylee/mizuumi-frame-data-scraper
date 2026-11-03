@@ -65,7 +65,7 @@ def _format_report(report: dict) -> str:
 
 
 def get_all_melty_frame_data() -> dict:
-    filehelper.ensure_json_dir_exists()
+    filehelper.ensure_local_data_dirs_exist()
     session = build_session()
 
     # Resilient: each page is scraped in isolation; one failure doesn't abort the
@@ -76,7 +76,7 @@ def get_all_melty_frame_data() -> dict:
             file_name = filehelper.get_filename(char_name=char, moon=moon)
             try:
                 data = get_melty_char_frame_data(session, char, moon)
-                file_path = filehelper.get_json_save_path(file_name)
+                file_path = filehelper.get_scraped_path(file_name)
                 status = filehelper.write_json_if_changed(file_path, data.to_dict())
                 report[status].append(file_name)
                 print(f"{status:9} {file_name}")

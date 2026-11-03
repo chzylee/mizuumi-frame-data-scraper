@@ -1,8 +1,10 @@
 # Ignore Jupyter notebooks used for testing.
 *.ipynb
 
-# Ignore output dir for frame data JSONs
-json/
+# Local working data, never the record of the table (that's data/):
+#   local-data/scraped/   - main.py scrape output
+#   local-data/overrides/ - reserved for local hand edits
+local-data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
