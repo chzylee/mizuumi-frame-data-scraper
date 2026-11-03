@@ -1,0 +1,458 @@
+{
+  "character_name": "Archetype:_Earth",
+  "moon": "Crescent_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ed/Chime5a.png/175px-Chime5a.png",
+      "first_active": "7",
+      "active": "4",
+      "recovery": "8",
+      "frame_adv": "0",
+      "proration": "75% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a7/Chime5b.PNG/175px-Chime5b.PNG",
+      "first_active": "9",
+      "active": "6",
+      "recovery": "9",
+      "frame_adv": "1",
+      "proration": "80% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b9/Chime5c.PNG/175px-Chime5c.PNG",
+      "first_active": "13",
+      "active": "4",
+      "recovery": "18",
+      "frame_adv": "-4",
+      "proration": "90%",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/thumb/5/58/Chime2a.PNG/175px-Chime2a.PNG",
+      "first_active": "7",
+      "active": "4",
+      "recovery": "9",
+      "frame_adv": "-1",
+      "proration": "75% (O)",
+      "guard": "L",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/3/38/MBCHime2B.png/175px-MBCHime2B.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "12",
+      "frame_adv": "-1",
+      "proration": "80% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c5/Chime2c.PNG/175px-Chime2c.PNG",
+      "first_active": "12",
+      "active": "4",
+      "recovery": "15",
+      "frame_adv": "-1",
+      "proration": "65% (O)",
+      "guard": "L",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f6/Chimeja.PNG/175px-Chimeja.PNG",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "17",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "guard": "LHA",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/0/00/Chimejb.png/175px-Chimejb.png",
+      "first_active": "6",
+      "active": "2 (8) 4",
+      "recovery": "18",
+      "frame_adv": "-",
+      "proration": "90%",
+      "guard": "HA",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8b/Chimejc1.PNG/157px-Chimejc1.PNG",
+      "first_active": "14",
+      "active": "4",
+      "recovery": "20",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "guard": "HA",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6C",
+      "image": "https://wiki.gbl.gg/images/thumb/5/52/Chime6c.PNG/175px-Chime6c.PNG",
+      "first_active": "13",
+      "active": "5",
+      "recovery": "23",
+      "frame_adv": "-10",
+      "proration": "70% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/5/52/Chime6c.PNG/175px-Chime6c.PNG",
+      "first_active": "20",
+      "active": "5",
+      "recovery": "19",
+      "frame_adv": "-6",
+      "proration": "70%",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.6B",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c0/MBCHimej6B.png/175px-MBCHimej6B.png",
+      "first_active": "12",
+      "active": "6",
+      "recovery": "18",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "guard": "HA",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.6[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/6/65/MBCHimej6XB.png/175px-MBCHimej6XB.png",
+      "first_active": "25",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "50%",
+      "guard": "HA",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22D",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f4/MB_FHime_22D.png/175px-MB_FHime_22D.png",
+      "first_active": "12 (13)",
+      "active": "-",
+      "recovery": "26 (30)",
+      "frame_adv": "-",
+      "proration": "-",
+      "guard": "-",
+      "invuln": "-",
+      "alts": [
+        "Flight"
+      ]
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d9/MBCHime236A.png/175px-MBCHime236A.png",
+      "first_active": "18",
+      "active": "8",
+      "recovery": "21",
+      "frame_adv": "-12",
+      "proration": "65% (O)",
+      "guard": "L",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/b/ba/MBCHime236B.png/175px-MBCHime236B.png",
+      "first_active": "11+6",
+      "active": "X",
+      "recovery": "66",
+      "frame_adv": "-40 ~ 1",
+      "proration": "95%*N (M)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/7/73/MBCHime623A.png/175px-MBCHime623A.png",
+      "first_active": "8",
+      "active": "7",
+      "recovery": "23",
+      "frame_adv": "-13",
+      "proration": "100%",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/49/MBCHime623B.png/175px-MBCHime623B.png",
+      "first_active": "6",
+      "active": "7 (12) 7",
+      "recovery": "29",
+      "frame_adv": "-17 (vs Stand.), -33 (vs Crouch.)",
+      "proration": "100%",
+      "guard": "LH",
+      "invuln": "Full 1-8",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/0/0a/MBCHime623C.png/175px-MBCHime623C.png",
+      "first_active": "1+5",
+      "active": "7 (8) 6 (18) 6",
+      "recovery": "73",
+      "frame_adv": "-83 (vs Stand.), -97 (vs Crouch.)",
+      "proration": "100%",
+      "guard": "LH(5), LHA",
+      "invuln": "Full 1-73",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/c/cc/MBCHime214A.png/175px-MBCHime214A.png",
+      "first_active": "16 (12)",
+      "active": "12",
+      "recovery": "18",
+      "frame_adv": "-2",
+      "proration": "70% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214A~214A",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a3/MBCHime214A214A.png/175px-MBCHime214A214A.png",
+      "first_active": "12 (11)",
+      "active": "9",
+      "recovery": "21",
+      "frame_adv": "-8",
+      "proration": "65% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": [
+        "214A214A"
+      ]
+    },
+    {
+      "input": "214A~214[A]",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7c/MBCHime214A214XA.png/175px-MBCHime214A214XA.png",
+      "first_active": "23 (21)",
+      "active": "9",
+      "recovery": "19",
+      "frame_adv": "0",
+      "proration": "65% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": [
+        "214A214[A]"
+      ]
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a1/MBCHime214B.png/175px-MBCHime214B.png",
+      "first_active": "15 (11)",
+      "active": "6 (6) 9",
+      "recovery": "9",
+      "frame_adv": "-3",
+      "proration": "70% (O)",
+      "guard": "LH(2), LHA",
+      "invuln": "-",
+      "alts": [
+        "214B"
+      ]
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/8/81/MBCHime214C.png/175px-MBCHime214C.png",
+      "first_active": "1+16",
+      "active": "63",
+      "recovery": "57",
+      "frame_adv": "-20",
+      "proration": "100%",
+      "guard": "LHA",
+      "invuln": "Full 1-121",
+      "alts": [
+        "214C"
+      ]
+    },
+    {
+      "input": "22A/B",
+      "image": "https://wiki.gbl.gg/images/thumb/8/81/MBCHime22A.png/175px-MBCHime22A.png",
+      "first_active": "53",
+      "active": "X",
+      "recovery": "29",
+      "frame_adv": "6",
+      "proration": "75% (O)",
+      "guard": "LHA",
+      "invuln": "-",
+      "alts": [
+        "22A",
+        "22B"
+      ]
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/0/03/MBCHime22C.png/175px-MBCHime22C.png",
+      "first_active": "1+22",
+      "active": "X",
+      "recovery": "40",
+      "frame_adv": "38",
+      "proration": "75% (O)",
+      "guard": "LHA",
+      "invuln": "Full 1",
+      "alts": []
+    },
+    {
+      "input": "j.236A/B",
+      "image": "https://wiki.gbl.gg/images/thumb/6/60/MB_FHime_j236A.png/175px-MB_FHime_j236A.png",
+      "first_active": "34",
+      "active": "19",
+      "recovery": "-",
+      "frame_adv": "7 (TK)",
+      "proration": "50% (O)",
+      "guard": "LHA",
+      "invuln": "-",
+      "alts": [
+        "j.236A",
+        "j.236B"
+      ]
+    },
+    {
+      "input": "j.236C",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2b/MB_FHime_j236C.png/175px-MB_FHime_j236C.png",
+      "first_active": "6+3",
+      "active": "28",
+      "recovery": "-",
+      "frame_adv": "11 (TK)",
+      "proration": "50% (O)",
+      "guard": "LHA",
+      "invuln": "Full 6, 19-21, 46-48",
+      "alts": []
+    },
+    {
+      "input": "j.214A",
+      "image": "https://wiki.gbl.gg/images/thumb/0/06/MBCHimej214A.png/175px-MBCHimej214A.png",
+      "first_active": "21 (18)",
+      "active": "12",
+      "recovery": "-",
+      "frame_adv": "20 (TK)",
+      "proration": "70% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.214B",
+      "image": "https://wiki.gbl.gg/images/thumb/0/0a/MBCHimej214B.png/175px-MBCHimej214B.png",
+      "first_active": "30 (26)",
+      "active": "12",
+      "recovery": "-",
+      "frame_adv": "16 (TK)",
+      "proration": "70% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.214A/B~214A/B",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a3/MBCHime214A214A.png/175px-MBCHime214A214A.png",
+      "first_active": "12 (11)",
+      "active": "9",
+      "recovery": "-",
+      "frame_adv": "-1 (TK)",
+      "proration": "65% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": [
+        "j.214A~214A/B",
+        "j.214A~214B/B",
+        "j.214A214A/B",
+        "j.214B214A/B",
+        "j.214A~214A",
+        "j.214A~214B",
+        "j.214B~214A",
+        "j.214B~214B"
+      ]
+    },
+    {
+      "input": "j.214A/B~214[A]/[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7c/MBCHime214A214XA.png/175px-MBCHime214A214XA.png",
+      "first_active": "23 (21)",
+      "active": "9",
+      "recovery": "-",
+      "frame_adv": "7 (TK)",
+      "proration": "65% (O)",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": [
+        "j.214A~214[A]/[B]",
+        "j.214B~214[A]/[B]",
+        "j.214A214[A]/[B]",
+        "j.214B214[A]/[B]",
+        "j.214A~214[A]",
+        "j.214A~214[B]",
+        "j.214B~214[A]",
+        "j.214B~214[B]",
+        "j.214A214[A]",
+        "j.214A214[B]",
+        "j.214B214[A]",
+        "j.214B214[B]"
+      ]
+    },
+    {
+      "input": "j.214C~214[A]/[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/8/81/MBCHime214C.png/175px-MBCHime214C.png",
+      "first_active": "1+16",
+      "active": "63",
+      "recovery": "-",
+      "frame_adv": "-11 (TK)",
+      "proration": "100%",
+      "guard": "LHA",
+      "invuln": "Full 1-95",
+      "alts": [
+        "j.214C214[A]/[B]",
+        "j.214C~214[A]",
+        "j.214C~214[B]",
+        "j.214C214[A]",
+        "j.214C214[B]"
+      ]
+    },
+    {
+      "input": "j.63214C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/41/MB_FHime_j63214C.png/175px-MB_FHime_j63214C.png",
+      "first_active": "1+9",
+      "active": "4",
+      "recovery": "0",
+      "frame_adv": "-",
+      "proration": "60% (M)",
+      "guard": "H",
+      "invuln": "Full 1-13",
+      "alts": []
+    }
+  ]
+}
