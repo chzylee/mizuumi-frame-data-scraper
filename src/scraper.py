@@ -248,7 +248,15 @@ class Scraper:
 
                         follow_up_index = button_text.find("~")
                         if follow_up_index > -1: # If ~ was found.
-                            current_move.follow_up += button_text[follow_up_index:]
+                            follow_up = button_text[follow_up_index:]
+                            # Most pages label each step ("~2B", then "~2B" again), but some
+                            # label the whole chain so far ("~2B", then "~2B~2B"). A label
+                            # that extends the accumulated chain replaces it instead of being
+                            # appended, so 2B / ~2B / ~2B~2B gives 2B~2B~2B, not 2B~2B~2B~2B.
+                            if current_move.follow_up and follow_up.startswith(current_move.follow_up + "~"):
+                                current_move.follow_up = follow_up
+                            else:
+                                current_move.follow_up += follow_up
                         else:
                             # Extract only the button part of the text if there is no follow up as this implies that direction is already stored.
                             try:

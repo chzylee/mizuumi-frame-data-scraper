@@ -57,6 +57,17 @@ class TestScraperAgainstSavedPages(unittest.TestCase):
         self.assertEqual(five_a.guard, "LH")
         self.assertTrue(five_a.image.startswith("https://wiki.gbl.gg/"))
 
+    def test_cumulative_follow_up_labels_are_not_doubled(self):
+        # Akiha's 2B chain is labelled 2B / ~2B / ~2B~2B: the last label spells out the
+        # whole chain so far, so it must replace the follow-up, not be appended to it.
+        name = self._require("akiha_C.html")
+        inputs = [move.input for move in _scrape(name).moves]
+        self.assertIn("2B~2B~2B", inputs)
+        self.assertNotIn("2B~2B~2B~2B", inputs)
+        self.assertIn("2B~2B", inputs)  # step-by-step labels still accumulate
+        three = next(move for move in _scrape(name).moves if move.input == "2B~2B~2B")
+        self.assertEqual(three.alts, ["2B2B2B", "2BBB", "2B~BB"])
+
     def test_guard_is_populated_for_scraped_moves(self):
         # Every move on a standard page should carry a (non-None) guard string.
         name = self._require("kouma_C.html")
