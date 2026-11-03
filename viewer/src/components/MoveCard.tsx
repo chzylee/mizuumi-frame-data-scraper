@@ -16,18 +16,20 @@ interface Props {
   showDiffs: boolean;
   /** A scrape-only preview (the move or its whole item): shown, never editable or saved. */
   preview: boolean;
+  /** Fields the move was missing when loaded: typed into directly, no lock. */
+  fillable: string[];
 }
 
 /** One move: its hitbox image and every field present, rendered generically. */
-export const MoveCard = memo(function MoveCard({ itemId, move, label, status, drafts, dispatch, showDiffs, preview }: Props) {
+export const MoveCard = memo(function MoveCard({ itemId, move, label, status, drafts, dispatch, showDiffs, preview, fillable }: Props) {
   const image = move.fields.image;
-  // Expected fields the move lacks get a red "missing" row in their usual place.
-  const absent = status.missing.filter((field) => field !== "image" && !has(move.fields, field));
+  // Fields missing at load get an input in their usual place (red while still empty).
+  const absent = fillable.filter((field) => !has(move.fields, field));
   const placeholders = Object.fromEntries(absent.map((field) => [field, ""])) as JsonObject;
   const fields = fieldOrder({ ...placeholders, ...move.fields } as JsonObject).filter((field) => field !== "image");
   // Fields only the scrape has: shown in blue when diffs are on, never saved. A missing
   // expected field shows the scraped value as a hint in its own row instead.
-  const scrapeOnly = showDiffs && !preview ? move.scrapeOnlyFields.filter((field) => !absent.includes(field)) : [];
+  const scrapeOnly = showDiffs && !preview ? move.scrapeOnlyFields.filter((field) => !fillable.includes(field)) : [];
   return (
     <article className={`move s-${status.status}${preview ? " preview" : ""}`} aria-label={`Move ${label}`}>
       <header className="move-head">
@@ -55,7 +57,17 @@ export const MoveCard = memo(function MoveCard({ itemId, move, label, status, dr
         </div>
         <table className="fields">
           <tbody>
-            {fields.map((field) => (
+            {fields.map((field) =>
+              fillable.includes(field) ? (
+                <FillRow
+                  key={field}
+                  field={field}
+                  value={move.fields[field]}
+                  missing={status.missing.includes(field)}
+                  scraped={showDiffs && status.scraped && has(status.scraped, field) ? status.scraped[field] : undefined}
+                  onChange={(value) => dispatch({ type: "fill", itemId, uid: move.uid, field, value })}
+                />
+              ) : (
               <FieldRow
                 key={field}
                 itemId={itemId}
@@ -70,7 +82,8 @@ export const MoveCard = memo(function MoveCard({ itemId, move, label, status, dr
                 dispatch={dispatch}
                 readOnly={preview}
               />
-            ))}
+              ),
+            )}
             {scrapeOnly.map((field) => (
               <tr key={field} className="field s-blue" title="Only in the scrape: not in data/, not saved">
                 <th scope="row" className="field-name">{field}</th>
@@ -124,7 +137,7 @@ function FieldRow(props: {
   missing: boolean;
 }) {
   const { itemId, uid, field, value, draft, unlocked, fieldStatus, scraped, dispatch, readOnly, missing } = props;
-  const editable = !readOnly && (isEditable(field, value) || (missing && value === undefined));
+  const editable = !readOnly && isEditable(field, value);
   const toggle = () => dispatch({ type: unlocked ? "relock" : "unlock", itemId, uid, field });
   const setDraft = (next: Json) => dispatch({ type: "draft", uid, field, value: next });
   return (
@@ -166,6 +179,30 @@ function FieldRow(props: {
           </button>
         )}
       </td>
+    </tr>
+  );
+}
+
+/** A field the move was missing: typed into directly, no lock. Red while still empty. */
+function FillRow(props: { field: string; value: Json | undefined; missing: boolean; scraped: Json | undefined; onChange: (value: Json) => void }) {
+  const { field, value, missing, scraped, onChange } = props;
+  return (
+    <tr className={`field fill${missing ? " s-red" : ""}`} title={missing ? "Missing: type a value to add it" : "Added here; clear it to leave it missing"}>
+      <th scope="row" className="field-name">{field}</th>
+      <td className="field-value">
+        {field === "alts" ? (
+          <ListEditor values={Array.isArray(value) ? (value as string[]) : []} onChange={onChange} onDone={() => {}} />
+        ) : (
+          <input
+            value={typeof value === "string" ? value : ""}
+            placeholder="missing: type to add"
+            spellCheck={false}
+            onChange={(e) => onChange(e.target.value)}
+          />
+        )}
+        {scraped !== undefined && <span className="scraped scrape-only" title="scraped value">{displayValue(scraped)}</span>}
+      </td>
+      <td className="lock-cell" />
     </tr>
   );
 }
