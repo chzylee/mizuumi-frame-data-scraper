@@ -3,6 +3,7 @@ import { dumps, moveIdentities } from "../shared/dataset";
 import { loads, PyNumber, type JsonObject } from "../shared/pyjson";
 import {
   buildWorkspace,
+  missingFields,
   countChanges,
   displayValue,
   groupCharacters,
@@ -79,16 +80,16 @@ describe("field diffs on matched moves", () => {
   });
 });
 
-describe("new fields from the scrape (guard backfill)", () => {
+describe("new fields from the scrape (e.g. heat, not in data/ yet)", () => {
   it("shows a scrape-only field as a blue preview, never staged or counted", () => {
     const ws = buildWorkspace(
-      snapshot([item([move("5A"), move("5B")])], [item([move("5A", { guard: "LH" }), move("5B", { guard: "H" })])]),
+      snapshot([item([move("5A"), move("5B")])], [item([move("5A", { heat: "x" }), move("5B", { heat: "y" })])]),
     );
     const it0 = only(ws);
-    expect(it0.moves.map((m) => m.fields.guard)).toEqual([undefined, undefined]); // not copied into data
-    expect(it0.moves.map((m) => m.scrapeOnlyFields)).toEqual([["guard"], ["guard"]]);
-    expect(statusOf(it0, 0).fields.guard).toBe("blue");
-    expect(statusOf(it0, 0).scraped!.guard).toBe("LH");
+    expect(it0.moves.map((m) => m.fields.heat)).toEqual([undefined, undefined]); // not copied into data
+    expect(it0.moves.map((m) => m.scrapeOnlyFields)).toEqual([["heat"], ["heat"]]);
+    expect(statusOf(it0, 0).fields.heat).toBe("blue");
+    expect(statusOf(it0, 0).scraped!.heat).toBe("x");
     expect(statusOf(it0, 0).status).toBe("blue");
     expect(pendingChanges(ws)).toEqual([]);
     expect(countChanges(pendingChanges(ws))).toBe(0);
@@ -253,20 +254,20 @@ describe("loading", () => {
     ]);
     // The rest stays saveable: an edit saves only the loaded item.
     const kouma = ws.items[0]!;
-    const request = saveRequest(pendingChanges(setField(ws, kouma.id, kouma.moves[0]!.uid, "guard", "LH")));
+    const request = saveRequest(pendingChanges(setField(ws, kouma.id, kouma.moves[0]!.uid, "active", "9")));
     expect(request.files.map((f) => f.path)).toEqual(["kouma/crescent_kouma.json"]);
   });
 
   it("saves the changed item byte-identical to what Python would write, extras kept", () => {
     const data = item([move("5A", { zz_extra: "keep" })]);
     (data as Record<string, unknown>).top_extra = "keep too";
-    const loaded = buildWorkspace(snapshot([data], [item([move("5A", { guard: "LH" })])]));
+    const loaded = buildWorkspace(snapshot([data], [item([move("5A", { heat: "x" })])]));
     const it0 = only(loaded);
-    const ws = setField(loaded, it0.id, it0.moves[0]!.uid, "guard", "LH"); // added by hand
+    const ws = setField(loaded, it0.id, it0.moves[0]!.uid, "heat", "x"); // added by hand
     const [file] = saveRequest(pendingChanges(ws)).files;
     expect(file!.path).toBe("kouma/crescent_kouma.json");
     const expected = loads(dumps(data)) as JsonObject;
-    ((expected.moves as JsonObject[])[0]!).guard = "LH";
+    ((expected.moves as JsonObject[])[0]!).heat = "x";
     expect(file!.text).toBe(dumps(expected));
     expect(file!.text).toContain('"top_extra": "keep too"');
   });
@@ -278,5 +279,43 @@ describe("displayValue", () => {
     expect(displayValue([])).toBe("[]");
     expect(displayValue(PyNumber.fromLexeme("2.50"))).toBe("2.5");
     expect(displayValue(undefined)).toBe("");
+  });
+});
+
+describe("missing fields", () => {
+  const noGuard = () => {
+    const m = move("5A");
+    delete m.guard;
+    return m;
+  };
+
+  it("are red with diffs on or off, and roll up to the moon and character", () => {
+    const ws = buildWorkspace(snapshot([item([noGuard(), move("5B")])], [item([move("5A"), move("5B")])]));
+    const it0 = only(ws);
+    for (const diffs of [true, false]) {
+      const status = itemStatus(it0, diffs);
+      const s0 = status.moves.get(it0.moves[0]!.uid)!;
+      expect(s0.missing).toEqual(["guard"]);
+      expect(s0.fields.guard).toBe("red");
+      expect(s0.status).toBe("red");
+      expect(status.status).toBe("red");
+      expect(rollup(groupCharacters(ws)[0]!.items.map((it) => itemStatus(it, diffs).status))).toBe("red");
+    }
+    // Without diffs, a complete move has no color at all.
+    expect(itemStatus(it0, false).moves.get(it0.moves[1]!.uid)!.status).toBe("none");
+  });
+
+  it("counts empty strings as missing, but not empty alts or '-'", () => {
+    expect(missingFields(move("5A", { recovery: "" }))).toEqual(["recovery"]);
+    expect(missingFields(move("5A", { invuln: "-", alts: [] }))).toEqual([]);
+  });
+
+  it("are not reported on scrape-only previews", () => {
+    const preview = move("6C");
+    delete preview.guard;
+    const ws = buildWorkspace(snapshot([item([move("5A")])], [item([move("5A"), preview])]));
+    const it0 = only(ws);
+    const p = it0.moves.find((m) => m.isNew)!;
+    expect(itemStatus(it0).moves.get(p.uid)!.missing).toEqual([]);
   });
 });

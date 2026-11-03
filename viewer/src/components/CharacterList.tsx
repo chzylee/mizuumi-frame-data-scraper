@@ -1,15 +1,16 @@
 import type { CharacterGroup, Status } from "../../shared/workspace";
 
-export function StatusDot({ status, show }: { status: Status; show: boolean }) {
-  if (!show || status === "none") return null;
+/** The status already reflects the diff toggle (missing fields are red regardless). */
+export function StatusDot({ status }: { status: Status }) {
+  if (status === "none") return null;
   return <span className={`dot ${status}`} aria-label={STATUS_TEXT[status]} title={STATUS_TEXT[status]} />;
 }
 
 export const STATUS_TEXT: Record<Status, string> = {
   none: "",
   green: "matches the scrape",
-  red: "differs from the scrape",
-  blue: "only in the scrape (staged as new)",
+  red: "differs from the scrape, or has missing fields",
+  blue: "only in the scrape (preview, not saved)",
 };
 
 export function CharacterList(props: {
@@ -31,7 +32,7 @@ export function CharacterList(props: {
             >
               <span className="char-label">{group.label}</span>
               {group.short && <span className="char-short">{group.short}</span>}
-              <StatusDot status={props.statusOf(group)} show={props.showDiffs} />
+              <StatusDot status={props.statusOf(group)} />
             </button>
           </li>
         ))}

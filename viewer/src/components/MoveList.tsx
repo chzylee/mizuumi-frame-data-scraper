@@ -35,7 +35,7 @@ export function MoveList(props: {
             >
               {moonLabel(it.key.moon)}
               {it.isNew && <span className="tag">preview</span>}
-              <StatusDot status={props.statusOfItem(it.id)} show={showDiffs} />
+              <StatusDot status={props.statusOfItem(it.id)} />
             </button>
           ))}
         </div>

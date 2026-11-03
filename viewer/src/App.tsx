@@ -52,7 +52,12 @@ export function App({ source }: { source: DataSource }) {
   // Characters and moons only in the scrape are previews: listed only while diffs are on.
   const visible = useMemo(() => (showDiffs ? ws : { ...ws, items: ws.items.filter((item) => !item.isNew) }), [ws, showDiffs]);
   const groups = useMemo(() => groupCharacters(visible), [visible]);
-  const statuses = useMemo(() => new Map<string, ItemStatus>(ws.items.map((item) => [item.id, itemStatus(item)])), [ws]);
+  // Diff colors follow the toggle; missing fields are red either way.
+  const diffsOn = showDiffs && ws.scrapedAvailable;
+  const statuses = useMemo(
+    () => new Map<string, ItemStatus>(ws.items.map((item) => [item.id, itemStatus(item, diffsOn)])),
+    [ws, diffsOn],
+  );
   const changes = useMemo(() => pendingChanges(ws), [ws]);
   const pending = countChanges(changes);
   const drafts = openDrafts(state);

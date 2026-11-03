@@ -157,3 +157,8 @@ button.icon { padding: 0 8px; }
 .move.preview { opacity: 0.75; border-style: dashed; }
 .scraped.scrape-only { color: var(--blue, #3b82f6); font-style: italic; }
 .image-url { display: block; margin-top: 6px; word-break: break-all; font-size: 12px; }
+
+/* Missing expected fields: always red, so gaps are easy to find and fill. */
+.missing { color: var(--red); font-style: italic; font-weight: 600; }
+.tag.missing-tag { color: var(--red); border-color: var(--red); }
+.image-field.s-red .field-name { color: var(--red); }
