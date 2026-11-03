@@ -181,6 +181,7 @@
       "recovery": "29",
       "frame_adv": "-13",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "236C (Neco Arc)",
@@ -293,6 +294,7 @@
       "recovery": "28",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "U",
       "invuln": "Full 1-42",
       "alts": [
         "22B Clash"
@@ -306,6 +308,7 @@
       "recovery": "20",
       "frame_adv": "-5",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "Full 1-64",
       "alts": []
     }

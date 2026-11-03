@@ -208,6 +208,7 @@
       "recovery": "45",
       "frame_adv": "-41 (vs Stand.)-43 (vs Crouch.)",
       "proration": "100%",
+      "guard": "LH*, LHA",
       "invuln": "Full 1-27",
       "alts": [
         "623C (Both Nanayas)"
@@ -221,6 +222,7 @@
       "recovery": "-",
       "frame_adv": "-39 (vs Stand.)-43 (vs Crouch.)",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "623C Clone"

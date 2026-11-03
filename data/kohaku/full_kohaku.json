@@ -274,6 +274,7 @@
       "recovery": "27",
       "frame_adv": "3",
       "proration": "50%",
+      "guard": "LHA",
       "invuln": "Full 1-19",
       "alts": [
         "214A Counter"
@@ -287,6 +288,7 @@
       "recovery": "27",
       "frame_adv": "3",
       "proration": "50%",
+      "guard": "LHA",
       "invuln": "Full 1-14",
       "alts": [
         "214B Counter"
@@ -300,6 +302,7 @@
       "recovery": "12",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "-",
       "invuln": "High 5-20",
       "alts": []
     },
@@ -311,6 +314,7 @@
       "recovery": "31",
       "frame_adv": "?",
       "proration": "50%",
+      "guard": "U, LHA",
       "invuln": "Full 1-21",
       "alts": [
         "214C Counter"
@@ -324,6 +328,7 @@
       "recovery": "49",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -383,6 +388,7 @@
       "recovery": "22",
       "frame_adv": "-",
       "proration": "80% (O)",
+      "guard": "U(Whiffs vs Air.)",
       "invuln": "-",
       "alts": []
     },
@@ -394,6 +400,7 @@
       "recovery": "30",
       "frame_adv": "-",
       "proration": "80% (O)",
+      "guard": "-",
       "invuln": "-",
       "alts": [
         "63214C~A (Lv3)",
@@ -420,6 +427,7 @@
       "recovery": "28",
       "frame_adv": "-",
       "proration": "80% (O)",
+      "guard": "-",
       "invuln": "-",
       "alts": [
         "63214C~A (Lv2)",
@@ -446,6 +454,7 @@
       "recovery": "23",
       "frame_adv": "-",
       "proration": "70% (O)",
+      "guard": "-",
       "invuln": "-",
       "alts": [
         "63214C~A (Lv1)",

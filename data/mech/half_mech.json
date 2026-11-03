@@ -328,6 +328,7 @@
       "recovery": "42",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "-",
       "invuln": "-",
       "alts": []
     },
@@ -339,6 +340,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "63214A Assist",
@@ -354,6 +356,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "63214A Takeuchi Assist",
@@ -380,6 +383,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "63214B Assist",
@@ -407,6 +411,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "65% (O)",
+      "guard": "HA(Whiffs vs Crouch.)",
       "invuln": "-",
       "alts": [
         "63214C Lasers Assist",
@@ -425,6 +430,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "65% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "63214C Missiles Assist",

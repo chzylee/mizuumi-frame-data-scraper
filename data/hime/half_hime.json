@@ -305,6 +305,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "214A (Det)",
@@ -414,6 +415,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "j.214A (Det)",

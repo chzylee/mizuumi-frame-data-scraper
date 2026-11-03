@@ -258,6 +258,7 @@
       "recovery": "4",
       "frame_adv": "18",
       "proration": "70% (O)",
+      "guard": "LH (/ LHA)",
       "invuln": "-",
       "alts": [
         "~214X",
@@ -279,6 +280,7 @@
       "recovery": "0",
       "frame_adv": "26",
       "proration": "70% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "~214[A]",
@@ -324,6 +326,7 @@
       "recovery": "18 ~ 8",
       "frame_adv": "2 ~ 18",
       "proration": "50% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "22C 0~Best",
@@ -406,6 +409,7 @@
       "recovery": "3",
       "frame_adv": "-",
       "proration": "70% (O)",
+      "guard": "LHA (/ LH)",
       "invuln": "-",
       "alts": [
         "~j.214A(!)",
@@ -427,6 +431,7 @@
       "recovery": "9",
       "frame_adv": "-",
       "proration": "70% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "~j.214[A](!)",

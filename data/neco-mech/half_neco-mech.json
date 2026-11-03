@@ -196,6 +196,7 @@
       "recovery": "48",
       "frame_adv": "33",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -231,6 +232,7 @@
       "recovery": "29",
       "frame_adv": "-13",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "236C (Neco Arc)",

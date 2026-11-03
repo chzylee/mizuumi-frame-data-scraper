@@ -290,6 +290,7 @@
       "recovery": "4044",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "-",
       "invuln": "-",
       "alts": [
         "22A",
@@ -305,6 +306,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "70%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "22]A[ (Lv 1)",
@@ -325,6 +327,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "70%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "22]A[ (Lv 2)",
@@ -345,6 +348,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "70%",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "22]A[ (Lv 3)",

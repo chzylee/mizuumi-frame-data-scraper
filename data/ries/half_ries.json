@@ -220,6 +220,7 @@
       "recovery": "12",
       "frame_adv": "-2 ~ 5",
       "proration": "70% (O)",
+      "guard": "LHA, LH",
       "invuln": "Guard point 8-22",
       "alts": [
         "236[A]",
@@ -246,6 +247,7 @@
       "recovery": "12",
       "frame_adv": "-2 ~ 5",
       "proration": "70% (O)",
+      "guard": "L",
       "invuln": "Guard point 9-23",
       "alts": [
         "236[B]",
@@ -368,6 +370,7 @@
       "recovery": "22",
       "frame_adv": "3 ~ 23",
       "proration": "65% (O)",
+      "guard": "-",
       "invuln": "Reflect 33-60Super Armor 6-26",
       "alts": []
     },

@@ -170,6 +170,7 @@
       "recovery": "27",
       "frame_adv": "-5",
       "proration": "80% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "~236A(1)",
@@ -188,6 +189,7 @@
       "recovery": "33",
       "frame_adv": "-11",
       "proration": "80% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "~236B(1)",
@@ -206,6 +208,7 @@
       "recovery": "36",
       "frame_adv": "-20",
       "proration": "80% (M)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "236A/B Ender",
@@ -315,6 +318,7 @@
       "recovery": "29",
       "frame_adv": "-3",
       "proration": "100%",
+      "guard": "-",
       "invuln": "Full 22-X",
       "alts": []
     },
@@ -326,6 +330,7 @@
       "recovery": "29",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "H",
       "invuln": "Full 22-37",
       "alts": [
         "214A Whiff",
@@ -340,6 +345,7 @@
       "recovery": "38",
       "frame_adv": "-21",
       "proration": "40% (O)",
+      "guard": "L",
       "invuln": "Full 5-10",
       "alts": [
         "f.214B",
@@ -354,6 +360,7 @@
       "recovery": "34",
       "frame_adv": "-12",
       "proration": "80% (M)",
+      "guard": "L",
       "invuln": "Full 5-X",
       "alts": [
         "c.214B",
@@ -368,6 +375,7 @@
       "recovery": "31",
       "frame_adv": "-",
       "proration": "50%",
+      "guard": "-",
       "invuln": "High 20-X, Full X",
       "alts": []
     },
@@ -379,6 +387,7 @@
       "recovery": "29",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "U",
       "invuln": "High 20-31",
       "alts": [
         "214C",

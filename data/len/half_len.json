@@ -320,6 +320,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "-",
       "invuln": "-",
       "alts": []
     },
@@ -331,6 +332,7 @@
       "recovery": "-",
       "frame_adv": "19",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -342,6 +344,7 @@
       "recovery": "11(+16)",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "-",
       "invuln": "-",
       "alts": []
     },
@@ -353,6 +356,7 @@
       "recovery": "-",
       "frame_adv": "19",
       "proration": "50%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     },
@@ -364,6 +368,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "-",
       "invuln": "-",
       "alts": [
         "214B White"
@@ -377,6 +382,7 @@
       "recovery": "11",
       "frame_adv": "-10, 18+26",
       "proration": "100%, 50%",
+      "guard": "HA, LHA",
       "invuln": "-",
       "alts": [
         "214C Neco",

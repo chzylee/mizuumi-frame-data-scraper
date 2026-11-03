@@ -194,6 +194,7 @@
       "recovery": "33",
       "frame_adv": "-24, -20",
       "proration": "100%",
+      "guard": "LH",
       "invuln": "Full 1-4, High 5-10",
       "alts": [
         "623A",
@@ -214,6 +215,7 @@
       "recovery": "40",
       "frame_adv": "-32 ~ -25",
       "proration": "100%",
+      "guard": "LH",
       "invuln": "Full 1-15",
       "alts": [
         "623B",
@@ -255,6 +257,7 @@
       "recovery": "29",
       "frame_adv": "-3",
       "proration": "100%",
+      "guard": "-",
       "invuln": "Full 22-X",
       "alts": []
     },
@@ -266,6 +269,7 @@
       "recovery": "29",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "H",
       "invuln": "Full 22-37",
       "alts": [
         "214A Whiff",
@@ -280,6 +284,7 @@
       "recovery": "38",
       "frame_adv": "-21",
       "proration": "40% (O)",
+      "guard": "LH",
       "invuln": "Full 5-10",
       "alts": [
         "f.214B",
@@ -294,6 +299,7 @@
       "recovery": "34",
       "frame_adv": "-12",
       "proration": "80% (M)",
+      "guard": "L",
       "invuln": "Full 5-X",
       "alts": [
         "c.214B",
@@ -308,6 +314,7 @@
       "recovery": "31",
       "frame_adv": "-",
       "proration": "50%",
+      "guard": "-",
       "invuln": "High 20-X, Full X",
       "alts": []
     },
@@ -319,6 +326,7 @@
       "recovery": "29",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "U",
       "invuln": "High 20-31",
       "alts": [
         "214C Whiff",

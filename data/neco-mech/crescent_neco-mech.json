@@ -190,6 +190,7 @@
       "recovery": "29",
       "frame_adv": "-17",
       "proration": "90% (O)",
+      "guard": "HA(Whiffs vs. Crouch)",
       "invuln": "Full 1-19",
       "alts": []
     },
@@ -201,6 +202,7 @@
       "recovery": "29",
       "frame_adv": "-13",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "236C (Neco Arc)",

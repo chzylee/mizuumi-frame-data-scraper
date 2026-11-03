@@ -323,6 +323,7 @@
       "recovery": "58",
       "frame_adv": "?",
       "proration": "70%*3 (M)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "214C~6",
@@ -354,6 +355,7 @@
       "recovery": "-",
       "frame_adv": "34",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "22A",
@@ -369,6 +371,7 @@
       "recovery": "60",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "-",
       "invuln": "-",
       "alts": []
     },
@@ -380,6 +383,7 @@
       "recovery": "-",
       "frame_adv": "28",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "22B",
@@ -407,6 +411,7 @@
       "recovery": "-",
       "frame_adv": "73",
       "proration": "100%",
+      "guard": "HA(Whiffs vs Crouch.)",
       "invuln": "-",
       "alts": [
         "22C Rocket"
@@ -420,6 +425,7 @@
       "recovery": "-",
       "frame_adv": "71",
       "proration": "75%",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "22C Backblast"
@@ -488,6 +494,7 @@
       "recovery": "12",
       "frame_adv": "?",
       "proration": "70%*3 (M)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "j.214[C]~6",

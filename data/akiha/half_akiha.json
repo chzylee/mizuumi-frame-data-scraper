@@ -76,6 +76,7 @@
       "recovery": "20",
       "frame_adv": "-6",
       "proration": "70% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "5BB",
@@ -447,6 +448,7 @@
       "recovery": "40*",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "Low 10-X",
       "alts": []
     },

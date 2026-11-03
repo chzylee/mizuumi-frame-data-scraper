@@ -236,6 +236,7 @@
       "recovery": "35",
       "frame_adv": "-25/-21",
       "proration": "60% (O)",
+      "guard": "LH/LHA",
       "invuln": "Full 1-4, Low 5-6",
       "alts": []
     },
@@ -247,6 +248,7 @@
       "recovery": "17",
       "frame_adv": "-",
       "proration": "90% (O)",
+      "guard": "HA",
       "invuln": "-",
       "alts": [
         "623A Follow-Up",
@@ -275,6 +277,7 @@
       "recovery": "19",
       "frame_adv": "-",
       "proration": "90% (O)",
+      "guard": "HA",
       "invuln": "-",
       "alts": [
         "623B Follow-Up",
@@ -303,6 +306,7 @@
       "recovery": "24",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "HA",
       "invuln": "-",
       "alts": [
         "623C Follow-Up",
@@ -420,6 +424,7 @@
       "recovery": "29",
       "frame_adv": "-",
       "proration": "50%",
+      "guard": "-",
       "invuln": "-",
       "alts": []
     },

@@ -380,6 +380,7 @@
       "recovery": "34",
       "frame_adv": "7",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "22A~22A",

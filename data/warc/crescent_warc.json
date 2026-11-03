@@ -206,6 +206,7 @@
       "recovery": "14",
       "frame_adv": "-9 (TK)",
       "proration": "100%50% (O)",
+      "guard": "LHA, HA",
       "invuln": "-",
       "alts": [
         "j.2C",

@@ -453,6 +453,7 @@
       "recovery": "29",
       "frame_adv": "-",
       "proration": "50%",
+      "guard": "-",
       "invuln": "-",
       "alts": []
     },

@@ -118,6 +118,7 @@
       "recovery": "13",
       "frame_adv": "-6",
       "proration": "60% (O)",
+      "guard": "H",
       "invuln": "-",
       "alts": [
         "2C/[C]~2C",
@@ -146,6 +147,7 @@
       "recovery": "29",
       "frame_adv": "-19",
       "proration": "50% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "2C/[C]~2C",

@@ -318,6 +318,7 @@
       "recovery": "17",
       "frame_adv": "9 ~ 19",
       "proration": "75% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "22B~22[A]",
@@ -369,6 +370,7 @@
       "recovery": "17",
       "frame_adv": "9 ~ 19",
       "proration": "75% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "22C~22[A]",
@@ -447,6 +449,7 @@
       "recovery": "16",
       "frame_adv": "36 (jump cancelled TK)",
       "proration": "60% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": []
     },
@@ -514,6 +517,7 @@
       "recovery": "8",
       "frame_adv": "-",
       "proration": "75% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "j.22B~j.22[A]",
@@ -565,6 +569,7 @@
       "recovery": "8",
       "frame_adv": "-",
       "proration": "75% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "j.22C~j.22[A]",

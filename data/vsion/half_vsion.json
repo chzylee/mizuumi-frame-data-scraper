@@ -328,6 +328,7 @@
       "recovery": "19",
       "frame_adv": "18 (vs. Stand)8 ~ -4 (vs. Crouch)",
       "proration": "94%*4 (M)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "214A",
@@ -347,6 +348,7 @@
       "recovery": "43 (Total Duration)",
       "frame_adv": "-",
       "proration": "50% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "214B",

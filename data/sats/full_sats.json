@@ -322,6 +322,7 @@
       "recovery": "21",
       "frame_adv": "-2",
       "proration": "70% (O)1 Hit, 1 Hit",
+      "guard": "H, LH",
       "invuln": "-",
       "alts": [
         "214B",
@@ -337,6 +338,7 @@
       "recovery": "21",
       "frame_adv": "-2",
       "proration": "70% (O)1 Hit, 1 Hit",
+      "guard": "H, LH",
       "invuln": "-",
       "alts": [
         "214[B]",
@@ -352,6 +354,7 @@
       "recovery": "23",
       "frame_adv": "-8",
       "proration": "100%1 Hit",
+      "guard": "H",
       "invuln": "-",
       "alts": [
         "214[B] Lv 3",
@@ -366,6 +369,7 @@
       "recovery": "23",
       "frame_adv": "-8, +10 when jump cancelled",
       "proration": "100%1 Hit",
+      "guard": "H",
       "invuln": "-",
       "alts": [
         "214[B] Lv 4",

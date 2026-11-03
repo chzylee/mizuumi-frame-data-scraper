@@ -88,6 +88,7 @@
       "recovery": "7",
       "frame_adv": "8 ~ 10",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "5C Laser"
@@ -245,6 +246,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "-",
       "invuln": "-",
       "alts": [
         "236A/B~236A",
@@ -264,6 +266,7 @@
       "recovery": "23",
       "frame_adv": "-3",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "Full 1-8",
       "alts": [
         "236C236A"
@@ -529,6 +532,7 @@
       "recovery": "-",
       "frame_adv": "0/24",
       "proration": "70% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "j.214A",
@@ -545,6 +549,7 @@
       "recovery": "-",
       "frame_adv": "-7 (TK)",
       "proration": "50% (M)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": []
     }

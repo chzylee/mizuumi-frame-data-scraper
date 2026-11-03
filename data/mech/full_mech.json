@@ -322,6 +322,7 @@
       "recovery": "46",
       "frame_adv": "-",
       "proration": "70%",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "22A Summon"
@@ -347,6 +348,7 @@
       "recovery": "1",
       "frame_adv": "-",
       "proration": "70%",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "22B Summon"
@@ -372,6 +374,7 @@
       "recovery": "46",
       "frame_adv": "-",
       "proration": "60%",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "22C Machine",

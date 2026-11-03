@@ -72,6 +72,7 @@
       "recovery": "27",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "U",
       "invuln": "-",
       "alts": [
         "5[C]C"
@@ -149,6 +150,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "90% (O)",
+      "guard": "HA",
       "invuln": "-",
       "alts": [
         "j.B (rising)",
@@ -163,6 +165,7 @@
       "recovery": "-",
       "frame_adv": "-",
       "proration": "90% (O)",
+      "guard": "HA",
       "invuln": "-",
       "alts": [
         "j.B2",
@@ -250,6 +253,7 @@
       "recovery": "18",
       "frame_adv": "-5",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "236A",
@@ -264,6 +268,7 @@
       "recovery": "12",
       "frame_adv": "13 / 8",
       "proration": "70% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "236[A]",
@@ -302,6 +307,7 @@
       "recovery": "18",
       "frame_adv": "-5",
       "proration": "70%",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "236A/B236[A/B]",
@@ -325,6 +331,7 @@
       "recovery": "37",
       "frame_adv": "-28",
       "proration": "100%",
+      "guard": "LA",
       "invuln": "-",
       "alts": [
         "~236A/B Ender",
@@ -342,6 +349,7 @@
       "recovery": "23",
       "frame_adv": "-7",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "~2314A/B Ender",
@@ -359,6 +367,7 @@
       "recovery": "23",
       "frame_adv": "-7",
       "proration": "100%",
+      "guard": "HA",
       "invuln": "-",
       "alts": [
         "~2314[A/B] Ender",
@@ -412,6 +421,7 @@
       "recovery": "27",
       "frame_adv": "-10",
       "proration": "50% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "623A~6A",
@@ -431,6 +441,7 @@
       "recovery": "23",
       "frame_adv": "-7",
       "proration": "50% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": [
         "623B~6A",
@@ -450,6 +461,7 @@
       "recovery": "25",
       "frame_adv": "-14",
       "proration": "70% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "623C~6A",
@@ -599,6 +611,7 @@
       "recovery": "3",
       "frame_adv": "-13",
       "proration": "50% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "22A66A"
@@ -626,6 +639,7 @@
       "recovery": "3",
       "frame_adv": "-16 (Best)",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "22X66C",
@@ -717,6 +731,7 @@
       "recovery": "3",
       "frame_adv": "-",
       "proration": "50% (O)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "j.22A66A"
@@ -744,6 +759,7 @@
       "recovery": "3",
       "frame_adv": "-",
       "proration": "100%",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "j.22X66C",
