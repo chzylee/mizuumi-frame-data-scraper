@@ -1,0 +1,57 @@
+{
+  "character_name": "",
+  "moon": 5,
+  "content_hash": "abc",
+  "moves": [
+    {
+      "input": "5A"
+    },
+    {
+      "input": 7,
+      "image": "x",
+      "alts": "nope"
+    },
+    {
+      "image": "i",
+      "alts": [
+        1
+      ]
+    },
+    "notadict",
+    {
+      "input": "it's",
+      "alts": null
+    },
+    {
+      "input": "both ' and \"",
+      "alts": null
+    },
+    {
+      "input": "nb\u00a0sp\u200b\u007f\ud83d\ude00\u0300\u0001\u0085\\",
+      "alts": null
+    },
+    {
+      "input": null,
+      "alts": null
+    },
+    {
+      "input": [
+        1,
+        "a",
+        null,
+        true,
+        2.5,
+        {
+          "k": "v"
+        }
+      ],
+      "alts": null
+    },
+    {
+      "input": 1e+100,
+      "alts": [
+        "ok"
+      ]
+    }
+  ]
+}

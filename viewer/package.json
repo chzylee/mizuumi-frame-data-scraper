@@ -1,0 +1,36 @@
+{
+  "name": "mbaacc-data-viewer",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local viewer/editor for data/ (the record of the MBAACC-Frame-Data table).",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "concurrently --kill-others --names api,web --prefix-colors blue,magenta \"npm:serve:api\" \"npm:serve:web\"",
+    "serve:api": "tsx server/main.ts",
+    "serve:web": "vite",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run --exclude tests/parity.test.ts",
+    "test:parity": "vitest run tests/parity.test.ts",
+    "test:all": "vitest run"
+  },
+  "dependencies": {
+    "express": "5.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.6",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.2.1",
+    "concurrently": "10.0.6",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.5",
+    "vitest": "5.1.0"
+  }
+}
