@@ -159,7 +159,10 @@ export function planSave(config: ViewerConfig, request: SaveRequest): { planned:
     let current: Buffer | null = null;
     if (existed) current = readFileSync(absolute);
     if (file.baseHash === null && existed) {
-      problems.push(`${target}: already exists on disk (created since the viewer loaded?). Reload.`);
+      problems.push(
+        `${target}: already exists on disk, so it can't be added as a new file. ` +
+          "If the viewer lists it as unloadable, fix or restore it; otherwise it appeared since the viewer loaded. Reload.",
+      );
       continue;
     }
     if (file.baseHash !== null && (!current || sha256(current) !== file.baseHash)) {

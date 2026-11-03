@@ -5,6 +5,9 @@
  *
  * Merge rule (the same as fill_from_scrape): items match by key
  * (character_name + moon), moves by identity (input + occurrence of that input).
+ * Move pairing is computed once, at load, on data/ as loaded; edits (even to
+ * `input`) never re-pair moves. A data/ file that fails to load is reported in
+ * `dataErrors` and nothing from the scrape is ever staged at its path.
  *
  * What the scrape adds is staged automatically (blue) and written only on save:
  *   - an item only in the scrape becomes a new item, at pathFor(key);
@@ -55,6 +58,12 @@ export interface MoveState {
   fields: JsonObject;
   /** Fields copied in from the scrape onto this data move (staged, blue). */
   addedFields: readonly string[];
+  /**
+   * Index of the scraped move this move is compared with, fixed at load by
+   * (input, occurrence) on data/ as loaded; null when it has none. Edits never
+   * change it, so renaming one move's input never re-pairs the others.
+   */
+  scrapedIndex: number | null;
 }
 
 export interface ItemState {
@@ -71,10 +80,18 @@ export interface ItemState {
   moves: MoveState[];
 }
 
+/** A data/ file the viewer could not load. It is not shown, compared or saved. */
+export interface DataFileError {
+  path: string;
+  error: string;
+}
+
 export interface Workspace {
   items: ItemState[];
   scrapedAvailable: boolean;
-  /** Files that could not be loaded or compared, as human-readable lines. */
+  /** data/ files that could not be loaded; they must be fixed or restored by hand. */
+  dataErrors: DataFileError[];
+  /** Other things that could not be loaded or compared (scrape side), as lines. */
   problems: string[];
   charMappings: CharMappings;
 }
@@ -99,32 +116,32 @@ interface Parsed {
   moves: JsonObject[];
 }
 
-/** Parse a root's files into items the viewer can show; the rest become problems. */
-function parseRoot(label: string, files: { path: string; text: string; hash: string }[], problems: string[]) {
+/** Parse a root's files into items the viewer can show; the rest are reported as failed. */
+function parseRoot(label: string, files: { path: string; text: string; hash: string }[], failed: DataFileError[]) {
   const byId = new Map<string, Parsed>();
   for (const file of files) {
-    const where = `${label}/${file.path}`;
+    const fail = (error: string) => failed.push({ path: file.path, error });
     let item: Json;
     try {
       item = loads(file.text);
     } catch (error) {
-      problems.push(`${where}: not valid JSON (${(error as Error).message})`);
+      fail(`not valid JSON (${(error as Error).message})`);
       continue;
     }
     if (!isObject(item) || typeof item.character_name !== "string" || typeof item.moon !== "string") {
-      problems.push(`${where}: skipped, no string character_name and moon`);
+      fail("no string character_name and moon");
       continue;
     }
     const moves = item.moves;
     if (!Array.isArray(moves) || !moves.every(isObject)) {
-      problems.push(`${where}: skipped, 'moves' is not a list of objects`);
+      fail("'moves' is not a list of objects");
       continue;
     }
     const key = { character_name: item.character_name, moon: item.moon };
     const id = itemId(key);
     const earlier = byId.get(id);
     if (earlier) {
-      problems.push(`${where}: duplicate key ${id}, also in ${label}/${earlier.path}; ignored`);
+      fail(`duplicate key ${id}, also in ${label}/${earlier.path}`);
       continue;
     }
     byId.set(id, { path: file.path, hash: file.hash, item, key, moves: moves as JsonObject[] });
@@ -139,6 +156,7 @@ function mergeMoves(id: string, dataMoves: JsonObject[], scrapedMoves: JsonObjec
     dataIndex: index,
     fields: cloneJson(move),
     addedFields: [],
+    scrapedIndex: null,
   }));
   if (!scrapedMoves) return merged;
 
@@ -151,11 +169,9 @@ function mergeMoves(id: string, dataMoves: JsonObject[], scrapedMoves: JsonObjec
       const at = merged.findIndex((move) => move.uid === matchedUid);
       const move = merged[at]!;
       const added = Object.keys(scrapedMove).filter((field) => field !== "image" && !has(move.fields, field));
-      if (added.length) {
-        const fields = cloneJson(move.fields);
-        for (const field of added) setKey(fields, field, cloneJson(scrapedMove[field]!));
-        merged[at] = { ...move, fields, addedFields: added };
-      }
+      const fields = cloneJson(move.fields);
+      for (const field of added) setKey(fields, field, cloneJson(scrapedMove[field]!));
+      merged[at] = { ...move, fields, addedFields: added, scrapedIndex: k };
       cursor = at + 1;
       return;
     }
@@ -165,22 +181,31 @@ function mergeMoves(id: string, dataMoves: JsonObject[], scrapedMoves: JsonObjec
       if (inputKey(move.fields) === input) lastSameInput = index;
     });
     const at = Math.max(cursor, lastSameInput + 1);
-    merged.splice(at, 0, { uid: `${id}|s${k}`, isNew: true, dataIndex: null, fields: cloneJson(scrapedMove), addedFields: [] });
+    merged.splice(at, 0, newMove(id, scrapedMove, k));
     cursor = at + 1;
   });
   return merged;
 }
 
+function newMove(id: string, scrapedMove: JsonObject, k: number): MoveState {
+  return { uid: `${id}|s${k}`, isNew: true, dataIndex: null, fields: cloneJson(scrapedMove), addedFields: [], scrapedIndex: k };
+}
+
 export function buildWorkspace(snapshot: Snapshot): Workspace {
   const problems: string[] = [];
+  const dataErrors: DataFileError[] = [];
   const mappings = snapshot.charMappings;
   if (snapshot.data.status !== "ok") {
-    return { items: [], scrapedAvailable: snapshot.scraped !== null, problems, charMappings: mappings };
+    return { items: [], scrapedAvailable: snapshot.scraped !== null, dataErrors, problems, charMappings: mappings };
   }
-  for (const file of snapshot.data.unreadable) problems.push(`data/${file.path}: ${file.error}`);
-  for (const file of snapshot.scraped?.unreadable ?? []) problems.push(`scraped/${file.path}: ${file.error}`);
-  const data = parseRoot("data", snapshot.data.files, problems);
-  const scraped = snapshot.scraped ? parseRoot("scraped", snapshot.scraped.files, problems) : new Map<string, Parsed>();
+  for (const file of snapshot.data.unreadable) dataErrors.push({ path: file.path, error: file.error });
+  const data = parseRoot("data", snapshot.data.files, dataErrors);
+  const scrapedErrors: DataFileError[] = [...(snapshot.scraped?.unreadable ?? [])];
+  const scraped = snapshot.scraped ? parseRoot("scraped", snapshot.scraped.files, scrapedErrors) : new Map<string, Parsed>();
+  for (const failed of scrapedErrors) problems.push(`scraped/${failed.path}: ${failed.error}; not compared`);
+  // Every data/ path on disk, loaded or not: a new item must never land on one.
+  const onDisk = new Set([...snapshot.data.files.map((f) => f.path), ...snapshot.data.unreadable.map((f) => f.path)]);
+  const failedPaths = new Set(dataErrors.map((f) => f.path));
 
   const items: ItemState[] = [];
   for (const [id, entry] of data) {
@@ -205,6 +230,16 @@ export function buildWorkspace(snapshot: Snapshot): Workspace {
       problems.push(`scraped/${entry.path}: no valid data/ path for ${id} (${(error as Error).message}); not added`);
       continue;
     }
+    if (onDisk.has(path)) {
+      // Typically the data/ file failed to load (a merge conflict, say). Staging the
+      // scraped copy as "new" would collide with it and block every save.
+      problems.push(
+        failedPaths.has(path)
+          ? `scraped/${entry.path}: not compared or added, because data/${path} could not be loaded; fix or restore it`
+          : `scraped/${entry.path}: not added, because data/${path} exists but holds a different key`,
+      );
+      continue;
+    }
     items.push({
       id,
       key: entry.key,
@@ -213,10 +248,11 @@ export function buildWorkspace(snapshot: Snapshot): Workspace {
       baseHash: null,
       base: null,
       scraped: entry.item,
-      moves: entry.moves.map((move, k) => ({ uid: `${id}|s${k}`, isNew: true, dataIndex: null, fields: cloneJson(move), addedFields: [] })),
+      moves: entry.moves.map((move, k) => newMove(id, move, k)),
     });
   }
-  return { items, scrapedAvailable: snapshot.scraped !== null && snapshot.scraped.files.length > 0, problems, charMappings: mappings };
+  const scrapedAvailable = snapshot.scraped !== null && snapshot.scraped.files.length > 0;
+  return { items, scrapedAvailable, dataErrors, problems, charMappings: mappings };
 }
 
 // --- diff status -------------------------------------------------------------------
@@ -233,20 +269,17 @@ export interface ItemStatus {
   moves: Map<string, MoveStatus>;
 }
 
-/** Diff status of every move and field, matching the scrape on the current identities. */
+/**
+ * Diff status of every move and field. Each move is compared with the scraped
+ * move it was paired with at load (MoveState.scrapedIndex), so an edit, even to
+ * `input`, changes only the edited move's colors.
+ */
 export function itemStatus(item: ItemState): ItemStatus {
-  const scrapedMoves = (item.scraped?.moves ?? []) as Json[];
-  const scrapedById = new Map<string, JsonObject>();
-  if (Array.isArray(scrapedMoves)) {
-    moveIdentities(scrapedMoves).forEach((identity, k) => {
-      const move = scrapedMoves[k];
-      if (isObject(move)) scrapedById.set(identity, move);
-    });
-  }
-  const identities = moveIdentities(item.moves.map((move) => move.fields));
+  const scrapedMoves = (item.scraped?.moves ?? []) as JsonObject[];
   const moves = new Map<string, MoveStatus>();
-  item.moves.forEach((move, index) => {
-    const scraped = move.isNew ? null : scrapedById.get(identities[index]!) ?? null;
+  item.moves.forEach((move) => {
+    const paired = move.isNew || move.scrapedIndex === null ? undefined : scrapedMoves[move.scrapedIndex];
+    const scraped = paired && isObject(paired) ? paired : null;
     const fields: Record<string, Status> = {};
     for (const field of Object.keys(move.fields)) {
       if (field === "image") fields[field] = "none";

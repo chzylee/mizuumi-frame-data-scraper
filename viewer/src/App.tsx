@@ -69,8 +69,10 @@ export function App({ source }: { source: DataSource }) {
   useEffect(() => {
     if (pending === 0 && drafts === 0) return;
     const warn = (event: BeforeUnloadEvent) => {
+      // preventDefault() is what asks current browsers to prompt. Some older ones
+      // prompt only when returnValue is set to a non-empty string; none show the text.
       event.preventDefault();
-      event.returnValue = ""; // older browsers need this to show the prompt
+      event.returnValue = "You have unsaved changes.";
     };
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
@@ -119,9 +121,27 @@ export function App({ source }: { source: DataSource }) {
         </div>
       )}
       {loadError && <div className="banner banner-error">Could not load: {loadError}</div>}
+      {ws.dataErrors.length > 0 && (
+        <div className="banner banner-error" role="alert">
+          <strong>
+            {ws.dataErrors.length} data/ file{ws.dataErrors.length === 1 ? "" : "s"} could not be loaded. Fix or restore{" "}
+            {ws.dataErrors.length === 1 ? "it" : "each one"} (resolve the merge conflict, or{" "}
+            <code>git checkout -- data/&lt;path&gt;</code>), then reload.
+          </strong>{" "}
+          Until then {ws.dataErrors.length === 1 ? "it is" : "they are"} not shown, not compared, and never written; the
+          rest can still be edited and saved.
+          <ul>
+            {ws.dataErrors.map((f) => (
+              <li key={f.path}>
+                <code>data/{f.path}</code>: {f.error}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {ws.problems.length > 0 && (
         <details className="banner banner-warn">
-          <summary>{ws.problems.length} file(s) could not be loaded or compared</summary>
+          <summary>{ws.problems.length} scraped file(s) or item(s) could not be compared</summary>
           <ul>{ws.problems.map((p) => <li key={p}>{p}</li>)}</ul>
         </details>
       )}

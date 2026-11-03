@@ -14,7 +14,7 @@ import {
   type ItemState,
   type Workspace,
 } from "../shared/workspace";
-import { item, move, snapshot } from "./helpers";
+import { file, item, move, snapshot } from "./helpers";
 
 const inputs = (it: ItemState) => it.moves.map((m) => m.fields.input);
 const only = (ws: Workspace) => {
@@ -240,9 +240,33 @@ describe("loading", () => {
     snap.data.files.push({ path: "copy.json", text: dumps(item([move("5A")])), hash: "y" });
     const ws = buildWorkspace(snap);
     expect(ws.items).toHaveLength(1);
-    expect(ws.problems).toHaveLength(2);
-    expect(ws.problems[0]).toMatch(/^data\/broken\.json: not valid JSON/);
-    expect(ws.problems[1]).toMatch(/^data\/copy\.json: duplicate key/);
+    expect(ws.dataErrors).toHaveLength(2);
+    expect(ws.dataErrors[0]!.path).toBe("broken.json");
+    expect(ws.dataErrors[0]!.error).toMatch(/^not valid JSON/);
+    expect(ws.dataErrors[1]!.path).toBe("copy.json");
+    expect(ws.dataErrors[1]!.error).toMatch(/^duplicate key .* also in data\/kouma\/crescent_kouma\.json$/);
+    expect(ws.problems).toEqual([]);
+  });
+
+  it("never stages a scraped item as new over a data/ file that failed to load", () => {
+    const snap = snapshot([item([move("5A")])], [item([move("5A", { guard: "LH" })]), item([move("5A")], "Aoko_Aozaki", "Full_Moon")]);
+    if (snap.data.status !== "ok") throw new Error("setup");
+    snap.data.files.push({ path: "aoko/full_aoko.json", text: "<<<<<<< HEAD\n{}", hash: "x" });
+    snap.data.unreadable.push({ path: "aoko/half_aoko.json", error: "not valid UTF-8" });
+    snap.scraped!.files.push(file(item([move("5A")], "Aoko_Aozaki", "Half_Moon")));
+    const ws = buildWorkspace(snap);
+    expect(ws.items.map((it) => it.path)).toEqual(["kouma/crescent_kouma.json"]);
+    expect(ws.dataErrors).toEqual([
+      { path: "aoko/half_aoko.json", error: "not valid UTF-8" },
+      { path: "aoko/full_aoko.json", error: "not valid JSON (Expecting value at char 0)" },
+    ]);
+    expect(ws.problems).toEqual([
+      "scraped/aoko/full_aoko.json: not compared or added, because data/aoko/full_aoko.json could not be loaded; fix or restore it",
+      "scraped/aoko/half_aoko.json: not compared or added, because data/aoko/half_aoko.json could not be loaded; fix or restore it",
+    ]);
+    // The rest stays saveable: only the loaded item is in the save.
+    const request = saveRequest(pendingChanges(ws));
+    expect(request.files.map((f) => f.path)).toEqual(["kouma/crescent_kouma.json"]);
   });
 
   it("saves the changed item byte-identical to what Python would write, extras kept", () => {

@@ -178,7 +178,10 @@ npm start       # API on 127.0.0.1:5175, UI on http://127.0.0.1:5174
 Both servers bind `127.0.0.1` only. `VIEWER_DATA_DIR` and `VIEWER_SCRAPED_DIR` point it
 at other directories (default `data/` and `local-data/scraped/`, from the repo root
 wherever you run it). If `data/` is missing or empty, the viewer says so and edits
-nothing: `data/` only ever comes from a pull.
+nothing: `data/` only ever comes from a pull. A `data/` file that can't be loaded (a
+merge conflict, say) is listed at the top with its error; fix or restore it and reload.
+Until then it is skipped, and nothing from the scrape is staged in its place, so the
+rest can still be saved.
 
 **Browse.** Pick a character, then a moon. Each move shows its hitbox image and every
 field it has, known fields in canonical order and any others after them.
@@ -189,7 +192,8 @@ lock, which stages the edit. Fields still unlocked when you save are not saved.
 
 **Diffs.** With a scrape in `local-data/scraped/` (`python main.py` from `src`), **Show
 diffs** compares `data/` with it, matching items by key and moves by input and
-occurrence, as `fill_from_scrape` does: green matches, red differs (the scraped value
+occurrence, as `fill_from_scrape` does. Moves are paired once, when the viewer loads;
+editing a move (even its `input`) never re-pairs it or any other move. Green matches, red differs (the scraped value
 in red italics beside it), blue exists only in the scrape. `image` is never compared or
 colored. Things only in `data/` are left uncolored. Characters, moons and moves take
 their children's worst status (red, then blue, then green).

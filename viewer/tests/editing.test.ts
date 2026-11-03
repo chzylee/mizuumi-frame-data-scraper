@@ -71,17 +71,53 @@ describe("lock / stage", () => {
     expect(saveRequest(pendingChanges(s.ws)).files[0]!.text).toContain('"alts": [\n        "5a",\n        "jab"\n      ]');
   });
 
-  it("an input edit changes identity: the move re-matches the scrape", () => {
+  const renameInput = (state: EditorState, itemId: string, uid: string, value: string) => {
+    let s = editorReducer(state, { type: "unlock", itemId, uid, field: "input" });
+    s = editorReducer(s, { type: "draft", uid, field: "input", value });
+    return editorReducer(s, { type: "relock", itemId, uid, field: "input" });
+  };
+
+  it("an input edit keeps the move's load-time pairing (none stays none)", () => {
     const ws = buildWorkspace(snapshot([item([move("5a")])], [item([move("5A")])]));
     const it = ws.items[0]!;
     // The typo'd data move matches nothing, and the scrape's 5A is staged as new.
     expect(it.moves.map((m) => [m.fields.input, m.isNew])).toEqual([["5A", true], ["5a", false]]);
     const uid = it.moves[1]!.uid;
-    let s = editorReducer(initialEditor(ws), { type: "unlock", itemId: it.id, uid, field: "input" });
-    s = editorReducer(s, { type: "draft", uid, field: "input", value: "5A" });
-    s = editorReducer(s, { type: "relock", itemId: it.id, uid, field: "input" });
+    const s = renameInput(initialEditor(ws), it.id, uid, "5A");
     const status = itemStatus(s.ws.items[0]!).moves.get(uid)!;
-    expect(status.fields.input).toBe("none"); // now 5A#1: the scrape has no second 5A
+    expect(status.scraped).toBeNull(); // unpaired at load, still unpaired: no re-match on edit
+    expect(status.fields.input).toBe("none");
+  });
+
+  it("an input edit keeps the move's load-time pairing (a paired move shows its rename as red)", () => {
+    const ws = buildWorkspace(snapshot([item([move("5A", { active: "3" })])], [item([move("5A", { active: "3" })])]));
+    const it = ws.items[0]!;
+    const uid = it.moves[0]!.uid;
+    const status = itemStatus(renameInput(initialEditor(ws), it.id, uid, "5AX").ws.items[0]!).moves.get(uid)!;
+    expect(status.fields.input).toBe("red");
+    expect(status.scraped!.input).toBe("5A");
+    expect(status.fields.active).toBe("green");
+  });
+
+  it("renaming one move's input never re-pairs an untouched move with the same input", () => {
+    // The auditor's case: data [2C, 2C]; renaming the first must not make the
+    // second compare against the scrape's first 2C.
+    const ws = buildWorkspace(
+      snapshot(
+        [item([move("2C", { first_active: "5" }), move("2C", { first_active: "7" })])],
+        [item([move("2C", { first_active: "5", guard: "L" }), move("2C", { first_active: "7", guard: "H" })])],
+      ),
+    );
+    const it = ws.items[0]!;
+    const [first, second] = it.moves;
+    const before = itemStatus(it).moves.get(second!.uid)!;
+    const s = renameInput(initialEditor(ws), it.id, first!.uid, "2CX");
+    const after = itemStatus(s.ws.items[0]!).moves.get(second!.uid)!;
+    expect(after).toEqual(before);
+    expect(after.fields.first_active).toBe("green");
+    expect(after.fields.guard).toBe("blue");
+    expect(after.scraped!.guard).toBe("H"); // still the scrape's second 2C
+    expect(s.ws.items[0]!.moves[1]!.fields.guard).toBe("H");
   });
 
   it("non-string values are read-only", () => {

@@ -9,6 +9,7 @@ import { sha256 } from "../shared/files";
 import { createApp } from "../server/app";
 import { MAPPINGS_FILE, type ViewerConfig } from "../server/config";
 import { atomicWrite, type WriteOps } from "../server/store";
+import { buildWorkspace, pendingChanges, saveRequest } from "../shared/workspace";
 import { item, move } from "./helpers";
 
 let root: string;
@@ -169,6 +170,26 @@ describe("POST /api/save", () => {
     expect(res.status).toBe(409);
     expect(res.body.error).toMatch(/Pull from DynamoDB first/);
     expect(existsSync(config.dataDir)).toBe(false);
+  });
+
+  it("still saves the rest when a data/ file has a merge conflict, and leaves that file alone", async () => {
+    const conflicted = "<<<<<<< HEAD\n" + dumps(item([move("5A")], "Aoko_Aozaki", "Full_Moon")) + "=======\n>>>>>>> other\n";
+    put(config.dataDir, "aoko/full_aoko.json", conflicted);
+    put(config.scrapedDir, KOUMA, dumps(item([move("5A", { guard: "LH" }), move("5B", { guard: "H" })])));
+    put(config.scrapedDir, "aoko/full_aoko.json", dumps(item([move("5A", { guard: "L" })], "Aoko_Aozaki", "Full_Moon")));
+    const base = await start();
+    const snap = (await (await fetch(`${base}/api/snapshot`)).json()) as Snapshot;
+    const ws = buildWorkspace(snap);
+    expect(ws.dataErrors.map((f) => f.path)).toEqual(["aoko/full_aoko.json"]);
+    const res = await save(base, saveRequest(pendingChanges(ws)));
+    expect(res).toEqual({ status: 200, body: { written: [{ path: KOUMA, status: "updated" }], warnings: [] } });
+    expect(read("aoko/full_aoko.json")).toBe(conflicted);
+  });
+
+  it("explains a new-file collision instead of only blaming a race", async () => {
+    const base = await start();
+    const res = await save(base, { files: [{ path: null, baseHash: null, text: dumps(kouma()) }] });
+    expect(res.body.problems[0]).toMatch(/If the viewer lists it as unloadable, fix or restore it/);
   });
 
   it("reports unchanged when the bytes already match", async () => {
