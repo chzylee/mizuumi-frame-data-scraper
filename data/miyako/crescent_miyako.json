@@ -1,0 +1,427 @@
+{
+  "character_name": "Miyako_Arima",
+  "moon": "Crescent_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/3/36/MBCMiyako5A.png",
+      "first_active": "4",
+      "active": "5",
+      "recovery": "7",
+      "frame_adv": "0",
+      "proration": "72% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/6/6b/MBCMiyako5B.png",
+      "first_active": "6",
+      "active": "4",
+      "recovery": "11",
+      "frame_adv": "0",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/9/98/MBCMiyako5C.png",
+      "first_active": "10",
+      "active": "6",
+      "recovery": "18",
+      "frame_adv": "-6",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5[C]",
+      "image": "https://wiki.gbl.gg/images/9/98/MBCMiyako5C.png",
+      "first_active": "30",
+      "active": "10",
+      "recovery": "18",
+      "frame_adv": "-10",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/b/b9/MBCMiyako2A.png",
+      "first_active": "4",
+      "active": "4",
+      "recovery": "10",
+      "frame_adv": "-2",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8c/MBCMiyako2B.png/175px-MBCMiyako2B.png",
+      "first_active": "8",
+      "active": "5",
+      "recovery": "19",
+      "frame_adv": "-9",
+      "proration": "75% (O)",
+      "invuln": "Clash 7-12",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/8/8d/MBCMiyako2C.png",
+      "first_active": "6",
+      "active": "3",
+      "recovery": "18",
+      "frame_adv": "-3",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/5/54/MBCMiyakojA.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "10",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/0/07/MBCMiyakojB.png",
+      "first_active": "7",
+      "active": "7",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/b/ba/MBCMiyakojC.png",
+      "first_active": "8",
+      "active": "8",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6B",
+      "image": "https://wiki.gbl.gg/images/3/35/MBCMiyako6B.png",
+      "first_active": "13",
+      "active": "4",
+      "recovery": "19",
+      "frame_adv": "-8",
+      "proration": "75% (M)",
+      "invuln": "Clash 13-16",
+      "alts": []
+    },
+    {
+      "input": "6C",
+      "image": "https://wiki.gbl.gg/images/5/56/MBCMiyako6C.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "17",
+      "frame_adv": "-3",
+      "proration": "70% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/6/64/MBCMiyako236A.png/175px-MBCMiyako236A.png",
+      "first_active": "11",
+      "active": "4",
+      "recovery": "23",
+      "frame_adv": "-2",
+      "proration": "100%",
+      "invuln": "Full 5-6",
+      "alts": []
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c5/MBCMiyako236B.png/175px-MBCMiyako236B.png",
+      "first_active": "25",
+      "active": "4",
+      "recovery": "37",
+      "frame_adv": "-3",
+      "proration": "80% (O)",
+      "invuln": "Full 12-14",
+      "alts": []
+    },
+    {
+      "input": "236B~6A",
+      "image": "https://wiki.gbl.gg/images/8/8b/MBCMiyako236AB6A.png",
+      "first_active": "14",
+      "active": "4",
+      "recovery": "20",
+      "frame_adv": "-3",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": [
+        "236B6A",
+        "236BA",
+        "236B~A"
+      ]
+    },
+    {
+      "input": "236B~6A~6[A]",
+      "image": "https://wiki.gbl.gg/images/thumb/2/20/MBCMiyako236AB6B.png/175px-MBCMiyako236AB6B.png",
+      "first_active": "30",
+      "active": "4",
+      "recovery": "20",
+      "frame_adv": "-6",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": [
+        "236B6A6[A]",
+        "236BA[A]",
+        "236B~A[A]",
+        "236B6A[A]",
+        "236B~6A[A]"
+      ]
+    },
+    {
+      "input": "236B~6A~6[A]~6B",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ef/MBCMiyako236AB6C.png/175px-MBCMiyako236AB6C.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "25",
+      "frame_adv": "-9",
+      "proration": "-",
+      "invuln": "Strike",
+      "alts": [
+        "236B6A6[A]6B",
+        "236BA[A]B",
+        "236B~A[A]B",
+        "236B6A[A]B",
+        "236B~6A[A]B"
+      ]
+    },
+    {
+      "input": "236B~6A~6[A]~6B~6C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d9/MBCMiyako236C.png/175px-MBCMiyako236C.png",
+      "first_active": "8",
+      "active": "7",
+      "recovery": "14",
+      "frame_adv": "-3",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": [
+        "236B6A6[A]6B6C",
+        "236BA[A]BC",
+        "236B~A[A]BC",
+        "236B6A[A]BC",
+        "236B~6A[A]BC"
+      ]
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d9/MBCMiyako236C.png/175px-MBCMiyako236C.png",
+      "first_active": "2+14",
+      "active": "3",
+      "recovery": "19",
+      "frame_adv": "-4",
+      "proration": "60% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/c/cb/MBCMiyako623A.png/175px-MBCMiyako623A.png",
+      "first_active": "6",
+      "active": "2 (12) 2",
+      "recovery": "30",
+      "frame_adv": "-28",
+      "proration": "100%",
+      "invuln": "Full 1-5, Low 6-7",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d3/MBCMiyako623B.png/175px-MBCMiyako623B.png",
+      "first_active": "27",
+      "active": "4 (2) 4 (8) 2",
+      "recovery": "18",
+      "frame_adv": "-2",
+      "proration": "100%, 50% (O), 60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/78/MBCMiyako623C.png/175px-MBCMiyako623C.png",
+      "first_active": "1+3",
+      "active": "4 (2) 3 (9) 2",
+      "recovery": "31",
+      "frame_adv": "-15 (vs Stand.)-27 (vs Crouch.)",
+      "proration": "100%, 50% (O, 3rd Hit)",
+      "invuln": "Full 1-9, High 10-12",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/d/db/MBCMiyako214A.png/175px-MBCMiyako214A.png",
+      "first_active": "15",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-5",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214[A]",
+      "image": "https://wiki.gbl.gg/images/thumb/f/fb/MBCMiyako214B.png/175px-MBCMiyako214B.png",
+      "first_active": "28",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/6/60/MBCMiyako214C.png/175px-MBCMiyako214C.png",
+      "first_active": "23",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-2",
+      "proration": "70% (O)",
+      "invuln": "Low 8-21",
+      "alts": []
+    },
+    {
+      "input": "214[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/6/60/MBCMiyako214C.png/175px-MBCMiyako214C.png",
+      "first_active": "34",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-2",
+      "proration": "70% (O)",
+      "invuln": "Low 17-32",
+      "alts": []
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/6/60/MBCMiyako214C.png/175px-MBCMiyako214C.png",
+      "first_active": "7+9",
+      "active": "3",
+      "recovery": "18",
+      "frame_adv": "-3",
+      "proration": "70% (M)",
+      "invuln": "Full 1-13",
+      "alts": []
+    },
+    {
+      "input": "22A",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ee/MBCMiyako22A.png/175px-MBCMiyako22A.png",
+      "first_active": "16",
+      "active": "3",
+      "recovery": "20",
+      "frame_adv": "-3 (vs Stand.)3 (vs Crouch.)",
+      "proration": "65% (O)",
+      "invuln": "Full 1, Clash 2-7",
+      "alts": []
+    },
+    {
+      "input": "22B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/50/MBCMiyako22B.png/175px-MBCMiyako22B.png",
+      "first_active": "27",
+      "active": "9",
+      "recovery": "12",
+      "frame_adv": "-1",
+      "proration": "70%",
+      "invuln": "Clash 3-12",
+      "alts": []
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/42/MBCMiyako22C.png/175px-MBCMiyako22C.png",
+      "first_active": "1+24",
+      "active": "X",
+      "recovery": "25",
+      "frame_adv": "-6 ~ 0",
+      "proration": "80%",
+      "invuln": "Full 1-24",
+      "alts": []
+    },
+    {
+      "input": "j.623A",
+      "image": "https://wiki.gbl.gg/images/thumb/8/89/MBCMiyakoj623AB.png/175px-MBCMiyakoj623AB.png",
+      "first_active": "4",
+      "active": "2 (5) 2",
+      "recovery": "9",
+      "frame_adv": "-22 (1st Hit TK)",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.623B",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6b/MBCMiyakoj623C.png/175px-MBCMiyakoj623C.png",
+      "first_active": "4",
+      "active": "3 (11) 10",
+      "recovery": "10",
+      "frame_adv": "-19 (TK 1st)1 (TK 2nd)",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.623C",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6b/MBCMiyakoj623C.png/175px-MBCMiyakoj623C.png",
+      "first_active": "1+3",
+      "active": "3 (6) 2",
+      "recovery": "6",
+      "frame_adv": "-32 (1st Hit TK)",
+      "proration": "100%, 70% (O)",
+      "invuln": "Full 1-3",
+      "alts": []
+    },
+    {
+      "input": "j.22A/B",
+      "image": "https://wiki.gbl.gg/images/thumb/1/1e/MBCMiyakoj22AB.png/175px-MBCMiyakoj22AB.png",
+      "first_active": "31",
+      "active": "7",
+      "recovery": "13",
+      "frame_adv": "0",
+      "proration": "50%",
+      "invuln": "-",
+      "alts": [
+        "j.22A",
+        "j.22B"
+      ]
+    },
+    {
+      "input": "j.22C",
+      "image": "https://wiki.gbl.gg/images/thumb/8/82/MBCMiyakoj22C.png/175px-MBCMiyakoj22C.png",
+      "first_active": "1+6",
+      "active": "X",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.22C",
+      "image": "https://wiki.gbl.gg/images/thumb/8/82/MBCMiyakoj22C.png/175px-MBCMiyakoj22C.png",
+      "first_active": "1+7",
+      "active": "6",
+      "recovery": "18",
+      "frame_adv": "2",
+      "proration": "50%",
+      "invuln": "-",
+      "alts": []
+    }
+  ]
+}

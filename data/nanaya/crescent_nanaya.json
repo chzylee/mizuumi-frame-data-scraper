@@ -1,0 +1,357 @@
+{
+  "character_name": "Shiki_Nanaya",
+  "moon": "Crescent_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6e/Cnana5a.png/175px-Cnana5a.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "8",
+      "frame_adv": "0",
+      "proration": "65% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d2/Cnana5b-1.png/175px-Cnana5b-1.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "11",
+      "frame_adv": "0",
+      "proration": "100%",
+      "invuln": "Clash 8-11",
+      "alts": []
+    },
+    {
+      "input": "5B~B",
+      "image": "https://wiki.gbl.gg/images/thumb/f/fa/Cnana5bb.png/175px-Cnana5bb.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "39",
+      "frame_adv": "-16",
+      "proration": "63% (O)",
+      "invuln": "-",
+      "alts": [
+        "5BB"
+      ]
+    },
+    {
+      "input": "5B~[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/f/fa/Cnana5bb.png/175px-Cnana5bb.png",
+      "first_active": "28",
+      "active": "4",
+      "recovery": "41",
+      "frame_adv": "-16",
+      "proration": "60%",
+      "invuln": "-",
+      "alts": [
+        "5B[B]"
+      ]
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/5/5f/Cnana5c.png/175px-Cnana5c.png",
+      "first_active": "9",
+      "active": "5",
+      "recovery": "26",
+      "frame_adv": "-12",
+      "proration": "90% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/5/5f/Cnana5c.png/175px-Cnana5c.png",
+      "first_active": "27",
+      "active": "4",
+      "recovery": "26",
+      "frame_adv": "-11",
+      "proration": "50%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/thumb/a/af/Cnana2a.png/175px-Cnana2a.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "9",
+      "frame_adv": "-1",
+      "proration": "68% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9d/Cnana2b.png/175px-Cnana2b.png",
+      "first_active": "8",
+      "active": "6",
+      "recovery": "16",
+      "frame_adv": "-7",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/db/Cnana2c.png/175px-Cnana2c.png",
+      "first_active": "11",
+      "active": "9",
+      "recovery": "15",
+      "frame_adv": "-9",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/6/67/Cnanaja.png/175px-Cnanaja.png",
+      "first_active": "6",
+      "active": "4",
+      "recovery": "10",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2a/Cnanajb.png/175px-Cnanajb.png",
+      "first_active": "7",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4d/Cnanajc.png/175px-Cnanajc.png",
+      "first_active": "10",
+      "active": "6",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7f/Cnana236a.png/175px-Cnana236a.png",
+      "first_active": "11",
+      "active": "22",
+      "recovery": "20",
+      "frame_adv": "-1",
+      "proration": "100%*5, 80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a3/Cnana236c-1.png/175px-Cnana236c-1.png",
+      "first_active": "16",
+      "active": "47",
+      "recovery": "25",
+      "frame_adv": "-6",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a3/Cnana236c-1.png/175px-Cnana236c-1.png",
+      "first_active": "4+7",
+      "active": "72",
+      "recovery": "24",
+      "frame_adv": "-5",
+      "proration": "100%",
+      "invuln": "Full 1-5, High 6-10",
+      "alts": []
+    },
+    {
+      "input": "623A~X",
+      "image": "https://wiki.gbl.gg/images/thumb/2/23/Cnana623a-1.png/175px-Cnana623a-1.png",
+      "first_active": "7",
+      "active": "2 (2) 5",
+      "recovery": "33",
+      "frame_adv": "-24, -20",
+      "proration": "100%",
+      "invuln": "Full 1-4, High 5-10",
+      "alts": [
+        "623A",
+        "623A~A",
+        "623A~B",
+        "623A~C",
+        "623AX",
+        "623AA",
+        "623AB",
+        "623AC"
+      ]
+    },
+    {
+      "input": "623B~X",
+      "image": "https://wiki.gbl.gg/images/thumb/7/74/Cnana623b-1.png/175px-Cnana623b-1.png",
+      "first_active": "6",
+      "active": "2 (2) 6",
+      "recovery": "40",
+      "frame_adv": "-32 ~ -25",
+      "proration": "100%",
+      "invuln": "Full 1-15",
+      "alts": [
+        "623B",
+        "623B~A",
+        "623B~B",
+        "623B~C",
+        "623BX",
+        "623BA",
+        "623BB",
+        "623BC"
+      ]
+    },
+    {
+      "input": "623C~X",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c3/Cnana623c-1.png/175px-Cnana623c-1.png",
+      "first_active": "3+0",
+      "active": "5 (2) 12",
+      "recovery": "47",
+      "frame_adv": "-35 ~ -28",
+      "proration": "100%",
+      "invuln": "Full 1-16",
+      "alts": [
+        "623C",
+        "623C~A",
+        "623C~B",
+        "623C~C",
+        "623CX",
+        "623CA",
+        "623CB",
+        "623CC"
+      ]
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8f/Cnana214.png/175px-Cnana214.png",
+      "first_active": "32-33",
+      "active": "2",
+      "recovery": "29",
+      "frame_adv": "-3",
+      "proration": "100%",
+      "invuln": "Full 22-X",
+      "alts": []
+    },
+    {
+      "input": "214A (Whiff)",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8f/Cnana214.png/175px-Cnana214.png",
+      "first_active": "26",
+      "active": "12",
+      "recovery": "29",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "Full 22-37",
+      "alts": [
+        "214A Whiff",
+        "214A (w)"
+      ]
+    },
+    {
+      "input": "214f.B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4d/Cnana214b.png/175px-Cnana214b.png",
+      "first_active": "14",
+      "active": "3",
+      "recovery": "38",
+      "frame_adv": "-21",
+      "proration": "40% (O)",
+      "invuln": "Full 5-10",
+      "alts": [
+        "f.214B",
+        "214B"
+      ]
+    },
+    {
+      "input": "214c.B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/42/MBCNanaya214BClose.png/175px-MBCNanaya214BClose.png",
+      "first_active": "8/9",
+      "active": "3",
+      "recovery": "34",
+      "frame_adv": "-12",
+      "proration": "80% (M)",
+      "invuln": "Full 5-X",
+      "alts": [
+        "c.214B",
+        "214B"
+      ]
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f1/MBCNanaya214C.png/175px-MBCNanaya214C.png",
+      "first_active": "30 ~ 37",
+      "active": "2",
+      "recovery": "31",
+      "frame_adv": "-",
+      "proration": "50%",
+      "invuln": "High 20-X, Full X",
+      "alts": []
+    },
+    {
+      "input": "214C (Whiff)",
+      "image": "https://wiki.gbl.gg/images/thumb/9/90/MBCNanaya214C2.png/175px-MBCNanaya214C2.png",
+      "first_active": "24",
+      "active": "8",
+      "recovery": "29",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "High 20-31",
+      "alts": [
+        "214C Whiff",
+        "214C (w)"
+      ]
+    },
+    {
+      "input": "22A",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4b/MBCNanaya22A.png/175px-MBCNanaya22A.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "36",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "Full 12-23",
+      "alts": []
+    },
+    {
+      "input": "22B",
+      "image": "https://wiki.gbl.gg/images/thumb/0/02/MBCNanaya22B.png/143px-MBCNanaya22B.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "32",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "Full 10-23",
+      "alts": []
+    },
+    {
+      "input": "22[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/8/86/MBCNanaya22XB.png/175px-MBCNanaya22XB.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "46",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "Full 21-34",
+      "alts": []
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/0/01/MBCNanaya22C.png/175px-MBCNanaya22C.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "20",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    }
+  ]
+}

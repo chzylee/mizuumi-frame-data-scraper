@@ -1,0 +1,543 @@
+{
+  "character_name": "Akiha_Tohno_(Seifuku)",
+  "moon": "Crescent_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/6/6d/CSeifuku5a.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "12",
+      "frame_adv": "-4",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/7/7a/CSeifuku5b.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "12",
+      "frame_adv": "-1",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/1/12/CSeifuku5c.png/175px-CSeifuku5c.png",
+      "first_active": "13",
+      "active": "4",
+      "recovery": "20",
+      "frame_adv": "-6",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/8/85/CSeifukuBE5c.png/175px-CSeifukuBE5c.png",
+      "first_active": "30",
+      "active": "4",
+      "recovery": "23",
+      "frame_adv": "-9",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/thumb/d/db/CSeifuku2a.png/175px-CSeifuku2a.png",
+      "first_active": "6",
+      "active": "4",
+      "recovery": "7",
+      "frame_adv": "1",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/59/CSeifuku2b.png/175px-CSeifuku2b.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-5",
+      "proration": "85% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9b/CSeifuku2c.png/175px-CSeifuku2c.png",
+      "first_active": "11",
+      "active": "6",
+      "recovery": "14",
+      "frame_adv": "-2",
+      "proration": "55% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/f/fb/CSeifukuja.png/175px-CSeifukuja.png",
+      "first_active": "6",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/d/d4/CSeifukujb.png",
+      "first_active": "7",
+      "active": "5",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/6/64/CSeifukujc.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "85% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.[C]",
+      "image": "https://wiki.gbl.gg/images/a/a8/CSeifukuBEjc.png",
+      "first_active": "18",
+      "active": "7",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "85% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6B",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f1/CSeifuku6b.png/175px-CSeifuku6b.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-5",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6C",
+      "image": "https://wiki.gbl.gg/images/thumb/0/0c/CSeifuku6c.png/175px-CSeifuku6c.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "23",
+      "frame_adv": "-10",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f7/MB_C-Seifuku_236AB.png/175px-MB_C-Seifuku_236AB.png",
+      "first_active": "12",
+      "active": "10",
+      "recovery": "29",
+      "frame_adv": "-12, -8",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f7/MB_C-Seifuku_236AB.png/175px-MB_C-Seifuku_236AB.png",
+      "first_active": "24",
+      "active": "10",
+      "recovery": "25",
+      "frame_adv": "-11 ~ 0",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2d/MB_C-Seifuku_236C.png/175px-MB_C-Seifuku_236C.png",
+      "first_active": "6+11",
+      "active": "12",
+      "recovery": "24",
+      "frame_adv": "-8 ~ 9",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/0/02/MB_C-Seifuku_623A.png/175px-MB_C-Seifuku_623A.png",
+      "first_active": "14",
+      "active": "5",
+      "recovery": "28",
+      "frame_adv": "-9",
+      "proration": "45% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ee/MB_C-Seifuku_623B.png/175px-MB_C-Seifuku_623B.png",
+      "first_active": "28",
+      "active": "6",
+      "recovery": "19",
+      "frame_adv": "2",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4a/MB_C-Seifuku_623C.png/175px-MB_C-Seifuku_623C.png",
+      "first_active": "5+5",
+      "active": "18",
+      "recovery": "38",
+      "frame_adv": "-20",
+      "proration": "96% (M)*6",
+      "invuln": "Full 1-5, Strike 6-25",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/4/42/MB_C-Seifuku_214A.png/175px-MB_C-Seifuku_214A.png",
+      "first_active": "17",
+      "active": "16",
+      "recovery": "9",
+      "frame_adv": "-1",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/6/67/MB_C-Seifuku_214B.png/175px-MB_C-Seifuku_214B.png",
+      "first_active": "19",
+      "active": "16",
+      "recovery": "15",
+      "frame_adv": "-7",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c7/MB_C-Seifuku_214C.png/175px-MB_C-Seifuku_214C.png",
+      "first_active": "3+16",
+      "active": "16",
+      "recovery": "27",
+      "frame_adv": "-3",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22A",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6a/MB_C-Seifuku_22A.png/175px-MB_C-Seifuku_22A.png",
+      "first_active": "9",
+      "active": "X (400)",
+      "recovery": "33",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/5d/MB_C-Seifuku_22B.png/175px-MB_C-Seifuku_22B.png",
+      "first_active": "18",
+      "active": "X (400)",
+      "recovery": "38",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22B~22X",
+      "image": "https://wiki.gbl.gg/images/thumb/6/63/MB_C-Seifuku_22C.png/175px-MB_C-Seifuku_22C.png",
+      "first_active": "20",
+      "active": "4",
+      "recovery": "14",
+      "frame_adv": "8 ~ 18",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": [
+        "22B~22A",
+        "22B~22B",
+        "22B~22C",
+        "22B22X",
+        "22B22A",
+        "22B22B",
+        "22B22C"
+      ]
+    },
+    {
+      "input": "22B~22[X]",
+      "image": "https://wiki.gbl.gg/images/thumb/1/16/MB_C-Seifuku_22X_22X.png/175px-MB_C-Seifuku_22X_22X.png",
+      "first_active": "34",
+      "active": "X(4 (16) 4)",
+      "recovery": "17",
+      "frame_adv": "9 ~ 19",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": [
+        "22B~22[A]",
+        "22B~22[B]",
+        "22B~22[C]",
+        "22B22[X]",
+        "22B22[A]",
+        "22B22[B]",
+        "22B22[C]"
+      ]
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/1/16/MB_C-Seifuku_22X_22X.png/175px-MB_C-Seifuku_22X_22X.png",
+      "first_active": "7+4",
+      "active": "X (400)",
+      "recovery": "33",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22C~22X",
+      "image": "https://wiki.gbl.gg/images/thumb/1/16/MB_C-Seifuku_22X_22X.png/175px-MB_C-Seifuku_22X_22X.png",
+      "first_active": "20",
+      "active": "X(4 (16) 4)",
+      "recovery": "18",
+      "frame_adv": "8 ~ 18",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": [
+        "22C~22A",
+        "22C~22B",
+        "22C~22C",
+        "22C22X",
+        "22C22A",
+        "22C22B",
+        "22C22C"
+      ]
+    },
+    {
+      "input": "22C~22[X]",
+      "image": "https://wiki.gbl.gg/images/thumb/1/16/MB_C-Seifuku_22X_22X.png/175px-MB_C-Seifuku_22X_22X.png",
+      "first_active": "34",
+      "active": "X(4 (16) 4 (16) 4)",
+      "recovery": "17",
+      "frame_adv": "9 ~ 19",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": [
+        "22C~22[A]",
+        "22C~22[B]",
+        "22C~22[C]",
+        "22C22[X]",
+        "22C22[A]",
+        "22C22[B]",
+        "22C22[C]"
+      ]
+    },
+    {
+      "input": "63214C",
+      "image": "https://wiki.gbl.gg/images/2/24/Hseifuku_63214c_seq0200.png",
+      "first_active": "6",
+      "active": "1",
+      "recovery": "29",
+      "frame_adv": "-",
+      "proration": "35%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236A",
+      "image": "https://wiki.gbl.gg/images/thumb/1/11/MB_C-Seifuku_j.236AB.png/175px-MB_C-Seifuku_j.236AB.png",
+      "first_active": "16",
+      "active": "10",
+      "recovery": "23",
+      "frame_adv": "-4 (TK)",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236B",
+      "image": "https://wiki.gbl.gg/images/thumb/1/11/MB_C-Seifuku_j.236AB.png/175px-MB_C-Seifuku_j.236AB.png",
+      "first_active": "11",
+      "active": "10",
+      "recovery": "23",
+      "frame_adv": "-8 (TK)",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236C",
+      "image": "https://wiki.gbl.gg/images/thumb/9/96/MB_C-Seifuku_j.236C.png/175px-MB_C-Seifuku_j.236C.png",
+      "first_active": "1+10",
+      "active": "12",
+      "recovery": "6",
+      "frame_adv": "10 (TK)",
+      "proration": "90% (O)",
+      "invuln": "Strike 1-29",
+      "alts": []
+    },
+    {
+      "input": "j.214A",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e7/MB_C-Seifuku_j.214A.png/175px-MB_C-Seifuku_j.214A.png",
+      "first_active": "23",
+      "active": "16",
+      "recovery": "16",
+      "frame_adv": "36 (jump cancelled TK)",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.214B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/52/MB_C-Seifuku_j.214B.png/175px-MB_C-Seifuku_j.214B.png",
+      "first_active": "23",
+      "active": "16",
+      "recovery": "16",
+      "frame_adv": "36 (jump cancelled TK)",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.214C",
+      "image": "https://wiki.gbl.gg/images/thumb/b/bf/MB_C-Seifuku_j.214C.png/175px-MB_C-Seifuku_j.214C.png",
+      "first_active": "2+21",
+      "active": "16",
+      "recovery": "24",
+      "frame_adv": "-25 (tk), +13 (lowest height falling)",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.22A",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6a/MB_C-Seifuku_22A.png/175px-MB_C-Seifuku_22A.png",
+      "first_active": "15",
+      "active": "X (400)",
+      "recovery": "32",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.22B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/5d/MB_C-Seifuku_22B.png/175px-MB_C-Seifuku_22B.png",
+      "first_active": "18",
+      "active": "X (400)",
+      "recovery": "38",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.22B~j.22X",
+      "image": "https://wiki.gbl.gg/images/thumb/6/63/MB_C-Seifuku_22C.png/175px-MB_C-Seifuku_22C.png",
+      "first_active": "24",
+      "active": "4",
+      "recovery": "5",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": [
+        "j.22B~j.22A",
+        "j.22B~j.22B",
+        "j.22B~j.22C",
+        "j.22Bj.22X",
+        "j.22Bj.22A",
+        "j.22Bj.22B",
+        "j.22Bj.22C"
+      ]
+    },
+    {
+      "input": "j.22B~j.22[X]",
+      "image": "https://wiki.gbl.gg/images/thumb/7/77/MB_C-Seifuku_22X_j.22X.png/175px-MB_C-Seifuku_22X_j.22X.png",
+      "first_active": "33",
+      "active": "X(4 (16) 4)",
+      "recovery": "8",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": [
+        "j.22B~j.22[A]",
+        "j.22B~j.22[B]",
+        "j.22B~j.22[C]",
+        "j.22Bj.22[X]",
+        "j.22Bj.22[A]",
+        "j.22Bj.22[B]",
+        "j.22Bj.22[C]"
+      ]
+    },
+    {
+      "input": "j.22C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/77/MB_C-Seifuku_22X_j.22X.png/175px-MB_C-Seifuku_22X_j.22X.png",
+      "first_active": "4+11",
+      "active": "X (400)",
+      "recovery": "32",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.22C~j.22X",
+      "image": "https://wiki.gbl.gg/images/thumb/7/77/MB_C-Seifuku_22X_j.22X.png/175px-MB_C-Seifuku_22X_j.22X.png",
+      "first_active": "24",
+      "active": "X(4 (16) 4)",
+      "recovery": "9",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": [
+        "j.22C~j.22A",
+        "j.22C~j.22B",
+        "j.22C~j.22C",
+        "j.22Cj.22X",
+        "j.22Cj.22A",
+        "j.22Cj.22B",
+        "j.22Cj.22C"
+      ]
+    },
+    {
+      "input": "j.22C~j.22[X]",
+      "image": "https://wiki.gbl.gg/images/thumb/7/77/MB_C-Seifuku_22X_j.22X.png/175px-MB_C-Seifuku_22X_j.22X.png",
+      "first_active": "33",
+      "active": "X(4 (16) 4 (16) 4)",
+      "recovery": "8",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": [
+        "j.22C~j.22[A]",
+        "j.22C~j.22[B]",
+        "j.22C~j.22[C]",
+        "j.22Cj.22[X]",
+        "j.22Cj.22[A]",
+        "j.22Cj.22[B]",
+        "j.22Cj.22[C]"
+      ]
+    }
+  ]
+}

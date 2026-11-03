@@ -1,0 +1,375 @@
+{
+  "character_name": "Riesbyfe_Stridberg",
+  "moon": "Crescent_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/thumb/2/21/MBCRies5A.png/168px-MBCRies5A.png",
+      "first_active": "5",
+      "active": "3",
+      "recovery": "8",
+      "frame_adv": "1",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/c/ce/MBCRies5B.png/175px-MBCRies5B.png",
+      "first_active": "11",
+      "active": "4",
+      "recovery": "17",
+      "frame_adv": "-6",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/d/de/MBCRies5XB.png/175px-MBCRies5XB.png",
+      "first_active": "23",
+      "active": "4",
+      "recovery": "15",
+      "frame_adv": "-2",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/1/16/Hries_5c.png/175px-Hries_5c.png",
+      "first_active": "13",
+      "active": "2",
+      "recovery": "18",
+      "frame_adv": "-2",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/thumb/7/77/Hries_2a.png/175px-Hries_2a.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "8",
+      "frame_adv": "0",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/1/1f/Hries_2b.png/175px-Hries_2b.png",
+      "first_active": "9",
+      "active": "3",
+      "recovery": "14",
+      "frame_adv": "0",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/dd/Hries_2c.png/175px-Hries_2c.png",
+      "first_active": "11",
+      "active": "3",
+      "recovery": "22",
+      "frame_adv": "-7",
+      "proration": "65% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/3/33/MBCRiesjA.png/175px-MBCRiesjA.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "10",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/0/04/MBCRiesjB.png/175px-MBCRiesjB.png",
+      "first_active": "8",
+      "active": "3",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/de/Hries_jc.png/175px-Hries_jc.png",
+      "first_active": "11",
+      "active": "3",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O) / 50% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ef/Hries_bejc.png/175px-Hries_bejc.png",
+      "first_active": "21",
+      "active": "3",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6B",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d9/Hries_6b.png/175px-Hries_6b.png",
+      "first_active": "13",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-2",
+      "proration": "100%",
+      "invuln": "Reflect 9-16",
+      "alts": []
+    },
+    {
+      "input": "6[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b1/Hries_be6b.png/175px-Hries_be6b.png",
+      "first_active": "22",
+      "active": "3",
+      "recovery": "10",
+      "frame_adv": "5",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6C",
+      "image": "https://wiki.gbl.gg/images/thumb/0/09/MBCRies6C.png/175px-MBCRies6C.png",
+      "first_active": "12",
+      "active": "4",
+      "recovery": "15",
+      "frame_adv": "-1",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/b/ba/MBCRies6XC.png/175px-MBCRies6XC.png",
+      "first_active": "29",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-8",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.6C",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9b/Hries_6jc.png/175px-Hries_6jc.png",
+      "first_active": "10",
+      "active": "3",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "68% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/0/05/MBCRies236A.png/175px-MBCRies236A.png",
+      "first_active": "13",
+      "active": "8",
+      "recovery": "27",
+      "frame_adv": "-17 ~ -10",
+      "proration": "70% (O)",
+      "invuln": "Guard point 8-11",
+      "alts": []
+    },
+    {
+      "input": "236[A] (Max)",
+      "image": "https://wiki.gbl.gg/images/thumb/0/05/MBCRies236A.png/175px-MBCRies236A.png",
+      "first_active": "23",
+      "active": "8",
+      "recovery": "12",
+      "frame_adv": "-2 ~ 5",
+      "proration": "70% (O)",
+      "invuln": "Guard point 8-22",
+      "alts": [
+        "236[A]",
+        "236[A] Max"
+      ]
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/d/de/MBCRies236B.png/175px-MBCRies236B.png",
+      "first_active": "14",
+      "active": "8",
+      "recovery": "22",
+      "frame_adv": "-12 ~ -5",
+      "proration": "70% (O)",
+      "invuln": "Guard point 9-11",
+      "alts": []
+    },
+    {
+      "input": "236[B] (Max)",
+      "image": "https://wiki.gbl.gg/images/thumb/d/de/MBCRies236B.png/175px-MBCRies236B.png",
+      "first_active": "24",
+      "active": "8",
+      "recovery": "12",
+      "frame_adv": "-2 ~ 5",
+      "proration": "70% (O)",
+      "invuln": "Guard point 9-23",
+      "alts": [
+        "236[B]",
+        "236[B] Max"
+      ]
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8d/MBCRies236C.png/175px-MBCRies236C.png",
+      "first_active": "5+10",
+      "active": "30",
+      "recovery": "12",
+      "frame_adv": "-8 ~ 5",
+      "proration": "90%*13 (M)",
+      "invuln": "Clash 14-43",
+      "alts": []
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/8/80/MBCRies623A.png/175px-MBCRies623A.png",
+      "first_active": "4",
+      "active": "2 (2) 4",
+      "recovery": "36",
+      "frame_adv": "-26 (1st Hit),-22 (2nd Hit)",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/8/86/MBCRies623B.png/175px-MBCRies623B.png",
+      "first_active": "4",
+      "active": "4 (2) 6",
+      "recovery": "46",
+      "frame_adv": "-34",
+      "proration": "100%",
+      "invuln": "Full 1-5 8-9, High 6-7",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/5/55/MBCRies623C.png/175px-MBCRies623C.png",
+      "first_active": "1+5",
+      "active": "25",
+      "recovery": "41",
+      "frame_adv": "-32",
+      "proration": "100%",
+      "invuln": "Full 1-15",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c3/MBCRies214A.png/175px-MBCRies214A.png",
+      "first_active": "12",
+      "active": "6",
+      "recovery": "15",
+      "frame_adv": "-3",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/d/da/MBCRies214B.png/175px-MBCRies214B.png",
+      "first_active": "16",
+      "active": "4",
+      "recovery": "23",
+      "frame_adv": "-9",
+      "proration": "50% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/fa/MBCRies214C.png/175px-MBCRies214C.png",
+      "first_active": "3+11",
+      "active": "2 (12) 2 (13) 2",
+      "recovery": "22",
+      "frame_adv": "-6",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "63214A",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b7/MBCRies63214A.png/175px-MBCRies63214A.png",
+      "first_active": "19",
+      "active": "3",
+      "recovery": "35",
+      "frame_adv": "-20",
+      "proration": "50%",
+      "invuln": "Full 1-11",
+      "alts": []
+    },
+    {
+      "input": "63214B",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9d/MBCRies63214BC.png/175px-MBCRies63214BC.png",
+      "first_active": "24",
+      "active": "3",
+      "recovery": "31",
+      "frame_adv": "-16",
+      "proration": "50%",
+      "invuln": "Full 1-26",
+      "alts": []
+    },
+    {
+      "input": "63214C",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9d/MBCRies63214BC.png/175px-MBCRies63214BC.png",
+      "first_active": "6+11",
+      "active": "3",
+      "recovery": "22",
+      "frame_adv": "-7",
+      "proration": "50%",
+      "invuln": "Full 1-19",
+      "alts": []
+    },
+    {
+      "input": "j.623A",
+      "image": "https://wiki.gbl.gg/images/thumb/b/ba/MBCRiesj623AB.png/175px-MBCRiesj623AB.png",
+      "first_active": "4",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-18 (TK)",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.623B",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2d/MBCRiesj623C.png/175px-MBCRiesj623C.png",
+      "first_active": "4",
+      "active": "6",
+      "recovery": "16",
+      "frame_adv": "-30 (TK)",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.623C",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2d/MBCRiesj623C.png/175px-MBCRiesj623C.png",
+      "first_active": "1+4",
+      "active": "15",
+      "recovery": "16",
+      "frame_adv": "-28 (TK)",
+      "proration": "100%",
+      "invuln": "Full 1-18",
+      "alts": []
+    }
+  ]
+}

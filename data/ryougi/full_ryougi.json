@@ -1,0 +1,612 @@
+{
+  "character_name": "Shiki_Ryougi",
+  "moon": "Full_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/1/14/Fryougurt5A.png",
+      "first_active": "5",
+      "active": "3",
+      "recovery": "9",
+      "frame_adv": "0",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6b/Fryougurt5B.png/175px-Fryougurt5B.png",
+      "first_active": "9",
+      "active": "3",
+      "recovery": "22",
+      "frame_adv": "-10",
+      "proration": "85% (O)",
+      "invuln": "Clash 9-11",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c6/Fryougurt5C.png/175px-Fryougurt5C.png",
+      "first_active": "14",
+      "active": "5",
+      "recovery": "17",
+      "frame_adv": "-4",
+      "proration": "100%",
+      "invuln": "Clash 14-18",
+      "alts": []
+    },
+    {
+      "input": "5[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c6/Fryougurt5C.png/175px-Fryougurt5C.png",
+      "first_active": "31",
+      "active": "5",
+      "recovery": "25",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "Clash 31-35",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/thumb/6/69/Fryougurt2A.png/175px-Fryougurt2A.png",
+      "first_active": "6",
+      "active": "3",
+      "recovery": "17",
+      "frame_adv": "-8",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4a/Fryougurt2B.png/175px-Fryougurt2B.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "17",
+      "frame_adv": "-6",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/1/1f/Fryougurt2C.png/175px-Fryougurt2C.png",
+      "first_active": "14",
+      "active": "2",
+      "recovery": "28",
+      "frame_adv": "-12",
+      "proration": "55% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/d/dc/FryougurtJA.png/175px-FryougurtJA.png",
+      "first_active": "7",
+      "active": "3",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/0/0e/FryougurtJB1.png/175px-FryougurtJB1.png",
+      "first_active": "7",
+      "active": "2 (4) 2",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d0/FryougurtJC.png/154px-FryougurtJC.png",
+      "first_active": "8",
+      "active": "3",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "3C",
+      "image": "https://wiki.gbl.gg/images/thumb/b/bf/Fryougurt3C.png/175px-Fryougurt3C.png",
+      "first_active": "14",
+      "active": "9",
+      "recovery": "24",
+      "frame_adv": "-15",
+      "proration": "65% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "4C",
+      "image": "https://wiki.gbl.gg/images/7/7b/Fryougurt4C.png",
+      "first_active": "27",
+      "active": "1",
+      "recovery": "35",
+      "frame_adv": "-9",
+      "proration": "45% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/3/33/Mbacryougi236.png/175px-Mbacryougi236.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "21",
+      "frame_adv": "-7",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/3/33/Mbacryougi236.png/175px-Mbacryougi236.png",
+      "first_active": "16",
+      "active": "3",
+      "recovery": "33",
+      "frame_adv": "-18",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A/B~236X",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c7/Mbacryougi236236.png/175px-Mbacryougi236236.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-2",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": [
+        "236A~236X",
+        "236A~236A",
+        "236A~236B",
+        "236A~236C",
+        "236A236X",
+        "236A236A",
+        "236A236B",
+        "236A236C",
+        "236B~236X",
+        "236B~236A",
+        "236B~236B",
+        "236B~236C",
+        "236B236X",
+        "236B236A",
+        "236B236B",
+        "236B236C"
+      ]
+    },
+    {
+      "input": "236A/B~236[X]",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c7/Mbacryougi236236.png/175px-Mbacryougi236236.png",
+      "first_active": "19",
+      "active": "3",
+      "recovery": "15",
+      "frame_adv": "-1",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": [
+        "236A~236[X]",
+        "236A~236[A]",
+        "236A~236[B]",
+        "236A~236[C]",
+        "236A236[X]",
+        "236A236[A]",
+        "236A236[B]",
+        "236A236[C]",
+        "236B~236[X]",
+        "236B~236[A]",
+        "236B~236[B]",
+        "236B~236[C]",
+        "236B236[X]",
+        "236B236[A]",
+        "236B236[B]",
+        "236B236[C]"
+      ]
+    },
+    {
+      "input": "236A/B~214X",
+      "image": "https://wiki.gbl.gg/images/thumb/2/23/Mbacryougi236214.png/175px-Mbacryougi236214.png",
+      "first_active": "26 ~ 27",
+      "active": "3",
+      "recovery": "19",
+      "frame_adv": "-7",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": [
+        "236A~214X",
+        "236A~214A",
+        "236A~214B",
+        "236A~214C",
+        "236A214X",
+        "236A214A",
+        "236A214B",
+        "236A214C",
+        "236B~214X",
+        "236B~214A",
+        "236B~214B",
+        "236B~214C",
+        "236B214X",
+        "236B214A",
+        "236B214B",
+        "236B214C"
+      ]
+    },
+    {
+      "input": "~236A (Ender)",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a9/Mbacryougi236a.png/175px-Mbacryougi236a.png",
+      "first_active": "8 ~ 9",
+      "active": "4",
+      "recovery": "20",
+      "frame_adv": "-6",
+      "proration": "50% (O)",
+      "invuln": "-",
+      "alts": [
+        "~236A Ender",
+        "236A Ender"
+      ]
+    },
+    {
+      "input": "~236B (Ender)",
+      "image": "https://wiki.gbl.gg/images/thumb/1/14/Mbacryougi236b.png/175px-Mbacryougi236b.png",
+      "first_active": "12 ~ 13",
+      "active": "6",
+      "recovery": "24",
+      "frame_adv": "-12",
+      "proration": "40% (M)",
+      "invuln": "-",
+      "alts": [
+        "~236B Ender",
+        "236B Ender"
+      ]
+    },
+    {
+      "input": "~236C (Ender)",
+      "image": "https://wiki.gbl.gg/images/thumb/8/88/Mbacryougi236c.png/175px-Mbacryougi236c.png",
+      "first_active": "20 ~ 21",
+      "active": "10",
+      "recovery": "16",
+      "frame_adv": "-10",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": [
+        "~236C Ender",
+        "236C Ender"
+      ]
+    },
+    {
+      "input": "~236[C] (Ender)",
+      "image": "https://wiki.gbl.gg/images/thumb/8/88/Mbacryougi236c.png/175px-Mbacryougi236c.png",
+      "first_active": "36 ~ 37",
+      "active": "10",
+      "recovery": "16",
+      "frame_adv": "-8",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": [
+        "~236[C] Ender",
+        "236[C] Ender"
+      ]
+    },
+    {
+      "input": "236X/D (Ender)",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f5/Mbacryougilowkick.png/175px-Mbacryougilowkick.png",
+      "first_active": "9",
+      "active": "3",
+      "recovery": "28",
+      "frame_adv": "-13",
+      "proration": "50% (O)",
+      "invuln": "-",
+      "alts": [
+        "236A~214D",
+        "236A214D",
+        "236B~214D",
+        "236B214D",
+        "~214A Ender",
+        "~214B Ender",
+        "~214C Ender",
+        "~214X Ender",
+        "~214D Ender"
+      ]
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7a/MB_C-Ryougi_236C.png/175px-MB_C-Ryougi_236C.png",
+      "first_active": "1+7",
+      "active": "62",
+      "recovery": "25",
+      "frame_adv": "-13",
+      "proration": "80% (O)/(M)",
+      "invuln": "Full 1-6",
+      "alts": []
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/a/ae/MB_H-Ryougi_421A.png/175px-MB_H-Ryougi_421A.png",
+      "first_active": "5",
+      "active": "12",
+      "recovery": "20",
+      "frame_adv": "14 (Hit)",
+      "proration": "70%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/3/30/MB_H-Ryougi_421BC.png/175px-MB_H-Ryougi_421BC.png",
+      "first_active": "5",
+      "active": "12",
+      "recovery": "20",
+      "frame_adv": "14 (Hit)",
+      "proration": "70%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/3/30/MB_H-Ryougi_421BC.png/175px-MB_H-Ryougi_421BC.png",
+      "first_active": "5",
+      "active": "12",
+      "recovery": "16",
+      "frame_adv": "-",
+      "proration": "60%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e9/MBFRyougi214A.png/175px-MBFRyougi214A.png",
+      "first_active": "24",
+      "active": "4",
+      "recovery": "20",
+      "frame_adv": "-6",
+      "proration": "(90% (M)), 85% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/0/00/MBFRyougi214B.png/175px-MBFRyougi214B.png",
+      "first_active": "27",
+      "active": "3",
+      "recovery": "24",
+      "frame_adv": "-8",
+      "proration": "50% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/71/MBFRyougi214EX.png/175px-MBFRyougi214EX.png",
+      "first_active": "1+14",
+      "active": "4",
+      "recovery": "22",
+      "frame_adv": "-9",
+      "proration": "50% (M)",
+      "invuln": "Full 1",
+      "alts": []
+    },
+    {
+      "input": "421A",
+      "image": "https://wiki.gbl.gg/images/thumb/a/ae/MB_H-Ryougi_421A.png/175px-MB_H-Ryougi_421A.png",
+      "first_active": "5",
+      "active": "9",
+      "recovery": "7",
+      "frame_adv": "-",
+      "proration": "60%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "421B",
+      "image": "https://wiki.gbl.gg/images/thumb/3/30/MB_H-Ryougi_421BC.png/175px-MB_H-Ryougi_421BC.png",
+      "first_active": "5",
+      "active": "9",
+      "recovery": "7",
+      "frame_adv": "-",
+      "proration": "60%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "421C",
+      "image": "https://wiki.gbl.gg/images/thumb/3/30/MB_H-Ryougi_421BC.png/175px-MB_H-Ryougi_421BC.png",
+      "first_active": "5",
+      "active": "12",
+      "recovery": "16",
+      "frame_adv": "-",
+      "proration": "45%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22A",
+      "image": "https://wiki.gbl.gg/images/thumb/8/88/MB_H-Ryougi_22A.png/175px-MB_H-Ryougi_22A.png",
+      "first_active": "14",
+      "active": "X",
+      "recovery": "22",
+      "frame_adv": "5",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22B",
+      "image": "https://wiki.gbl.gg/images/thumb/0/0d/MB_C-Ryougi_22B.png/175px-MB_C-Ryougi_22B.png",
+      "first_active": "17",
+      "active": "17",
+      "recovery": "18",
+      "frame_adv": "-3",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e5/MB_F-Ryougi_22B_BE.png/175px-MB_F-Ryougi_22B_BE.png",
+      "first_active": "34",
+      "active": "9",
+      "recovery": "24",
+      "frame_adv": "0",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8e/MB_F-Ryougi_22C.png/175px-MB_F-Ryougi_22C.png",
+      "first_active": "1+6",
+      "active": "17",
+      "recovery": "34",
+      "frame_adv": "-19",
+      "proration": "50% (O)",
+      "invuln": "Full 1",
+      "alts": []
+    },
+    {
+      "input": "~22X (Pickup)",
+      "image": "https://wiki.gbl.gg/images/1/14/MB_C-Ryougi_22X_Pickup.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "15",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": [
+        "~22X Pickup",
+        "~22A Pickup",
+        "~22B Pickup",
+        "~22C Pickup",
+        "~22X",
+        "~22A",
+        "~22B",
+        "~22C"
+      ]
+    },
+    {
+      "input": "j.236A",
+      "image": "https://wiki.gbl.gg/images/thumb/3/30/Mbacryougij236a.png/175px-Mbacryougij236a.png",
+      "first_active": "18",
+      "active": "2",
+      "recovery": "15",
+      "frame_adv": "-17 (TK)",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236B",
+      "image": "https://wiki.gbl.gg/images/thumb/1/1c/Mbacryougij236b.png/175px-Mbacryougij236b.png",
+      "first_active": "11",
+      "active": "2",
+      "recovery": "3",
+      "frame_adv": "-5 (TK)",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/71/Mbacryougij236c.png/175px-Mbacryougij236c.png",
+      "first_active": "1+10",
+      "active": "2",
+      "recovery": "6",
+      "frame_adv": "-6 (TK)",
+      "proration": "40% (O)",
+      "invuln": "Full 1-14",
+      "alts": []
+    },
+    {
+      "input": "j.22A",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6d/MB_C-Ryougi_j.22A.png/175px-MB_C-Ryougi_j.22A.png",
+      "first_active": "20 / 21",
+      "active": "X",
+      "recovery": "3",
+      "frame_adv": "-",
+      "proration": "90% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.22B",
+      "image": "https://wiki.gbl.gg/images/thumb/6/61/MB_C-Ryougi_j.22B.png/175px-MB_C-Ryougi_j.22B.png",
+      "first_active": "20 / 21",
+      "active": "X",
+      "recovery": "3",
+      "frame_adv": "-",
+      "proration": "90% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.22C",
+      "image": "https://wiki.gbl.gg/images/thumb/8/85/MB_C-Ryougi_j.22C.png/175px-MB_C-Ryougi_j.22C.png",
+      "first_active": "1+0",
+      "active": "X",
+      "recovery": "17",
+      "frame_adv": "-",
+      "proration": "50% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "44/66/22A",
+      "image": "https://wiki.gbl.gg/images/thumb/9/94/Mbacryougitumblingcat.png/175px-Mbacryougitumblingcat.png",
+      "first_active": "21",
+      "active": "2",
+      "recovery": "7",
+      "frame_adv": "9",
+      "proration": "50%",
+      "invuln": "Full 1-3",
+      "alts": [
+        "44A",
+        "66A",
+        "22A Tech",
+        "A NekoTech",
+        "A NecoTech"
+      ]
+    },
+    {
+      "input": "44/66/22B",
+      "image": "https://wiki.gbl.gg/images/thumb/9/94/Mbacryougitumblingcat.png/175px-Mbacryougitumblingcat.png",
+      "first_active": "16",
+      "active": "2",
+      "recovery": "15",
+      "frame_adv": "1",
+      "proration": "50%",
+      "invuln": "Full 1-3",
+      "alts": [
+        "44B",
+        "66B",
+        "22B Tech",
+        "B NekoTech",
+        "B NecoTech"
+      ]
+    },
+    {
+      "input": "44/66/22C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/44/Mbacryougitumblingcatex.png/175px-Mbacryougitumblingcatex.png",
+      "first_active": "6+7",
+      "active": "2",
+      "recovery": "15",
+      "frame_adv": "-4",
+      "proration": "75%",
+      "invuln": "Full 1-14",
+      "alts": [
+        "44C",
+        "66C",
+        "22C Tech",
+        "C NekoTech",
+        "C NecoTech"
+      ]
+    }
+  ]
+}

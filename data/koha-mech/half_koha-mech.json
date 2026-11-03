@@ -1,0 +1,503 @@
+{
+  "character_name": "Koha_%26_Mech",
+  "moon": "Half_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d6/Hkohamech_5A.png/175px-Hkohamech_5A.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "8",
+      "frame_adv": "0",
+      "proration": "78% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5A~6A",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8b/Hkohamech_6A.png/175px-Hkohamech_6A.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-5",
+      "proration": "80% (M)",
+      "invuln": "-",
+      "alts": [
+        "5A6A"
+      ]
+    },
+    {
+      "input": "5A~6A~6A",
+      "image": "https://wiki.gbl.gg/images/thumb/5/5e/Hkohamech_6AA.png/175px-Hkohamech_6AA.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "17",
+      "frame_adv": "-3",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": [
+        "5A6AA",
+        "5A6A6A",
+        "5A6A~A"
+      ]
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/6/63/Hkohamech_5B.png/175px-Hkohamech_5B.png",
+      "first_active": "9",
+      "active": "5",
+      "recovery": "14",
+      "frame_adv": "-4 (vs Stand.)-2 (vs Crouch.)",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a5/Hkohamech_BE5B.png/175px-Hkohamech_BE5B.png",
+      "first_active": "18",
+      "active": "8",
+      "recovery": "12",
+      "frame_adv": "-5",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f8/Hkohamech_5C.png/175px-Hkohamech_5C.png",
+      "first_active": "7",
+      "active": "4 (8) 8",
+      "recovery": "29",
+      "frame_adv": "-31 ~ -13",
+      "proration": "100% (1-5), 60% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/thumb/0/0a/Hkohamech_2A.png/175px-Hkohamech_2A.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "8",
+      "frame_adv": "0",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/44/Hkohamech_2B.png/175px-Hkohamech_2B.png",
+      "first_active": "8",
+      "active": "5 (3) 4",
+      "recovery": "17",
+      "frame_adv": "-14, -6",
+      "proration": "85% (O)",
+      "invuln": "Clash 8-12",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/42/Hkohamech_2C.png/175px-Hkohamech_2C.png",
+      "first_active": "11",
+      "active": "4",
+      "recovery": "24",
+      "frame_adv": "-10",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/2/29/Hkohamech_BE2C.png/175px-Hkohamech_BE2C.png",
+      "first_active": "23",
+      "active": "7",
+      "recovery": "26",
+      "frame_adv": "-15, -13",
+      "proration": "70% (O), 80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2b/Hkohamech_jA.png/175px-Hkohamech_jA.png",
+      "first_active": "6",
+      "active": "4",
+      "recovery": "10",
+      "frame_adv": "-",
+      "proration": "73% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/d/de/Hkohamech_jB.png/175px-Hkohamech_jB.png",
+      "first_active": "7",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/2/23/Hkohamech_BEjB.png/175px-Hkohamech_BEjB.png",
+      "first_active": "21",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/75/Hkohamech_jC.png/175px-Hkohamech_jC.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c7/Hkohamech_BEjC.png/175px-Hkohamech_BEjC.png",
+      "first_active": "19",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a3/MBCKohaMech236A.png/175px-MBCKohaMech236A.png",
+      "first_active": "7",
+      "active": "1",
+      "recovery": "27",
+      "frame_adv": "-10",
+      "proration": "85% (M)",
+      "invuln": "Clash 4",
+      "alts": []
+    },
+    {
+      "input": "236[A]",
+      "image": "https://wiki.gbl.gg/images/thumb/1/19/MBCKohaMech236XA.png/175px-MBCKohaMech236XA.png",
+      "first_active": "27",
+      "active": "1",
+      "recovery": "27",
+      "frame_adv": "-10",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/47/MBCKohaMech236B.png/175px-MBCKohaMech236B.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "30",
+      "frame_adv": "-10",
+      "proration": "70% (0)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6d/MBCKohaMech236XB.png/175px-MBCKohaMech236XB.png",
+      "first_active": "26",
+      "active": "4",
+      "recovery": "30",
+      "frame_adv": "-10",
+      "proration": "70% (M)",
+      "invuln": "Clash 4",
+      "alts": []
+    },
+    {
+      "input": "236[B]~X",
+      "image": "https://wiki.gbl.gg/images/thumb/5/59/MBCKohaMech236ABX.png/175px-MBCKohaMech236ABX.png",
+      "first_active": "11",
+      "active": "4",
+      "recovery": "21",
+      "frame_adv": "-7",
+      "proration": "90% (M)",
+      "invuln": "-",
+      "alts": [
+        "236[B]~A",
+        "236[B]~B",
+        "236[B]~C",
+        "236[B]X",
+        "236[B]A",
+        "236[B]B",
+        "236[B]C"
+      ]
+    },
+    {
+      "input": "236C~X",
+      "image": "https://wiki.gbl.gg/images/thumb/9/99/MBCKohaMech236C.png/175px-MBCKohaMech236C.png",
+      "first_active": "4+6",
+      "active": "1",
+      "recovery": "55",
+      "frame_adv": "-38",
+      "proration": "100%",
+      "invuln": "Full 1-7",
+      "alts": [
+        "236C~A",
+        "236C~B",
+        "236C~C",
+        "236CX",
+        "236CA",
+        "236CB",
+        "236CC"
+      ]
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9e/MBHKohaMech623A.png/175px-MBHKohaMech623A.png",
+      "first_active": "11",
+      "active": "3 (3) 3",
+      "recovery": "36",
+      "frame_adv": "-21",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b4/MBHKohaMech623B.png/175px-MBHKohaMech623B.png",
+      "first_active": "14",
+      "active": "3 (3) x3, 3",
+      "recovery": "22",
+      "frame_adv": "-7",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6a/MBHKohaMech623C.png/175px-MBHKohaMech623C.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "56",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623C (Mech-Hisui)",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6a/MBHKohaMech623C.png/175px-MBHKohaMech623C.png",
+      "first_active": "5+12",
+      "active": "3 (3) x7, 3",
+      "recovery": "-",
+      "frame_adv": "23",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": [
+        "623C",
+        "623C (Mech)",
+        "623C Mech"
+      ]
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8c/MBHKohaMech214A.png/175px-MBHKohaMech214A.png",
+      "first_active": "20",
+      "active": "5",
+      "recovery": "20",
+      "frame_adv": "2",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/5f/MBHKohaMech214B.png/175px-MBHKohaMech214B.png",
+      "first_active": "24",
+      "active": "3",
+      "recovery": "19",
+      "frame_adv": "3",
+      "proration": "90% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/8/87/MBHKohaMech214C.png/175px-MBHKohaMech214C.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "39",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214C (Mech-Hisui)",
+      "image": "https://wiki.gbl.gg/images/thumb/4/46/MBHKohaMech214XC.png/175px-MBHKohaMech214XC.png",
+      "first_active": "26 ~ 29",
+      "active": "X",
+      "recovery": "-",
+      "frame_adv": "11 ~ 14",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": [
+        "214C",
+        "214C (Mech)",
+        "214C Mech"
+      ]
+    },
+    {
+      "input": "214[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/4/46/MBHKohaMech214XC.png/175px-MBHKohaMech214XC.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "51",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214[C] (Mech-Hisui)",
+      "image": "https://wiki.gbl.gg/images/thumb/4/46/MBHKohaMech214XC.png/175px-MBHKohaMech214XC.png",
+      "first_active": "26 ~ 27",
+      "active": "X",
+      "recovery": "-",
+      "frame_adv": "-1 ~ 0",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": [
+        "214[C]",
+        "214[C] (Mech)",
+        "214[C] Mech"
+      ]
+    },
+    {
+      "input": "22A",
+      "image": "https://wiki.gbl.gg/images/thumb/2/22/MBHKohaMech22AB.png/175px-MBHKohaMech22AB.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "37",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22A (Mech-Hisui)",
+      "image": "https://wiki.gbl.gg/images/thumb/2/22/MBHKohaMech22AB.png/175px-MBHKohaMech22AB.png",
+      "first_active": "40 ~ 63",
+      "active": "15 ~ 18",
+      "recovery": "-",
+      "frame_adv": "29",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": [
+        "22A",
+        "22A (Mech)",
+        "22A Mech"
+      ]
+    },
+    {
+      "input": "22B",
+      "image": "https://wiki.gbl.gg/images/thumb/2/22/MBHKohaMech22AB.png/175px-MBHKohaMech22AB.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "41",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22B (Mech-Hisui)",
+      "image": "https://wiki.gbl.gg/images/thumb/2/22/MBHKohaMech22AB.png/175px-MBHKohaMech22AB.png",
+      "first_active": "44 ~ 63",
+      "active": "17 ~ 20",
+      "recovery": "-",
+      "frame_adv": "29",
+      "proration": "65%",
+      "invuln": "-",
+      "alts": [
+        "22B",
+        "22B (Mech)",
+        "22B Mech"
+      ]
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/1/14/MBHKohaMech22C.png/175px-MBHKohaMech22C.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "60",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22C (Mech-Hisui)",
+      "image": "https://wiki.gbl.gg/images/thumb/1/14/MBHKohaMech22C.png/175px-MBHKohaMech22C.png",
+      "first_active": "68",
+      "active": "24",
+      "recovery": "-",
+      "frame_adv": "39",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": [
+        "22C",
+        "22C (Mech)",
+        "22C Mech"
+      ]
+    },
+    {
+      "input": "63214C",
+      "image": "https://wiki.gbl.gg/images/e/e4/MBCKohaMech63214C.png",
+      "first_active": "4",
+      "active": "1",
+      "recovery": "22",
+      "frame_adv": "-",
+      "proration": "100%, 70% (O), 35% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.214A",
+      "image": "https://wiki.gbl.gg/images/thumb/9/95/MBHKohaMechj214A.png/175px-MBHKohaMechj214A.png",
+      "first_active": "16",
+      "active": "5",
+      "recovery": "12",
+      "frame_adv": "6",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.214B",
+      "image": "https://wiki.gbl.gg/images/thumb/0/0c/MBHKohaMechj214B.png/175px-MBHKohaMechj214B.png",
+      "first_active": "23",
+      "active": "3",
+      "recovery": "12",
+      "frame_adv": "10",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.214C",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ed/MBHKohaMechj214C.png/175px-MBHKohaMechj214C.png",
+      "first_active": "18 ~ 20",
+      "active": "X",
+      "recovery": "12",
+      "frame_adv": "5 ~ 7",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    }
+  ]
+}

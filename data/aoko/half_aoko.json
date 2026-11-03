@@ -1,0 +1,513 @@
+{
+  "character_name": "Aoko_Aozaki",
+  "moon": "Half_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/thumb/1/16/MBCAoko5A.png/175px-MBCAoko5A.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "9",
+      "frame_adv": "-1",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5A~6A",
+      "image": "https://wiki.gbl.gg/images/thumb/0/07/MBHAoko5A6A.png/175px-MBHAoko5A6A.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-5",
+      "proration": "80% (M)",
+      "invuln": "-",
+      "alts": [
+        "5A6A"
+      ]
+    },
+    {
+      "input": "5A~6A~6A",
+      "image": "https://wiki.gbl.gg/images/thumb/6/67/MBHAoko5A6AA.png/175px-MBHAoko5A6AA.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "17",
+      "frame_adv": "-3",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": [
+        "5A6AA",
+        "5A6A6A",
+        "5A6A~A"
+      ]
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a7/MBHAoko5B.png/175px-MBHAoko5B.png",
+      "first_active": "8",
+      "active": "5",
+      "recovery": "15",
+      "frame_adv": "-5",
+      "proration": "85% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/73/MBCAoko5C.png/175px-MBCAoko5C.png",
+      "first_active": "11",
+      "active": "7",
+      "recovery": "14",
+      "frame_adv": "-3",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d6/MBCAoko5XC.png/175px-MBCAoko5XC.png",
+      "first_active": "29",
+      "active": "2",
+      "recovery": "16",
+      "frame_adv": "0",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C (Laser)",
+      "image": "https://wiki.gbl.gg/images/thumb/6/6d/MBCAoko5XCLaser.png/175px-MBCAoko5XCLaser.png",
+      "first_active": "37",
+      "active": "3",
+      "recovery": "7",
+      "frame_adv": "8 ~ 10",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": [
+        "5C Laser"
+      ]
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/2/27/MBCAoko2A.png",
+      "first_active": "4",
+      "active": "3",
+      "recovery": "9",
+      "frame_adv": "0",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/59/MBCAoko2B.png/175px-MBCAoko2B.png",
+      "first_active": "7",
+      "active": "7",
+      "recovery": "15",
+      "frame_adv": "-7",
+      "proration": "85% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/b/bb/MBCAoko2C.png/175px-MBCAoko2C.png",
+      "first_active": "9",
+      "active": "5",
+      "recovery": "18",
+      "frame_adv": "-8",
+      "proration": "65% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/a/ae/MBCAokojA.png/175px-MBCAokojA.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "10",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/c/cf/MBHAokojB.png/175px-MBHAokojB.png",
+      "first_active": "7",
+      "active": "5",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/9/94/MBHAokojC.png/175px-MBHAokojC.png",
+      "first_active": "10",
+      "active": "5",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "3C",
+      "image": "https://wiki.gbl.gg/images/thumb/1/18/MBCAoko3C.png/175px-MBCAoko3C.png",
+      "first_active": "10",
+      "active": "3",
+      "recovery": "21",
+      "frame_adv": "-6",
+      "proration": "65% (O)",
+      "invuln": "Clash 6-12",
+      "alts": []
+    },
+    {
+      "input": "4C",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c8/MBCAoko4C.png/175px-MBCAoko4C.png",
+      "first_active": "15",
+      "active": "1",
+      "recovery": "19",
+      "frame_adv": "-5 (vs Stand.), -2 (vs. Crouch)",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "4[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c8/MBCAoko4C.png/175px-MBCAoko4C.png",
+      "first_active": "25",
+      "active": "1",
+      "recovery": "16",
+      "frame_adv": "-2",
+      "proration": "50% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/f/fa/MBCAoko236A.png/175px-MBCAoko236A.png",
+      "first_active": "17",
+      "active": "4",
+      "recovery": "15",
+      "frame_adv": "-1",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/0/04/MBCAoko236B.png/175px-MBCAoko236B.png",
+      "first_active": "34",
+      "active": "12",
+      "recovery": "19",
+      "frame_adv": "-10 ~ 15",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ec/MBCAoko236XB.png/175px-MBCAoko236XB.png",
+      "first_active": "93",
+      "active": "10",
+      "recovery": "46",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A/B/[B]~236A",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8f/MBCAoko236C.png/175px-MBCAoko236C.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": [
+        "236A/B~236A",
+        "236A~236A",
+        "236B~236A",
+        "236[B]~236A",
+        "236A236A",
+        "236B236A",
+        "236[B]236A"
+      ]
+    },
+    {
+      "input": "236C~236A",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8f/MBCAoko236C.png/175px-MBCAoko236C.png",
+      "first_active": "2+14",
+      "active": "2 (16)2 (2) x14",
+      "recovery": "23",
+      "frame_adv": "-3",
+      "proration": "100%",
+      "invuln": "Full 1-8",
+      "alts": [
+        "236C236A"
+      ]
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/0/06/MBCAoko623A.png/175px-MBCAoko623A.png",
+      "first_active": "5",
+      "active": "10 (8) 3",
+      "recovery": "23",
+      "frame_adv": "-8",
+      "proration": "100%, 60% (O)",
+      "invuln": "High 1-6",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4f/MBCAoko623B.png/175px-MBCAoko623B.png",
+      "first_active": "31",
+      "active": "3",
+      "recovery": "9",
+      "frame_adv": "6",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/3/3c/MBCAoko623C.png/175px-MBCAoko623C.png",
+      "first_active": "1+5",
+      "active": "8 (4) 6",
+      "recovery": "25",
+      "frame_adv": "-13",
+      "proration": "100%",
+      "invuln": "Full 1-7",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/0/0b/MBHAoko214AB.png/175px-MBHAoko214AB.png",
+      "first_active": "13",
+      "active": "X",
+      "recovery": "29",
+      "frame_adv": "-4",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/1/1f/MBHAoko214C.png/175px-MBHAoko214C.png",
+      "first_active": "11",
+      "active": "X",
+      "recovery": "36",
+      "frame_adv": "-8",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/1/1f/MBHAoko214C.png/175px-MBHAoko214C.png",
+      "first_active": "5+6",
+      "active": "X",
+      "recovery": "32",
+      "frame_adv": "14",
+      "proration": "100%*3, 50% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "421A",
+      "image": "https://wiki.gbl.gg/images/thumb/8/84/MBCAoko421A.png/175px-MBCAoko421A.png",
+      "first_active": "32/40",
+      "active": "X",
+      "recovery": "17/9",
+      "frame_adv": "8",
+      "proration": "70% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "421B",
+      "image": "https://wiki.gbl.gg/images/thumb/1/14/MBCAoko421B.png/175px-MBCAoko421B.png",
+      "first_active": "42/51",
+      "active": "X",
+      "recovery": "7/None",
+      "frame_adv": "18",
+      "proration": "70% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "421C",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c3/MBHAoko421C.png/175px-MBHAoko421C.png",
+      "first_active": "46/55",
+      "active": "X",
+      "recovery": "3/None",
+      "frame_adv": "22",
+      "proration": "70% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22A",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e1/MBCAoko22A.png/175px-MBCAoko22A.png",
+      "first_active": "16",
+      "active": "6",
+      "recovery": "36",
+      "frame_adv": "-2",
+      "proration": "50% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22B",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2d/MBCAoko22B.png/175px-MBCAoko22B.png",
+      "first_active": "24",
+      "active": "6",
+      "recovery": "33",
+      "frame_adv": "1",
+      "proration": "50% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d9/MBCAoko22C.png/175px-MBCAoko22C.png",
+      "first_active": "3+16",
+      "active": "28",
+      "recovery": "22",
+      "frame_adv": "-13",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "63214A",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f7/MBCAoko63214A.png/175px-MBCAoko63214A.png",
+      "first_active": "12",
+      "active": "2 (2) 2 (2) 2",
+      "recovery": "20",
+      "frame_adv": "-9",
+      "proration": "100%",
+      "invuln": "Reflect 12-21",
+      "alts": []
+    },
+    {
+      "input": "63214B",
+      "image": "https://wiki.gbl.gg/images/thumb/2/26/MBCAoko63214BC.png/175px-MBCAoko63214BC.png",
+      "first_active": "29",
+      "active": "2 (2) x8",
+      "recovery": "17",
+      "frame_adv": "23",
+      "proration": "100%",
+      "invuln": "Reflect 29-58",
+      "alts": []
+    },
+    {
+      "input": "63214C",
+      "image": "https://wiki.gbl.gg/images/thumb/2/26/MBCAoko63214BC.png/175px-MBCAoko63214BC.png",
+      "first_active": "3+11",
+      "active": "2 (2) x8",
+      "recovery": "20",
+      "frame_adv": "20",
+      "proration": "100%",
+      "invuln": "Full 1-3, Reflect 14-43",
+      "alts": []
+    },
+    {
+      "input": "j.236A",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e9/MBCAokoj236A.png/175px-MBCAokoj236A.png",
+      "first_active": "17",
+      "active": "12",
+      "recovery": "-",
+      "frame_adv": "-16 (TK)",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236B",
+      "image": "https://wiki.gbl.gg/images/thumb/9/97/MBCAokoj236B.png/175px-MBCAokoj236B.png",
+      "first_active": "24",
+      "active": "12",
+      "recovery": "-",
+      "frame_adv": "2 (TK)",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236C",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b5/MBCAokoj236C.png/175px-MBCAokoj236C.png",
+      "first_active": "2+10",
+      "active": "12",
+      "recovery": "-",
+      "frame_adv": "2 (TK)",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.623A",
+      "image": "https://wiki.gbl.gg/images/thumb/6/66/MBCAokoj623AB.png/175px-MBCAokoj623AB.png",
+      "first_active": "15",
+      "active": "11",
+      "recovery": "-",
+      "frame_adv": "12 ~ 14 (TK)",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.623B",
+      "image": "https://wiki.gbl.gg/images/thumb/1/14/MBCAokoj623C.png/175px-MBCAokoj623C.png",
+      "first_active": "20",
+      "active": "8",
+      "recovery": "-",
+      "frame_adv": "-2 ~ 5 (TK)",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.623C",
+      "image": "https://wiki.gbl.gg/images/thumb/1/14/MBCAokoj623C.png/175px-MBCAokoj623C.png",
+      "first_active": "8",
+      "active": "4 (8) 13",
+      "recovery": "-",
+      "frame_adv": "-1 (TK)",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.214A/B/[A]/[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b1/MBCAokoj214AB.png/175px-MBCAokoj214AB.png",
+      "first_active": "351/355",
+      "active": "16",
+      "recovery": "-",
+      "frame_adv": "0/24",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": [
+        "j.214A",
+        "j.214B",
+        "j.214[A]",
+        "j.214[B]"
+      ]
+    },
+    {
+      "input": "j.214C",
+      "image": "https://wiki.gbl.gg/images/thumb/0/08/MBCAokoj214XAB.png/175px-MBCAokoj214XAB.png",
+      "first_active": "3+175",
+      "active": "3",
+      "recovery": "-",
+      "frame_adv": "-7 (TK)",
+      "proration": "50% (M)",
+      "invuln": "-",
+      "alts": []
+    }
+  ]
+}

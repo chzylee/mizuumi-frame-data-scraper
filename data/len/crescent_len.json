@@ -1,0 +1,471 @@
+{
+  "character_name": "Len",
+  "moon": "Crescent_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/c/c3/HLen_5A_1.png",
+      "first_active": "4",
+      "active": "1 (2) 5",
+      "recovery": "5",
+      "frame_adv": "-1, 2",
+      "proration": "78% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f4/MB_CLen_5B1.png/175px-MB_CLen_5B1.png",
+      "first_active": "8",
+      "active": "8",
+      "recovery": "10",
+      "frame_adv": "-1",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2a/HLen_5C_1.png/175px-HLen_5C_1.png",
+      "first_active": "7",
+      "active": "5 (11) 3 (1) 4",
+      "recovery": "16",
+      "frame_adv": "-25 ~ -5",
+      "proration": "85% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/3/36/HLen_2A.png",
+      "first_active": "4",
+      "active": "3",
+      "recovery": "9",
+      "frame_adv": "0",
+      "proration": "76% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/6/66/HLen_2B.png/175px-HLen_2B.png",
+      "first_active": "8",
+      "active": "3",
+      "recovery": "16",
+      "frame_adv": "-4",
+      "proration": "65% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d7/HLen_2C_1.png/175px-HLen_2C_1.png",
+      "first_active": "14",
+      "active": "7",
+      "recovery": "17",
+      "frame_adv": "-4 ~ 2",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/1/16/HLen_j%2CA.png/175px-HLen_j%2CA.png",
+      "first_active": "6",
+      "active": "4",
+      "recovery": "8",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/7/73/HLen_j.B.png/175px-HLen_j.B.png",
+      "first_active": "8",
+      "active": "8",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/1/17/HLen_j.C.png/175px-HLen_j.C.png",
+      "first_active": "11",
+      "active": "3",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "4B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/54/HLen_4B.png/175px-HLen_4B.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "20",
+      "frame_adv": "-9",
+      "proration": "75% (O)",
+      "invuln": "Clash 10-13",
+      "alts": []
+    },
+    {
+      "input": "4[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e1/MB_C-Len_4B_BE.png/175px-MB_C-Len_4B_BE.png",
+      "first_active": "22",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-3",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "3C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/70/HLen_3C.png/175px-HLen_3C.png",
+      "first_active": "6",
+      "active": "7",
+      "recovery": "24",
+      "frame_adv": "-13",
+      "proration": "78% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.2C",
+      "image": "https://wiki.gbl.gg/images/thumb/e/eb/HLen_j.2C.png/175px-HLen_j.2C.png",
+      "first_active": "10",
+      "active": "4 (6) 4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "80% (M)*4",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/d/de/HLen_236A.png/175px-HLen_236A.png",
+      "first_active": "19",
+      "active": "8",
+      "recovery": "26",
+      "frame_adv": "-9",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236[A]",
+      "image": "https://wiki.gbl.gg/images/thumb/2/20/HLen_236B.png/175px-HLen_236B.png",
+      "first_active": "45",
+      "active": "8",
+      "recovery": "8",
+      "frame_adv": "28",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d1/HLen_236XB.png/175px-HLen_236XB.png",
+      "first_active": "17",
+      "active": "8",
+      "recovery": "15",
+      "frame_adv": "-8",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/5/58/HLen_236C.png/175px-HLen_236C.png",
+      "first_active": "33",
+      "active": "10",
+      "recovery": "23",
+      "frame_adv": "11 ~ 13",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/5/58/HLen_236C.png/175px-HLen_236C.png",
+      "first_active": "3+14",
+      "active": "17",
+      "recovery": "18",
+      "frame_adv": "-17 ~ 18",
+      "proration": "40% (O)",
+      "invuln": "Full 1-3",
+      "alts": []
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/1/16/CLen_623AB.png/175px-CLen_623AB.png",
+      "first_active": "7",
+      "active": "17 (7) 3",
+      "recovery": "14",
+      "frame_adv": "-2",
+      "proration": "100%",
+      "invuln": "Low 4-23",
+      "alts": []
+    },
+    {
+      "input": "623A~A",
+      "image": "https://wiki.gbl.gg/images/thumb/0/01/CLen_623AB~A.png/175px-CLen_623AB~A.png",
+      "first_active": "7",
+      "active": "17 (15) 17 (11) 2",
+      "recovery": "9",
+      "frame_adv": "1",
+      "proration": "100%",
+      "invuln": "Low 4-23",
+      "alts": [
+        "623AA"
+      ]
+    },
+    {
+      "input": "623A~B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4b/CLen_623C.png/175px-CLen_623C.png",
+      "first_active": "7",
+      "active": "17",
+      "recovery": "21",
+      "frame_adv": "-14",
+      "proration": "100%",
+      "invuln": "Low 4-23",
+      "alts": [
+        "623AB"
+      ]
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4b/CLen_623C.png/175px-CLen_623C.png",
+      "first_active": "10",
+      "active": "17 (11) 3",
+      "recovery": "24",
+      "frame_adv": "-15",
+      "proration": "80% (M)",
+      "invuln": "Low 7-26",
+      "alts": []
+    },
+    {
+      "input": "623B~A",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4b/CLen_623C.png/175px-CLen_623C.png",
+      "first_active": "10",
+      "active": "17 (16) 17 (11) 2",
+      "recovery": "9",
+      "frame_adv": "1",
+      "proration": "100%",
+      "invuln": "Low 7-26",
+      "alts": [
+        "623BA"
+      ]
+    },
+    {
+      "input": "623B~B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4b/CLen_623C.png/175px-CLen_623C.png",
+      "first_active": "10",
+      "active": "17",
+      "recovery": "21",
+      "frame_adv": "-14",
+      "proration": "100%",
+      "invuln": "Low 7-26",
+      "alts": [
+        "623BB"
+      ]
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4b/CLen_623C.png/175px-CLen_623C.png",
+      "first_active": "2+4",
+      "active": "24 (11) 9",
+      "recovery": "19",
+      "frame_adv": "-16",
+      "proration": "70% (M)",
+      "invuln": "Full 1-5, Low 6-29",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e7/HLen_214A.png/175px-HLen_214A.png",
+      "first_active": "28",
+      "active": "1",
+      "recovery": "11",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214A Brown",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e7/HLen_214A.png/175px-HLen_214A.png",
+      "first_active": "-",
+      "active": "288",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214A Tiger",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e7/HLen_214A.png/175px-HLen_214A.png",
+      "first_active": "19",
+      "active": "144",
+      "recovery": "-",
+      "frame_adv": "19",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/3/3d/HLen_214B.png/175px-HLen_214B.png",
+      "first_active": "28",
+      "active": "1",
+      "recovery": "11(+16)",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B Black",
+      "image": "https://wiki.gbl.gg/images/thumb/3/3d/HLen_214B.png/175px-HLen_214B.png",
+      "first_active": "19",
+      "active": "384",
+      "recovery": "-",
+      "frame_adv": "19",
+      "proration": "50%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B Silver",
+      "image": "https://wiki.gbl.gg/images/thumb/3/3d/HLen_214B.png/175px-HLen_214B.png",
+      "first_active": "19",
+      "active": "325",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": [
+        "214B White"
+      ]
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/77/HLen_214C.png/175px-HLen_214C.png",
+      "first_active": "28",
+      "active": "22, (30), 6, [(3), 3]xN",
+      "recovery": "11",
+      "frame_adv": "-10, 18+26",
+      "proration": "100%, 50%",
+      "invuln": "-",
+      "alts": [
+        "214C Neco",
+        "214C Neco Rocket",
+        "Neco Rocket"
+      ]
+    },
+    {
+      "input": "421A",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2d/Clen421a.png/175px-Clen421a.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "37",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "High 1-17, Full 18-27",
+      "alts": []
+    },
+    {
+      "input": "421B",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8b/Clen421b.png/169px-Clen421b.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "32",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "421C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f5/Clen421c.png/175px-Clen421c.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "288",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "421D",
+      "image": "https://wiki.gbl.gg/images/thumb/1/10/CLen_421D.png/175px-CLen_421D.png",
+      "first_active": "42",
+      "active": "4",
+      "recovery": "26",
+      "frame_adv": "-2",
+      "proration": "60% (O)",
+      "invuln": "High 6-71",
+      "alts": []
+    },
+    {
+      "input": "63214C",
+      "image": "https://wiki.gbl.gg/images/1/14/Clen624c.png",
+      "first_active": "32",
+      "active": "X 398",
+      "recovery": "11",
+      "frame_adv": "-",
+      "proration": "100% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236A",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9c/Clenj236A.png/175px-Clenj236A.png",
+      "first_active": "11",
+      "active": "8",
+      "recovery": "6",
+      "frame_adv": "-9 (TK)",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236B",
+      "image": "https://wiki.gbl.gg/images/thumb/6/60/Clenj236b.png/175px-Clenj236b.png",
+      "first_active": "12",
+      "active": "8",
+      "recovery": "6",
+      "frame_adv": "-4 (TK)",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b5/ClenBEj236b.png/175px-ClenBEj236b.png",
+      "first_active": "28",
+      "active": "8",
+      "recovery": "6",
+      "frame_adv": "24 (TK)",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236C",
+      "image": "https://wiki.gbl.gg/images/thumb/3/32/Clenj236c.png/175px-Clenj236c.png",
+      "first_active": "1+9 ~ 10",
+      "active": "~18",
+      "recovery": "6",
+      "frame_adv": "-2 (TK)",
+      "proration": "100%",
+      "invuln": "Full 1-13",
+      "alts": []
+    }
+  ]
+}

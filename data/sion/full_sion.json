@@ -1,0 +1,360 @@
+{
+  "character_name": "Sion_Eltnam_Atlasia",
+  "moon": "Full_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/thumb/6/63/MBFSion5A.png/175px-MBFSion5A.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "5",
+      "frame_adv": "3",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/8/86/MBFSion5B.png/175px-MBFSion5B.png",
+      "first_active": "8",
+      "active": "5",
+      "recovery": "10",
+      "frame_adv": "0",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/3/3f/MBFSion5C.png/175px-MBFSion5C.png",
+      "first_active": "11",
+      "active": "1 (1) 4",
+      "recovery": "19",
+      "frame_adv": "-5",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8b/MBFSion5C2.png/175px-MBFSion5C2.png",
+      "first_active": "26",
+      "active": "5",
+      "recovery": "19",
+      "frame_adv": "-5",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5[C]~C",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ec/MBFSion5C3.png/175px-MBFSion5C3.png",
+      "first_active": "24",
+      "active": "1",
+      "recovery": "7",
+      "frame_adv": "10",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": [
+        "5[C]C"
+      ]
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/5/50/MBFSion2A.png",
+      "first_active": "4",
+      "active": "4",
+      "recovery": "6",
+      "frame_adv": "2",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/0/03/MBCSion2B.png/175px-MBCSion2B.png",
+      "first_active": "8",
+      "active": "3",
+      "recovery": "11",
+      "frame_adv": "1",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f4/MBCSion2C.png/175px-MBCSion2C.png",
+      "first_active": "14",
+      "active": "3",
+      "recovery": "22",
+      "frame_adv": "-7",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/9/93/MBFSionJA.png/175px-MBFSionJA.png",
+      "first_active": "5",
+      "active": "8",
+      "recovery": "7",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e5/MBCSionjB.png/175px-MBCSionjB.png",
+      "first_active": "8",
+      "active": "6",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d8/MBCSionjC.png/175px-MBCSionjC.png",
+      "first_active": "7",
+      "active": "2",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/6/64/MBCSionjXC.png/175px-MBCSionjXC.png",
+      "first_active": "18",
+      "active": "4",
+      "recovery": "24",
+      "frame_adv": "-",
+      "proration": "98% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "3B",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9e/MBFSion3B.png/175px-MBFSion3B.png",
+      "first_active": "13",
+      "active": "4",
+      "recovery": "12",
+      "frame_adv": "2",
+      "proration": "65% (O)",
+      "invuln": "Clash 10-12",
+      "alts": []
+    },
+    {
+      "input": "6B",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ec/MBCSion6B.png/175px-MBCSion6B.png",
+      "first_active": "25",
+      "active": "2",
+      "recovery": "19",
+      "frame_adv": "-3",
+      "proration": "72% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ef/MBCSion6XB.png/175px-MBCSion6XB.png",
+      "first_active": "31",
+      "active": "3",
+      "recovery": "15",
+      "frame_adv": "0",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "3C",
+      "image": "https://wiki.gbl.gg/images/thumb/b/ba/MBFSion3C.png/175px-MBFSion3C.png",
+      "first_active": "13",
+      "active": "12",
+      "recovery": "10",
+      "frame_adv": "-4 ~ 7",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6C",
+      "image": "https://wiki.gbl.gg/images/thumb/6/62/MBFSion6C.png/175px-MBFSion6C.png",
+      "first_active": "26",
+      "active": "9",
+      "recovery": "4",
+      "frame_adv": "3 ~ 9",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/b/bc/MBFSion236A.png/175px-MBFSion236A.png",
+      "first_active": "13",
+      "active": "3",
+      "recovery": "1656 (Reload)",
+      "frame_adv": "-1-40 (Reload)",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9f/MBFSion236B.png/175px-MBFSion236B.png",
+      "first_active": "15",
+      "active": "3 (7)*6, 3",
+      "recovery": "3159 (Reload)",
+      "frame_adv": "-13-40 (Reload)",
+      "proration": "97%*7 (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/9/98/MBFSion236C.png/175px-MBFSion236C.png",
+      "first_active": "3+11",
+      "active": "2",
+      "recovery": "61",
+      "frame_adv": "-35",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/4/41/MBCSion623A.png/175px-MBCSion623A.png",
+      "first_active": "4",
+      "active": "2 (2) 8",
+      "recovery": "31",
+      "frame_adv": "-21",
+      "proration": "100%, 60% (O)",
+      "invuln": "Full 1, Low 2-5",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b7/MBFSion623B.png/175px-MBFSion623B.png",
+      "first_active": "4",
+      "active": "18",
+      "recovery": "32",
+      "frame_adv": "-25",
+      "proration": "100%",
+      "invuln": "Full 1-7",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f0/MBFSion623C.png/175px-MBFSion623C.png",
+      "first_active": "2+2",
+      "active": "18",
+      "recovery": "34",
+      "frame_adv": "-31",
+      "proration": "100%",
+      "invuln": "Full 1-10",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/a/ae/MBFSion214A.png/175px-MBFSion214A.png",
+      "first_active": "17",
+      "active": "4",
+      "recovery": "13",
+      "frame_adv": "-5",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a9/MBFSion214B.png/175px-MBFSion214B.png",
+      "first_active": "17",
+      "active": "4",
+      "recovery": "21",
+      "frame_adv": "-13",
+      "proration": "92% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d6/MBCSion214C.png/175px-MBCSion214C.png",
+      "first_active": "5+17",
+      "active": "4",
+      "recovery": "23",
+      "frame_adv": "-13",
+      "proration": "100%*3, 70% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22A",
+      "image": "https://wiki.gbl.gg/images/thumb/3/30/MBFSion22A.png/175px-MBFSion22A.png",
+      "first_active": "19",
+      "active": "6",
+      "recovery": "11",
+      "frame_adv": "-5 ~ 0",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22B",
+      "image": "https://wiki.gbl.gg/images/thumb/8/81/MBFSion22B.png/175px-MBFSion22B.png",
+      "first_active": "36",
+      "active": "12",
+      "recovery": "20",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/ff/MBFSion22C.png/175px-MBFSion22C.png",
+      "first_active": "1+9",
+      "active": "8",
+      "recovery": "22",
+      "frame_adv": "-18",
+      "proration": "100%",
+      "invuln": "Full 1-9",
+      "alts": []
+    },
+    {
+      "input": "j.214A",
+      "image": "https://wiki.gbl.gg/images/thumb/0/06/MBFSionJ214A.png/175px-MBFSionJ214A.png",
+      "first_active": "12",
+      "active": "X",
+      "recovery": "4",
+      "frame_adv": "2 ~ -3",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.214B",
+      "image": "https://wiki.gbl.gg/images/thumb/b/bb/MBFSionJ214B.png/175px-MBFSionJ214B.png",
+      "first_active": "30",
+      "active": "X",
+      "recovery": "22",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.214C",
+      "image": "https://wiki.gbl.gg/images/thumb/5/59/MBFSionJ214C.png/175px-MBFSionJ214C.png",
+      "first_active": "3+2",
+      "active": "X",
+      "recovery": "6",
+      "frame_adv": "4 ~ -5",
+      "proration": "100%",
+      "invuln": "Full 1-3",
+      "alts": []
+    }
+  ]
+}

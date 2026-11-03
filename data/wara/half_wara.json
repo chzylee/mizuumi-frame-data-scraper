@@ -1,0 +1,500 @@
+{
+  "character_name": "Warachia",
+  "moon": "Half_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/thumb/f/fa/MBCWarachia5A.png/175px-MBCWarachia5A.png",
+      "first_active": "5",
+      "active": "3",
+      "recovery": "9",
+      "frame_adv": "0",
+      "proration": "78% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5A~6A",
+      "image": "https://wiki.gbl.gg/images/thumb/f/fa/MBHWarachia5A6A.png/175px-MBHWarachia5A6A.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-5",
+      "proration": "80% (M)",
+      "invuln": "-",
+      "alts": [
+        "5A6A"
+      ]
+    },
+    {
+      "input": "5A~6A~6A",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ea/MBHWarachia5A6AA.png/175px-MBHWarachia5A6AA.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "17",
+      "frame_adv": "-3",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": [
+        "5A6AA",
+        "5A6A6A",
+        "5A6A~A"
+      ]
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/9/91/MBHWarachia5B.png/175px-MBHWarachia5B.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "13",
+      "frame_adv": "-2",
+      "proration": "90% (O)",
+      "invuln": "Clash 8-11",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4a/MBCWarachia5C.png/175px-MBCWarachia5C.png",
+      "first_active": "15",
+      "active": "9",
+      "recovery": "13",
+      "frame_adv": "2",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ea/MBHWarachia2A.png/175px-MBHWarachia2A.png",
+      "first_active": "6",
+      "active": "3",
+      "recovery": "9",
+      "frame_adv": "0",
+      "proration": "76% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/8/81/MBHWarachia2B.png/175px-MBHWarachia2B.png",
+      "first_active": "8",
+      "active": "6",
+      "recovery": "19",
+      "frame_adv": "-10",
+      "proration": "80% (O)",
+      "invuln": "Clash 8-13",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/43/MBCWarachia2C.png/175px-MBCWarachia2C.png",
+      "first_active": "10",
+      "active": "10",
+      "recovery": "21",
+      "frame_adv": "-7",
+      "proration": "65% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9f/MBCWarachiajA.png/175px-MBCWarachiajA.png",
+      "first_active": "6",
+      "active": "4",
+      "recovery": "10",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/8/8a/MBCWarachiajB.png/175px-MBCWarachiajB.png",
+      "first_active": "8",
+      "active": "10",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "95%*2 (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/fb/MBCWarachiajC.png/175px-MBCWarachiajC.png",
+      "first_active": "13",
+      "active": "8",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6C",
+      "image": "https://wiki.gbl.gg/images/thumb/9/90/MBCWarachia6C.png/175px-MBCWarachia6C.png",
+      "first_active": "18",
+      "active": "7",
+      "recovery": "19",
+      "frame_adv": "-8",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.2C",
+      "image": "https://wiki.gbl.gg/images/thumb/3/39/MBCWarachiaj2C.png/175px-MBCWarachiaj2C.png",
+      "first_active": "22",
+      "active": "2",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2d/MBCWarachia236A.png/175px-MBCWarachia236A.png",
+      "first_active": "11",
+      "active": "3",
+      "recovery": "27",
+      "frame_adv": "-6 ~ 8",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/f/fe/MBCWarachia236B.png/175px-MBCWarachia236B.png",
+      "first_active": "18",
+      "active": "3",
+      "recovery": "36",
+      "frame_adv": "-7 ~ -1",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/6/67/MBCWarachia236C.png/175px-MBCWarachia236C.png",
+      "first_active": "4+15",
+      "active": "6",
+      "recovery": "52",
+      "frame_adv": "1",
+      "proration": "95%*6 (M)",
+      "invuln": "Full 1-16",
+      "alts": []
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4e/MBHWarachia623AB.png/175px-MBHWarachia623AB.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "24",
+      "frame_adv": "-10",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4e/MBHWarachia623AB.png/175px-MBHWarachia623AB.png",
+      "first_active": "11",
+      "active": "2 (2) 1",
+      "recovery": "23",
+      "frame_adv": "-6",
+      "proration": "90%*3 (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/e/ea/MBHWarachia623C.png/175px-MBHWarachia623C.png",
+      "first_active": "3+9",
+      "active": "6",
+      "recovery": "39",
+      "frame_adv": "-22",
+      "proration": "90%*6 (M)",
+      "invuln": "Full 1-16",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBCWarachia214A.png/175px-MBCWarachia214A.png",
+      "first_active": "",
+      "active": "",
+      "recovery": "55",
+      "frame_adv": "-6",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214A (Akiha)",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBCWarachia214A.png/175px-MBCWarachia214A.png",
+      "first_active": "36",
+      "active": "2",
+      "recovery": "-",
+      "frame_adv": "-6",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": [
+        "214A",
+        "214A Akiha",
+        "214 Akiha",
+        "Akiha Summon"
+      ]
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBCWarachia214B.png/175px-MBCWarachia214B.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "36",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B (Nanaya)",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c9/MBCWarachia214C.png/175px-MBCWarachia214C.png",
+      "first_active": "58",
+      "active": "3",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": [
+        "214B",
+        "214B Nanaya",
+        "214 Nanaya",
+        "Nanaya Summon"
+      ]
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c9/MBCWarachia214C.png/175px-MBCWarachia214C.png",
+      "first_active": "-",
+      "active": "49",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214C (Nero)",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c9/MBCWarachia214C.png/175px-MBCWarachia214C.png",
+      "first_active": "75",
+      "active": "3",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": [
+        "214C",
+        "214C Nero",
+        "214 Nero",
+        "Nero Summon"
+      ]
+    },
+    {
+      "input": "421A",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c8/MBCWarachia421ABC.png/175px-MBCWarachia421ABC.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "18",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "Full 6-17",
+      "alts": []
+    },
+    {
+      "input": "421B",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c8/MBCWarachia421ABC.png/175px-MBCWarachia421ABC.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "31",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "Full 6-18",
+      "alts": []
+    },
+    {
+      "input": "421C",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c8/MBCWarachia421ABC.png/175px-MBCWarachia421ABC.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "40",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "Full 6-19",
+      "alts": []
+    },
+    {
+      "input": "22A",
+      "image": "https://wiki.gbl.gg/images/thumb/8/83/MBCWarachia22AB.png/175px-MBCWarachia22AB.png",
+      "first_active": "25",
+      "active": "X",
+      "recovery": "18",
+      "frame_adv": "-7",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22[A]",
+      "image": "https://wiki.gbl.gg/images/thumb/7/72/MBCWarachia22XAB.png/175px-MBCWarachia22XAB.png",
+      "first_active": "24",
+      "active": "X",
+      "recovery": "21",
+      "frame_adv": "-7",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22B",
+      "image": "https://wiki.gbl.gg/images/thumb/8/83/MBCWarachia22AB.png/175px-MBCWarachia22AB.png",
+      "first_active": "25",
+      "active": "X",
+      "recovery": "20",
+      "frame_adv": "-9",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/7/72/MBCWarachia22XAB.png/175px-MBCWarachia22XAB.png",
+      "first_active": "24",
+      "active": "X",
+      "recovery": "23",
+      "frame_adv": "-9",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b3/MBCWarachia22C.png/175px-MBCWarachia22C.png",
+      "first_active": "6+12",
+      "active": "X",
+      "recovery": "44",
+      "frame_adv": "-8",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "63214C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f6/MBCWarachia63214C.png/175px-MBCWarachia63214C.png",
+      "first_active": "-",
+      "active": "-",
+      "recovery": "2+55",
+      "frame_adv": "-",
+      "proration": "-",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "63214C (Warc)",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f6/MBCWarachia63214C.png/175px-MBCWarachia63214C.png",
+      "first_active": "2+2",
+      "active": "13 (10) X (17) X",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "100%*4, 80% (M), 60% (M)",
+      "invuln": "-",
+      "alts": [
+        "63214C",
+        "63214C Warc",
+        "63214 Warc",
+        "Warc Summon"
+      ]
+    },
+    {
+      "input": "j.236A",
+      "image": "https://wiki.gbl.gg/images/thumb/a/ae/MBHWarachiaj236A.png/175px-MBHWarachiaj236A.png",
+      "first_active": "16",
+      "active": "3",
+      "recovery": "12",
+      "frame_adv": "2 ~ 14",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/51/MBHWarachiaj236B.png/175px-MBHWarachiaj236B.png",
+      "first_active": "16",
+      "active": "3",
+      "recovery": "12",
+      "frame_adv": "-24 (TK)",
+      "proration": "50% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/3/3f/MBHWarachiaj236XB.png/175px-MBHWarachiaj236XB.png",
+      "first_active": "26",
+      "active": "3",
+      "recovery": "12",
+      "frame_adv": "-16 (TK)",
+      "proration": "50% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.236C",
+      "image": "https://wiki.gbl.gg/images/thumb/3/3c/MBCWarachiaj236C.png/175px-MBCWarachiaj236C.png",
+      "first_active": "1+16",
+      "active": "6",
+      "recovery": "12",
+      "frame_adv": "18 (TK)",
+      "proration": "70% (O), 95%*2 (M)",
+      "invuln": "Full 1-2",
+      "alts": []
+    },
+    {
+      "input": "j.421A/[A]",
+      "image": "https://wiki.gbl.gg/images/thumb/5/5a/MBCWarachiaj421AB.png/175px-MBCWarachiaj421AB.png",
+      "first_active": "13",
+      "active": "17~48",
+      "recovery": "53~54/ 73~74",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "Full 9-X",
+      "alts": [
+        "j.421A",
+        "j.421[A]"
+      ]
+    },
+    {
+      "input": "j.421B/[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/5/5a/MBCWarachiaj421AB.png/175px-MBCWarachiaj421AB.png",
+      "first_active": "13",
+      "active": "19~66",
+      "recovery": "61~62/ 81~82",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "Full 9-X",
+      "alts": [
+        "j.421B",
+        "j.421[B]"
+      ]
+    },
+    {
+      "input": "j.421C",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b7/MBCWarachiaj421C.png/175px-MBCWarachiaj421C.png",
+      "first_active": "1+13",
+      "active": "31~67",
+      "recovery": "57~93",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "Full 11-X",
+      "alts": []
+    }
+  ]
+}

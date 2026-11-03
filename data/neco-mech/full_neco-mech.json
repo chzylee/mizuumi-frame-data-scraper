@@ -1,0 +1,291 @@
+{
+  "character_name": "Neco_%26_Mech",
+  "moon": "Full_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/e/ee/MBFMech5A.png",
+      "first_active": "6",
+      "active": "4",
+      "recovery": "7",
+      "frame_adv": "2",
+      "proration": "78% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c5/MBFMech5B.png/175px-MBFMech5B.png",
+      "first_active": "9",
+      "active": "4",
+      "recovery": "10",
+      "frame_adv": "1",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f0/MBFMech5C.png/175px-MBFMech5C.png",
+      "first_active": "11",
+      "active": "2 (2) 2 (2) 2",
+      "recovery": "10",
+      "frame_adv": "6",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b7/MBFMech2A.png/175px-MBFMech2A.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "5",
+      "frame_adv": "3",
+      "proration": "78% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/e/eb/MBFMech2B.png/175px-MBFMech2B.png",
+      "first_active": "7",
+      "active": "6",
+      "recovery": "18",
+      "frame_adv": "-5",
+      "proration": "80% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/2/28/Cnecomech_2C.png/175px-Cnecomech_2C.png",
+      "first_active": "13",
+      "active": "3",
+      "recovery": "16",
+      "frame_adv": "-1",
+      "proration": "60% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/thumb/0/00/MBFMechjA.png/175px-MBFMechjA.png",
+      "first_active": "4",
+      "active": "4",
+      "recovery": "11",
+      "frame_adv": "-",
+      "proration": "75% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c9/MBFMechjB.png/175px-MBFMechjB.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/c/c9/MBFMechjC.png/175px-MBFMechjC.png",
+      "first_active": "9",
+      "active": "7",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/0/0b/MBFMechjXC.png/175px-MBFMechjXC.png",
+      "first_active": "25",
+      "active": "8",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "80% (M)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6C",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e5/Cnecomech_6C.png/143px-Cnecomech_6C.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "22",
+      "frame_adv": "-8",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "6[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e5/Cnecomech_6C.png/143px-Cnecomech_6C.png",
+      "first_active": "21",
+      "active": "4",
+      "recovery": "22",
+      "frame_adv": "-8",
+      "proration": "70% (O)",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A/B",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBFNecoMech236AB.png/175px-MBFNecoMech236AB.png",
+      "first_active": "55",
+      "active": "14",
+      "recovery": "48",
+      "frame_adv": "36",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": [
+        "236A",
+        "236B"
+      ]
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2d/MBCNecoMech236C.png/175px-MBCNecoMech236C.png",
+      "first_active": "1+25",
+      "active": "16",
+      "recovery": "29",
+      "frame_adv": "-17",
+      "proration": "90% (O)",
+      "invuln": "Full 1-19",
+      "alts": []
+    },
+    {
+      "input": "236C (Neco-Arc)",
+      "image": "https://wiki.gbl.gg/images/thumb/3/32/MBCNecoMech236CNeco.png/175px-MBCNecoMech236CNeco.png",
+      "first_active": "1+24",
+      "active": "20",
+      "recovery": "29",
+      "frame_adv": "-13",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": [
+        "236C (Neco Arc)",
+        "236C Neco-Arc",
+        "236C Neco Arc",
+        "236C Neco"
+      ]
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/b/b9/MBFMech623AB.png/175px-MBFMech623AB.png",
+      "first_active": "7",
+      "active": "10",
+      "recovery": "19",
+      "frame_adv": "-6",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/d/de/MBFMech623C.png/175px-MBFMech623C.png",
+      "first_active": "25",
+      "active": "21",
+      "recovery": "14",
+      "frame_adv": "-6",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/de/MBFMech623C.png/175px-MBFMech623C.png",
+      "first_active": "1+7",
+      "active": "37",
+      "recovery": "14",
+      "frame_adv": "-12",
+      "proration": "100%",
+      "invuln": "Full 1-2",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/d/de/MBFNecoMech214AB.png",
+      "first_active": "45",
+      "active": "22",
+      "recovery": "48",
+      "frame_adv": "24",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/50/MBFNecoMech214C.png/175px-MBFNecoMech214C.png",
+      "first_active": "45*",
+      "active": "22",
+      "recovery": "48",
+      "frame_adv": "25*",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/5/50/MBFNecoMech214C.png/175px-MBFNecoMech214C.png",
+      "first_active": "15+11",
+      "active": "83",
+      "recovery": "48",
+      "frame_adv": "5 ~ 66",
+      "proration": "100%",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22A",
+      "image": "https://wiki.gbl.gg/images/thumb/1/1e/MBFNecoMech22AB.png/175px-MBFNecoMech22AB.png",
+      "first_active": "38",
+      "active": "7",
+      "recovery": "10",
+      "frame_adv": "11",
+      "proration": "75% (O)",
+      "invuln": "Clash 17-36",
+      "alts": []
+    },
+    {
+      "input": "22B",
+      "image": "https://wiki.gbl.gg/images/thumb/5/5b/MBFNecoMech22ABClash.png/175px-MBFNecoMech22ABClash.png",
+      "first_active": "33",
+      "active": "7",
+      "recovery": "28",
+      "frame_adv": "-7",
+      "proration": "75% (O)",
+      "invuln": "Clash 12-31",
+      "alts": []
+    },
+    {
+      "input": "22B (Clash)",
+      "image": "https://wiki.gbl.gg/images/thumb/4/40/MBFNecoMech22C.png/175px-MBFNecoMech22C.png",
+      "first_active": "3",
+      "active": "1 (5) 1 (5) 1 (7)1 (5) 1 (5) 1",
+      "recovery": "28",
+      "frame_adv": "-",
+      "proration": "100%",
+      "invuln": "Full 1-42",
+      "alts": [
+        "22B Clash"
+      ]
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/40/MBFNecoMech22C.png/175px-MBFNecoMech22C.png",
+      "first_active": "22+3",
+      "active": "1 (5) 1 (5) 1 (7)1 (5) 1 (5) 1",
+      "recovery": "20",
+      "frame_adv": "-5",
+      "proration": "100%",
+      "invuln": "Full 1-64",
+      "alts": []
+    }
+  ]
+}

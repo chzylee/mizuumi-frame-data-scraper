@@ -1,0 +1,342 @@
+{
+  "character_name": "Satsuki_Yumizuka",
+  "moon": "Half_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://wiki.gbl.gg/images/6/6b/HSatsuki5a.png",
+      "first_active": "4",
+      "active": "3",
+      "recovery": "9",
+      "frame_adv": "0",
+      "proration": "75% (O)1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5A~6A",
+      "image": "https://wiki.gbl.gg/images/5/5b/HSatsuki6a.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "16",
+      "frame_adv": "-5",
+      "proration": "80% (M)1 Hit",
+      "invuln": "-",
+      "alts": [
+        "5A6A"
+      ]
+    },
+    {
+      "input": "5A~6A~6A",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e3/HSatsuki6aa.png/175px-HSatsuki6aa.png",
+      "first_active": "10",
+      "active": "4",
+      "recovery": "14",
+      "frame_adv": "0",
+      "proration": "60% (O)2 Hits",
+      "invuln": "-",
+      "alts": [
+        "5A6AA",
+        "5A6A6A",
+        "5A6A~A"
+      ]
+    },
+    {
+      "input": "5B",
+      "image": "https://wiki.gbl.gg/images/thumb/f/ff/MB_C_Satsuki_5B.png/175px-MB_C_Satsuki_5B.png",
+      "first_active": "9",
+      "active": "7",
+      "recovery": "15",
+      "frame_adv": "-7",
+      "proration": "100%1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "5C",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f5/HSatsuki5c.png/175px-HSatsuki5c.png",
+      "first_active": "10",
+      "active": "5",
+      "recovery": "14",
+      "frame_adv": "-1",
+      "proration": "90% (O)1 Hit",
+      "invuln": "Clash 8-14",
+      "alts": []
+    },
+    {
+      "input": "5[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/3/36/HSatsuki5Xc.png/175px-HSatsuki5Xc.png",
+      "first_active": "19",
+      "active": "5",
+      "recovery": "13",
+      "frame_adv": "0",
+      "proration": "85%1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2A",
+      "image": "https://wiki.gbl.gg/images/8/8a/HSatsuki2a.png",
+      "first_active": "4",
+      "active": "4",
+      "recovery": "9",
+      "frame_adv": "-1",
+      "proration": "73% (O)1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2B",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7a/MB_C_Satsuki_2B.png/175px-MB_C_Satsuki_2B.png",
+      "first_active": "8",
+      "active": "4",
+      "recovery": "10",
+      "frame_adv": "+1",
+      "proration": "100%1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d9/MB_C_Satsuki_2C_Vert.png/175px-MB_C_Satsuki_2C_Vert.png",
+      "first_active": "5",
+      "active": "6",
+      "recovery": "24",
+      "frame_adv": "-15",
+      "proration": "70% (O), 55% (O)1 Hit, 1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/3/34/MB_C_Satsuki_2C_Charged_Vert.png/175px-MB_C_Satsuki_2C_Charged_Vert.png",
+      "first_active": "27",
+      "active": "10",
+      "recovery": "15",
+      "frame_adv": "3",
+      "proration": "70% (O)1 Hit, 1 Hit, 1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.A",
+      "image": "https://wiki.gbl.gg/images/3/3b/HSatsukija.png",
+      "first_active": "5",
+      "active": "4",
+      "recovery": "10",
+      "frame_adv": "-",
+      "proration": "75% (O)1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.B",
+      "image": "https://wiki.gbl.gg/images/thumb/a/ac/MB_C_Satsuki_jB.png/175px-MB_C_Satsuki_jB.png",
+      "first_active": "8",
+      "active": "5",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "90% (O)1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.[B]",
+      "image": "https://wiki.gbl.gg/images/thumb/9/9d/HSatsukijXB.png/175px-HSatsukijXB.png",
+      "first_active": "19",
+      "active": "7",
+      "recovery": "17",
+      "frame_adv": "-",
+      "proration": "70% (O)1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.C",
+      "image": "https://wiki.gbl.gg/images/thumb/5/55/HSatsukijc.png/175px-HSatsukijc.png",
+      "first_active": "9",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "85% (M) / 50% (O)1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "j.[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/1/17/MB_C_Satsuki_jC.png/175px-MB_C_Satsuki_jC.png",
+      "first_active": "27",
+      "active": "4",
+      "recovery": "-",
+      "frame_adv": "-",
+      "proration": "50%1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "3C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7f/MB_C_Satsuki_3C.png/175px-MB_C_Satsuki_3C.png",
+      "first_active": "13",
+      "active": "12",
+      "recovery": "19",
+      "frame_adv": "-13 ~ -2",
+      "proration": "60% (O)1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "3[C]",
+      "image": "https://wiki.gbl.gg/images/thumb/6/62/MB_C_Satsuki_3C_Charged.png/175px-MB_C_Satsuki_3C_Charged.png",
+      "first_active": "26",
+      "active": "8",
+      "recovery": "13",
+      "frame_adv": "-3 ~ 4",
+      "proration": "70% (O)1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236A",
+      "image": "https://wiki.gbl.gg/images/thumb/2/2f/HSatsuki236A.png/175px-HSatsuki236A.png",
+      "first_active": "17",
+      "active": "3",
+      "recovery": "12",
+      "frame_adv": "-3",
+      "proration": "100%0 Hits",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236B",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e9/HSatsuki236B.png/175px-HSatsuki236B.png",
+      "first_active": "34",
+      "active": "2",
+      "recovery": "20",
+      "frame_adv": "-",
+      "proration": "100%0 Hits",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "236C",
+      "image": "https://wiki.gbl.gg/images/thumb/4/43/HSatsuki236C.png/175px-HSatsuki236C.png",
+      "first_active": "2+20",
+      "active": "2",
+      "recovery": "20",
+      "frame_adv": "-4",
+      "proration": "60% (M)0 Hits",
+      "invuln": "Full 1-15",
+      "alts": []
+    },
+    {
+      "input": "623A",
+      "image": "https://wiki.gbl.gg/images/thumb/1/19/HSatsuki623A.png/175px-HSatsuki623A.png",
+      "first_active": "8",
+      "active": "8",
+      "recovery": "24",
+      "frame_adv": "-",
+      "proration": "100%0 Hits",
+      "invuln": "High 1-10",
+      "alts": []
+    },
+    {
+      "input": "623B",
+      "image": "https://wiki.gbl.gg/images/thumb/e/e0/HSatsuki623B.png/175px-HSatsuki623B.png",
+      "first_active": "14",
+      "active": "2",
+      "recovery": "34",
+      "frame_adv": "-",
+      "proration": "100%0 Hits",
+      "invuln": "Full 1, High 2-15",
+      "alts": []
+    },
+    {
+      "input": "623C",
+      "image": "https://wiki.gbl.gg/images/thumb/7/70/HSatsuki623C.png/175px-HSatsuki623C.png",
+      "first_active": "2+6",
+      "active": "2",
+      "recovery": "34",
+      "frame_adv": "-",
+      "proration": "60% (M)0 Hits",
+      "invuln": "Full 1-3, High 4-9",
+      "alts": []
+    },
+    {
+      "input": "214A",
+      "image": "https://wiki.gbl.gg/images/thumb/7/70/Catsuki_214A.png/175px-Catsuki_214A.png",
+      "first_active": "9",
+      "active": "4",
+      "recovery": "19",
+      "frame_adv": "-5",
+      "proration": "90% (M)1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214B",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d2/MB_C-Satsuki_214B.png/175px-MB_C-Satsuki_214B.png",
+      "first_active": "31",
+      "active": "5",
+      "recovery": "21",
+      "frame_adv": "-2",
+      "proration": "70% (O)0 Hits, 0 Hits",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "214C",
+      "image": "https://wiki.gbl.gg/images/thumb/d/d7/MB_C-Satsuki_214C.png/175px-MB_C-Satsuki_214C.png",
+      "first_active": "2+7",
+      "active": "3",
+      "recovery": "27",
+      "frame_adv": "-2",
+      "proration": "45% (M)0 Hits",
+      "invuln": "Full 1-6",
+      "alts": []
+    },
+    {
+      "input": "22A",
+      "image": "https://wiki.gbl.gg/images/thumb/d/df/MB_H-Satsuki_22A.png/168px-MB_H-Satsuki_22A.png",
+      "first_active": "17",
+      "active": "11",
+      "recovery": "9",
+      "frame_adv": "-2",
+      "proration": "100%1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22B",
+      "image": "https://wiki.gbl.gg/images/thumb/f/f7/MB_H-Satsuki_22B.png/175px-MB_H-Satsuki_22B.png",
+      "first_active": "11",
+      "active": "11",
+      "recovery": "19",
+      "frame_adv": "-12",
+      "proration": "100%1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "22C",
+      "image": "https://wiki.gbl.gg/images/thumb/a/a6/MB_H-Satsuki_22C.png/120px-MB_H-Satsuki_22C.png",
+      "first_active": "2+8",
+      "active": "11 (5) 6 (2) 4",
+      "recovery": "19",
+      "frame_adv": "21",
+      "proration": "50% (O)1 Hit, 0 Hits*3, 1 Hit",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "63214C",
+      "image": "https://wiki.gbl.gg/images/c/ca/HSatsuki63214C.png",
+      "first_active": "3+0",
+      "active": "1",
+      "recovery": "28",
+      "frame_adv": "-",
+      "proration": "100%0 Hits",
+      "invuln": "Full 3",
+      "alts": []
+    }
+  ]
+}
