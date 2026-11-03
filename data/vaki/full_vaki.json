@@ -84,7 +84,7 @@
       ]
     },
     {
-      "input": "2B~2B~2B~2B",
+      "input": "2B~2B~2B",
       "image": "https://wiki.gbl.gg/images/thumb/e/ef/Vakiha_2b3.png/175px-Vakiha_2b3.png",
       "first_active": "26",
       "active": "5",
@@ -93,9 +93,10 @@
       "proration": "75% (O)",
       "invuln": "-",
       "alts": [
-        "2B2B2B2B",
-        "2BBBB",
-        "2B~BBB"
+        "2B2B2B",
+        "2BBB",
+        "2B~BB",
+        "2B~2BB"
       ]
     },
     {
