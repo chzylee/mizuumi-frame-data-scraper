@@ -85,8 +85,27 @@ local-data/scraped/ ─ fill_from_scrape ─┘   (or a hand edit)
 Manually dispatched, main only. It scans the whole table (paginated, read-only) and
 rewrites `data/` to mirror it exactly; a file whose item no longer exists is deleted. If
 anything changed, it opens a PR from a fresh `dynamodb-pull/<run id>` branch. It never
-pushes to `main`. Use it to bootstrap `data/`, and any time the table may have been
-edited outside the pipeline (for example a fix made in the console).
+pushes to `main`. Use it any time the table may have been edited outside the pipeline
+(for example a fix made in the console).
+
+The same entrypoint runs locally, using boto3's default credential chain:
+
+```sh
+cd src
+AWS_PROFILE=mizuumi-read python -m pull_from_dynamodb   # or: python src/pull_from_dynamodb.py from the repo root
+```
+
+It rewrites `data/` in your working copy and prints the created / updated / unchanged /
+removed files. It reads git only to look up the baseline tag; it never commits, branches
+or checks out. Review with `git diff data/` and open the PR yourself.
+
+**Pending-edit warning.** A pull makes `data/` match the table, so it reverts any `data/`
+edit that differs from the `dynamodb-deployed` tag, i.e. an edit approved on `main` (or
+made locally) but never pushed. Every file where the pull did that is listed in a loud
+warning: in the CLI output, and in the workflow's job summary, a `::warning::`
+annotation, and the top of the PR body. The pull is not blocked. Don't merge such a PR
+unless the table's version should win; usually you want to push first. With no tag yet,
+the check is skipped and the output says so.
 
 Logic: `src/pull_from_dynamodb.py`.
 
@@ -180,8 +199,10 @@ workflow also runs the data check itself and puts the result in the PR body.
 `data/` must come from the table, never from the scrape: the table holds hand-fixed image
 URLs that exist nowhere else.
 
-1. **Pull:** run *Pull from DynamoDB* on `main`.
-2. **Merge:** approve the PR's checks, review the PR (it's the whole table), and merge it.
+1. **Pull:** locally, run `AWS_PROFILE=mizuumi-read python -m pull_from_dynamodb` from
+   `src` on a new branch, commit `data/`, and open a PR. (Running *Pull from DynamoDB*
+   on `main` does the same and opens the PR for you.)
+2. **Merge:** let CI pass, review the PR (it's the whole table), and merge it.
 3. **Baseline:** nothing to do. With no `dynamodb-deployed` tag, the merged pull is the
    baseline (see above). Don't edit the table in the console from here on; if you do,
    start again at step 1.

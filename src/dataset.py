@@ -200,22 +200,29 @@ def load_dir(directory: str) -> Dict[str, dict]:
 
 def write_file(path: str, item: dict) -> bool:
     """Write an item canonically. Returns True if the file's bytes changed."""
+    return write_file_status(path, item) != "unchanged"
+
+
+def write_file_status(path: str, item: dict) -> str:
+    """Write an item canonically. Returns "created", "updated" or "unchanged"."""
     text = dumps(item)
-    if os.path.exists(path) and read_file(path) == text:
-        return False
+    existed = os.path.exists(path)
+    if existed and read_file(path) == text:
+        return "unchanged"
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
     tmp_path = path + ".tmp"
     with open(tmp_path, "w", encoding="utf-8", newline="\n") as handle:
         handle.write(text)
     os.replace(tmp_path, path)
-    return True
+    return "updated" if existed else "created"
 
 
 def mirror(directory: str, items: List[dict]) -> Dict[str, List[str]]:
     """Make `directory` hold exactly these items, one canonical file each.
 
     Files whose item is not in `items` are removed, so the directory mirrors the
-    source exactly. Returns {"written": [...], "unchanged": [...], "removed": [...]}.
+    source exactly. Returns lists of filenames under "created", "updated",
+    "unchanged" and "removed".
     """
     by_name: Dict[str, dict] = {}
     for item in items:
@@ -224,11 +231,10 @@ def mirror(directory: str, items: List[dict]) -> Dict[str, List[str]]:
             raise ValueError(f"two items map to the same file {name}")
         by_name[name] = item
 
-    report = {"written": [], "unchanged": [], "removed": []}
+    report = {"created": [], "updated": [], "unchanged": [], "removed": []}
     os.makedirs(directory, exist_ok=True)
     for name in sorted(by_name):
-        changed = write_file(os.path.join(directory, name), by_name[name])
-        report["written" if changed else "unchanged"].append(name)
+        report[write_file_status(os.path.join(directory, name), by_name[name])].append(name)
     for name in list_files(directory):
         if name not in by_name:
             os.remove(os.path.join(directory, name))

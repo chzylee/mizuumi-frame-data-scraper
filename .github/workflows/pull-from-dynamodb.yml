@@ -29,6 +29,8 @@ jobs:
           exit 1
 
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0  # tags too: the pending-edit check compares with dynamodb-deployed
 
       - uses: actions/setup-python@v7
         with:
@@ -43,7 +45,11 @@ jobs:
 
       - name: Pull table into data/
         working-directory: src
-        run: python -m pull_from_dynamodb | tee "$RUNNER_TEMP/pull.txt"
+        # Same entrypoint as a local pull. Lists (never blocks on) files where
+        # the pull reverts edits on main that were never pushed to the table.
+        run: |
+          python -m pull_from_dynamodb --markdown "$RUNNER_TEMP/pull.md" | tee "$RUNNER_TEMP/pull.txt"
+          cat "$RUNNER_TEMP/pull.md" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Validate data/
         working-directory: src
@@ -73,8 +79,9 @@ jobs:
           git commit -q -m "Pull data/ from DynamoDB (run ${GITHUB_RUN_ID})"
           git push origin "$branch"
           {
+            cat "$RUNNER_TEMP/pull.md"
             echo "Automated pull of the \`MBAACC-Frame-Data\` table into \`data/\`."
-            echo "Review the diff: every change here was made to the table outside this repo."
+            echo "Review the diff: it is every way the table differs from main."
             echo
             echo '```'
             cat "$RUNNER_TEMP/pull.txt"

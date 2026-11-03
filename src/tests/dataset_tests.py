@@ -105,8 +105,11 @@ class DirTestCase(unittest.TestCase):
 class TestMirror(DirTestCase):
     def test_writes_unchanged_and_removes(self):
         first = dataset.mirror(self.dir, [item(char="Ciel"), item(char="Kouma_Kishima")])
-        self.assertEqual(first["written"], ["ciel-C.json", "kouma-C.json"])
-        second = dataset.mirror(self.dir, [item(char="Ciel")])
+        self.assertEqual(first["created"], ["ciel-C.json", "kouma-C.json"])
+        changed = dataset.mirror(self.dir, [item(char="Ciel", moves=[move("5B")]), item(char="Kouma_Kishima")])
+        self.assertEqual(changed["updated"], ["ciel-C.json"])
+        self.assertEqual(changed["unchanged"], ["kouma-C.json"])
+        second = dataset.mirror(self.dir, [item(char="Ciel", moves=[move("5B")])])
         self.assertEqual(second["unchanged"], ["ciel-C.json"])
         self.assertEqual(second["removed"], ["kouma-C.json"])
         self.assertEqual(dataset.list_files(self.dir), ["ciel-C.json"])
