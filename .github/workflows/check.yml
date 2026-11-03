@@ -1,0 +1,64 @@
+# Unit tests + data/ validation. No AWS access.
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash  # GitHub runs this as bash -eo pipefail
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Unit tests
+        working-directory: src
+        run: python -m unittest discover -s tests -p "*_tests.py" -v
+
+      - name: Validate data/
+        working-directory: src
+        run: python -m dataset check
+
+  # The local data viewer (viewer/): typecheck, unit tests, and byte-for-byte
+  # parity of its TS ports with src/dataset.py. CI has no local-data/, so parity
+  # runs over the committed fixtures and generated files.
+  viewer:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: viewer
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7  # parity runs src/dataset.py (stdlib only)
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Parity with src/dataset.py
+        run: npm run test:parity

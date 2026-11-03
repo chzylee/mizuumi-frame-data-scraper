@@ -1,0 +1,118 @@
+# Read the whole DynamoDB table into data/ and open a PR if anything changed.
+# Read-only against AWS; never pushes to main. Logic: src/pull_from_dynamodb.py
+# (the same entrypoint you run locally).
+name: Pull from DynamoDB
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash  # GitHub runs this as bash -eo pipefail
+
+concurrency:
+  group: dynamodb-pull
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    # No `environment:` on purpose: the read role trusts the OIDC subject
+    # repo:chzylee/mizuumi-frame-data-scraper:ref:refs/heads/main, and an
+    # environment would change that subject.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write       # push the pull branch (never main)
+      pull-requests: write  # open the PR
+      id-token: write       # OIDC token for the read role
+    steps:
+      - name: Require main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Run this workflow from main. The read role only trusts refs/heads/main; this run is on ${GITHUB_REF}."
+          exit 1
+
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.DYNAMODB_READ_ROLE_ARN }}
+          aws-region: us-east-2
+
+      - name: Pull table into data/
+        working-directory: src
+        run: python -m pull_from_dynamodb | tee "$RUNNER_TEMP/pull.txt"
+
+      - name: Validate data/
+        working-directory: src
+        # Recorded, not fatal: the PR should still show what the table holds.
+        run: |
+          if python -m dataset check > "$RUNNER_TEMP/check.txt" 2>&1; then
+            echo "CHECK_RESULT=passed" >> "$GITHUB_ENV"
+          else
+            echo "CHECK_RESULT=FAILED" >> "$GITHUB_ENV"
+            echo "::warning::data/ validation failed; see the job summary."
+          fi
+          cat "$RUNNER_TEMP/check.txt"
+
+      - name: Open PR if data/ changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          # Print at most $2 bytes of file $1, noting where the rest is. Keeps the
+          # PR body under GitHub's 65,536-character limit.
+          excerpt() {
+            if [ "$(wc -c < "$1")" -le "$2" ]; then
+              cat "$1"
+            else
+              head -c "$2" "$1"
+              printf '\n... truncated; full output in the job summary and log: %s\n' "$run_url"
+            fi
+          }
+
+          {
+            echo "## Pull"; echo '```'; excerpt "$RUNNER_TEMP/pull.txt" 400000; echo '```'
+            echo "## Validation: ${CHECK_RESULT}"; echo '```'; excerpt "$RUNNER_TEMP/check.txt" 400000; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -z "$(git status --porcelain -- data)" ]; then
+            echo "data/ already mirrors the table; nothing to do." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          # Run attempt in the name so re-running a failed run gets a fresh branch.
+          branch="dynamodb-pull/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add -A -- data
+          git commit -q -m "Pull data/ from DynamoDB (run ${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT})"
+          git push origin "$branch"
+          {
+            echo "Automated pull of the \`MBAACC-Frame-Data\` table into \`data/\`."
+            echo "Review the diff: it is every way the table differs from main. Merging"
+            echo "triggers *Push to DynamoDB*, which then finds the table already matching."
+            echo
+            echo '```'
+            excerpt "$RUNNER_TEMP/pull.txt" 20000
+            echo '```'
+            echo
+            echo "Validation (\`python -m dataset check\`): **${CHECK_RESULT}**"
+            echo
+            echo '```'
+            excerpt "$RUNNER_TEMP/check.txt" 20000
+            echo '```'
+            echo
+            echo "PR checks on a PR opened by GITHUB_TOKEN wait for approval:"
+            echo "use \"Approve workflows to run\" on this PR. Run: ${run_url}"
+          } > "$RUNNER_TEMP/body.md"
+          gh pr create --base main --head "$branch" \
+            --title "Pull data/ from DynamoDB (run ${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT})" \
+            --body-file "$RUNNER_TEMP/body.md" | tee -a "$GITHUB_STEP_SUMMARY"

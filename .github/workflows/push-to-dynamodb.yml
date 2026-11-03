@@ -1,0 +1,90 @@
+# Make the DynamoDB table match data/ on main. The table is live for both bots.
+# Logic: src/push_to_dynamodb.py.
+#
+# Manual dispatch only, from main. dry_run defaults to true.
+#   plan  - read role, no environment: prints the per-item diff to the job
+#           summary. A dispatch dry run stops here.
+#   write - write role (also trusts ...:ref:refs/heads/main): re-plans and writes the items
+#           that differ. Never deletes table items.
+name: Push to DynamoDB
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: plan only, write nothing"
+        type: boolean
+        default: true
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash  # GitHub runs this as bash -eo pipefail
+
+concurrency:
+  group: dynamodb-push
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    # No environment: the read role trusts ...:ref:refs/heads/main.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Require main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Run this workflow from main; this run is on ${GITHUB_REF}."
+          exit 1
+
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.DYNAMODB_READ_ROLE_ARN }}
+          aws-region: us-east-2
+
+      - name: Plan (dry run)
+        working-directory: src
+        run: python -m push_to_dynamodb
+
+  write:
+    needs: plan
+    if: ${{ !inputs.dry_run }}
+    runs-on: ubuntu-latest
+    # No environment: the write role trusts ...:ref:refs/heads/main.
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Require main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Run this workflow from main; this run is on ${GITHUB_REF}."
+          exit 1
+
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.DYNAMODB_WRITE_ROLE_ARN }}
+          aws-region: us-east-2
+
+      - name: Write
+        working-directory: src
+        run: python -m push_to_dynamodb --write

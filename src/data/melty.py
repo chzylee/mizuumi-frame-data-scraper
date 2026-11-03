@@ -15,12 +15,12 @@ char_paths = [
     "Kohaku",
     "Kouma_Kishima",
     "Len",
-    # "Hisui_%26_Kohaku",
+    "Hisui_%26_Kohaku",   # maids (tag pair) -- re-enabled after DOM-migration fix
     "Mech-Hisui",
     "Miyako_Arima",
-    # "Neco-Arc_Chaos",
+    "Neco-Arc_Chaos",     # joke char -- re-enabled after DOM-migration fix
     "Shiki_Nanaya",
-    # "Neco-Arc",
+    "Neco-Arc",           # joke char -- re-enabled after DOM-migration fix
     "Neco_%26_Mech",
     "Nero_Chaos",
     "Powered_Ciel",

@@ -2,9 +2,9 @@ import requests
 from scraper import Scraper
 
 def test_scraper(html_filepath: str):
-    url = "https://wiki.gbl.gg/w/Melty_Blood/MBAACC/Kouma_Kishima/Crescent_Moon"
+    url = "https://mizuumi.wiki/w/Melty_Blood/MBAACC/Kouma_Kishima/Crescent_Moon"
     wiki_html = requests.get(url).text
-    base_url = "https://wiki.gbl.gg"
+    base_url = "https://mizuumi.wiki"
 
     scraper = Scraper(base_url=base_url, isLoggingOn=True)
     melty_char = scraper.scrape_frame_data(wiki_html)

@@ -6,9 +6,11 @@ class MoveFrameData:
     recovery: str
     frame_adv: str
     proration: str
+    guard: str
     invuln: str
 
-    # All properties required.
+    # All properties required. `guard` defaults to "" for pages/moves whose table
+    # has no Guard column so older callers and odd layouts don't break.
     def __init__(
         self,
         first_active: str,
@@ -16,13 +18,15 @@ class MoveFrameData:
         recovery: str,
         frame_adv: str,
         proration: str,
-        invuln: str
+        invuln: str,
+        guard: str = ""
     ):
         self.first_active = first_active
         self.active = active
         self.recovery = recovery
         self.frame_adv = frame_adv
         self.proration = proration
+        self.guard = guard
         self.invuln = invuln
 
 class MoveData(MoveFrameData):
@@ -41,6 +45,7 @@ class MoveData(MoveFrameData):
         frame_adv: str,
         proration: str,
         invuln: str,
+        guard: str = "",
         alts: List[str] = []
     ):
         self.input = input
@@ -50,6 +55,7 @@ class MoveData(MoveFrameData):
         self.recovery = recovery
         self.frame_adv = frame_adv
         self.proration = proration
+        self.guard = guard
         self.invuln = invuln
         self.alts = alts
 
@@ -67,6 +73,7 @@ class MoveData(MoveFrameData):
         self.recovery = frame_data.recovery
         self.frame_adv = frame_data.frame_adv
         self.proration = frame_data.proration
+        self.guard = frame_data.guard
         self.invuln = frame_data.invuln
         self.alts = alts
 
@@ -79,6 +86,7 @@ class MoveData(MoveFrameData):
             "recovery": self.recovery,
             "frame_adv": self.frame_adv,
             "proration": self.proration,
+            "guard": self.guard,
             "invuln": self.invuln,
             "alts": self.alts
         }

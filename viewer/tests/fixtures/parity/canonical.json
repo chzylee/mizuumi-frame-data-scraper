@@ -1,0 +1,32 @@
+{
+  "character_name": "Ciel",
+  "moon": "Half_Moon",
+  "moves": [
+    {
+      "input": "5A",
+      "image": "https://example.test/5A.png",
+      "first_active": "5",
+      "active": "3",
+      "recovery": "8",
+      "frame_adv": "1",
+      "proration": "75%",
+      "guard": "LH",
+      "invuln": "-",
+      "alts": []
+    },
+    {
+      "input": "2C",
+      "image": "https://example.test/2C.png",
+      "first_active": "5",
+      "active": "3",
+      "recovery": "8",
+      "frame_adv": "1",
+      "proration": "75%",
+      "invuln": "-",
+      "alts": [
+        "2c",
+        "low"
+      ]
+    }
+  ]
+}

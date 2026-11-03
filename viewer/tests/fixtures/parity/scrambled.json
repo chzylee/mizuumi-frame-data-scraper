@@ -1,0 +1,36 @@
+{
+    "zeta": {
+        "b": 1,
+        "a": [
+            {
+                "y": 1,
+                "x": 2
+            }
+        ]
+    },
+    "moves": [
+        {
+            "alts": [
+                "a"
+            ],
+            "zz": "1",
+            "aa": "2",
+            "nested": {
+                "k2": "v",
+                "k1": "v"
+            },
+            "input": "5A",
+            "image": "i",
+            "guard": "L",
+            "first_active": "1",
+            "active": "1",
+            "recovery": "1",
+            "frame_adv": "1",
+            "proration": "1",
+            "invuln": "-"
+        }
+    ],
+    "moon": "Full_Moon",
+    "alpha": true,
+    "character_name": "Akiha_Tohno"
+}
