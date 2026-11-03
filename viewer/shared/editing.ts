@@ -6,8 +6,8 @@
  * (or drops it if nothing changed). Drafts that are still open are not part of
  * the pending changes and are never saved.
  */
-import { setKey, valueKey, type Json } from "./pyjson";
-import { cloneJson, EXPECTED_FIELDS, type MoveState, type Workspace } from "./workspace";
+import { setKey, valueKey, type Json, type JsonObject } from "./pyjson";
+import { cloneJson, type MoveState, type Workspace } from "./workspace";
 
 export interface EditorState {
   ws: Workspace;
@@ -20,7 +20,9 @@ export type EditorAction =
   | { type: "unlock"; itemId: string; uid: string; field: string }
   | { type: "draft"; uid: string; field: string; value: Json }
   | { type: "relock"; itemId: string; uid: string; field: string }
-  | { type: "setImage"; itemId: string; uid: string; value: string };
+  | { type: "setImage"; itemId: string; uid: string; value: string }
+  /** Type into a field the move was missing: no lock. Clearing a text field makes it missing again. */
+  | { type: "fill"; itemId: string; uid: string; field: string; value: Json };
 
 export function draftKey(uid: string, field: string): string {
   return `${uid}\u0000${field}`;
@@ -44,12 +46,7 @@ function currentValue(ws: Workspace, itemId: string, uid: string, field: string)
   return editableMove(ws, itemId, uid)?.fields[field];
 }
 
-/** An expected field the move lacks can be unlocked and filled in: it starts empty. */
-function emptyValue(field: string): Json {
-  return field === "alts" ? [] : "";
-}
-
-export function setField(ws: Workspace, itemId: string, uid: string, field: string, value: Json): Workspace {
+function updateMove(ws: Workspace, itemId: string, uid: string, update: (fields: JsonObject) => void): Workspace {
   return {
     ...ws,
     items: ws.items.map((item) =>
@@ -60,12 +57,22 @@ export function setField(ws: Workspace, itemId: string, uid: string, field: stri
             moves: item.moves.map((move) => {
               if (move.uid !== uid) return move;
               const fields = cloneJson(move.fields);
-              setKey(fields, field, cloneJson(value));
+              update(fields);
               return { ...move, fields };
             }),
           },
     ),
   };
+}
+
+export function setField(ws: Workspace, itemId: string, uid: string, field: string, value: Json): Workspace {
+  return updateMove(ws, itemId, uid, (fields) => setKey(fields, field, cloneJson(value)));
+}
+
+function removeField(ws: Workspace, itemId: string, uid: string, field: string): Workspace {
+  return updateMove(ws, itemId, uid, (fields) => {
+    delete fields[field];
+  });
 }
 
 export function initialEditor(ws: Workspace): EditorState {
@@ -78,12 +85,9 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       return initialEditor(action.ws);
     case "unlock": {
       const key = draftKey(action.uid, action.field);
-      const move = editableMove(state.ws, action.itemId, action.uid);
-      if (!move || key in state.drafts) return state;
-      const value = move.fields[action.field];
-      const fillable = value === undefined && action.field !== "image" && EXPECTED_FIELDS.includes(action.field);
-      if (!fillable && !isEditable(action.field, value)) return state;
-      return { ...state, drafts: { ...state.drafts, [key]: fillable ? emptyValue(action.field) : cloneJson(value!) } };
+      const value = currentValue(state.ws, action.itemId, action.uid, action.field);
+      if (key in state.drafts || !isEditable(action.field, value)) return state;
+      return { ...state, drafts: { ...state.drafts, [key]: cloneJson(value!) } };
     }
     case "draft": {
       const key = draftKey(action.uid, action.field);
@@ -95,14 +99,21 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       if (!(key in state.drafts)) return state;
       const { [key]: draft, ...drafts } = state.drafts;
       const current = currentValue(state.ws, action.itemId, action.uid, action.field);
-      // Re-locking a missing field left empty adds nothing (it stays missing).
-      const unchanged = valueKey(draft) === valueKey(current) || (current === undefined && draft === "");
-      const ws = unchanged ? state.ws : setField(state.ws, action.itemId, action.uid, action.field, draft!);
+      const ws = valueKey(draft) === valueKey(current) ? state.ws : setField(state.ws, action.itemId, action.uid, action.field, draft!);
       return { ...state, ws, drafts };
     }
     case "setImage":
       if (!editableMove(state.ws, action.itemId, action.uid)) return state;
       return { ...state, ws: setField(state.ws, action.itemId, action.uid, "image", action.value) };
+    case "fill": {
+      if (!editableMove(state.ws, action.itemId, action.uid)) return state;
+      // An emptied text field is removed again, so it reads as missing instead of saving "".
+      const ws =
+        action.value === ""
+          ? removeField(state.ws, action.itemId, action.uid, action.field)
+          : setField(state.ws, action.itemId, action.uid, action.field, action.value);
+      return { ...state, ws };
+    }
   }
 }
 

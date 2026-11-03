@@ -283,6 +283,16 @@ export function missingFields(fields: JsonObject): string[] {
 }
 
 /**
+ * Fields the move was missing when loaded (image aside, which is always typed in):
+ * they are typed into directly, with no lock, and stay that way while being filled.
+ */
+export function fillableFields(item: ItemState, move: MoveState): string[] {
+  if (item.isNew || move.isNew || move.dataIndex === null) return [];
+  const base = ((item.base?.moves ?? []) as JsonObject[])[move.dataIndex];
+  return base ? missingFields(base).filter((field) => field !== "image") : [];
+}
+
+/**
  * Status of every move and field. With diffs on, each move is compared with the
  * scraped move it was paired with at load (MoveState.scrapedIndex), so an edit,
  * even to `input`, changes only the edited move's colors. Missing expected fields
