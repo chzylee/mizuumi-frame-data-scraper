@@ -1,6 +1,7 @@
 # Read the whole DynamoDB table into data/ and open a PR if anything changed.
-# Read-only against AWS; never pushes to main. Logic: src/pull_from_dynamodb.py
-# (the same entrypoint you run locally).
+# Run it from any branch ("Use workflow from"): the PR goes against that branch.
+# Read-only against AWS; never pushes to the branch itself.
+# Logic: src/pull_from_dynamodb.py (the same entrypoint you run locally).
 name: Pull from DynamoDB
 
 on:
@@ -19,18 +20,18 @@ concurrency:
 jobs:
   pull:
     # No `environment:` on purpose: the read role trusts the OIDC subject
-    # repo:chzylee/mizuumi-frame-data-scraper:ref:refs/heads/main, and an
+    # repo:chzylee/mizuumi-frame-data-scraper:* (any branch of this repo), and an
     # environment would change that subject.
     runs-on: ubuntu-latest
     permissions:
-      contents: write       # push the pull branch (never main)
+      contents: write       # push the pull branch (never the base branch)
       pull-requests: write  # open the PR
       id-token: write       # OIDC token for the read role
     steps:
-      - name: Require main
-        if: github.ref != 'refs/heads/main'
+      - name: Require a branch
+        if: ${{ !startsWith(github.ref, 'refs/heads/') }}
         run: |
-          echo "::error::Run this workflow from main. The read role only trusts refs/heads/main; this run is on ${GITHUB_REF}."
+          echo "::error::Run this workflow from a branch (pick one under \"Use workflow from\"); this run is on ${GITHUB_REF}."
           exit 1
 
       - uses: actions/checkout@v7
@@ -97,8 +98,8 @@ jobs:
           git push origin "$branch"
           {
             echo "Automated pull of the \`MBAACC-Frame-Data\` table into \`data/\`."
-            echo "Review the diff: it is every way the table differs from main. Merging"
-            echo "triggers *Push to DynamoDB*, which then finds the table already matching."
+            echo "Review the diff: it is every way the table differs from \`${GITHUB_REF_NAME}\`."
+            echo "Merging changes nothing in the table; *Push to DynamoDB* is run by hand."
             echo
             echo '```'
             excerpt "$RUNNER_TEMP/pull.txt" 20000
@@ -113,6 +114,6 @@ jobs:
             echo "PR checks on a PR opened by GITHUB_TOKEN wait for approval:"
             echo "use \"Approve workflows to run\" on this PR. Run: ${run_url}"
           } > "$RUNNER_TEMP/body.md"
-          gh pr create --base main --head "$branch" \
+          gh pr create --base "$GITHUB_REF_NAME" --head "$branch" \
             --title "Pull data/ from DynamoDB (run ${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT})" \
             --body-file "$RUNNER_TEMP/body.md" | tee -a "$GITHUB_STEP_SUMMARY"

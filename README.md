@@ -124,9 +124,9 @@ AWS_PROFILE=mizuumi-read python -m pull_from_dynamodb   # or: python src/pull_fr
 It rewrites `data/` in your working copy, prints the created / updated / unchanged /
 removed files, and runs no git commands. Review with `git diff data/` and open a PR.
 
-The workflow (manually dispatched, main only) runs the same entrypoint and, if anything
-changed, opens a PR from a fresh `dynamodb-pull/<run id>-<attempt>` branch. It never
-pushes to `main`.
+The workflow (manually dispatched, from any branch) runs the same entrypoint and, if
+anything changed, opens a PR against the branch it ran from, from a fresh
+`dynamodb-pull/<run id>-<attempt>` branch. It never pushes to that branch itself.
 
 A pull makes `data/` match the table, so it undoes any `data/` edit that hasn't reached
 the table yet, i.e. anything merged to `main` but not pushed. The PR diff shows it;
@@ -148,8 +148,10 @@ that exist on only one side, and it never guesses.
 
 ### Push: [push-to-dynamodb.yml](./.github/workflows/push-to-dynamodb.yml)
 
-Manual dispatch only, from `main`, with `mode`: **`plan`** (the default) shows what
-would change and writes nothing; **`apply`** plans, then writes.
+Manual dispatch only, with `mode`: **`plan`** (the default) shows what would change and
+writes nothing; **`apply`** plans, then writes. Pick the branch under "Use workflow
+from": `plan` runs on any branch and compares that branch's `data/` with the table
+(handy for previewing a PR); `apply` runs only from `main`.
 Concurrent runs queue rather than race.
 
 - The `plan` job (read role, no environment) prints every insert/update with a per-move
@@ -246,7 +248,7 @@ compares them over the test fixtures and, when present, every file in
 ## What the workflows need to run
 
 - Repo secrets `DYNAMODB_READ_ROLE_ARN` (used by pull and the push `plan` job; the role
-  trusts `repo:chzylee/mizuumi-frame-data-scraper:ref:refs/heads/main`) and
+  trusts `repo:chzylee/mizuumi-frame-data-scraper:*`, any branch) and
   `DYNAMODB_WRITE_ROLE_ARN` (used by the push `apply` job; the role trusts
   `repo:chzylee/mizuumi-frame-data-scraper:ref:refs/heads/main`). Region `us-east-2`.
   The code calls only `dynamodb:Scan` (both roles) and `dynamodb:PutItem` (write role).

@@ -1,11 +1,11 @@
 # Make the DynamoDB table match data/ on main. The table is live for both bots.
 # Logic: src/push_to_dynamodb.py.
 #
-# Manual dispatch only, from main. mode defaults to plan.
-#   plan  - read role, no environment: prints the per-item diff to the job
-#           summary. Plan mode stops here.
-#   apply - write role (also trusts ...:ref:refs/heads/main): re-plans and writes the
-#           items that differ. Never deletes table items.
+# Manual dispatch only. mode defaults to plan.
+#   plan  - read role, any branch ("Use workflow from"): compares that branch's data/
+#           with the table and prints the per-item diff. Plan mode stops here.
+#   apply - write role, main only (it trusts ...:ref:refs/heads/main): re-plans and
+#           writes the items that differ. Never deletes table items.
 name: Push to DynamoDB
 
 on:
@@ -29,16 +29,22 @@ concurrency:
 
 jobs:
   plan:
-    # No environment: the read role trusts ...:ref:refs/heads/main.
+    # No environment: the read role trusts repo:chzylee/mizuumi-frame-data-scraper:*.
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
     steps:
-      - name: Require main
-        if: github.ref != 'refs/heads/main'
+      - name: Require a branch
+        if: ${{ !startsWith(github.ref, 'refs/heads/') }}
         run: |
-          echo "::error::Run this workflow from main; this run is on ${GITHUB_REF}."
+          echo "::error::Run this workflow from a branch (pick one under \"Use workflow from\"); this run is on ${GITHUB_REF}."
+          exit 1
+
+      - name: Refuse apply off main
+        if: ${{ inputs.mode == 'apply' && github.ref != 'refs/heads/main' }}
+        run: |
+          echo "::error::apply only runs from main (the write role trusts main only). Run plan here, or apply from main."
           exit 1
 
       - uses: actions/checkout@v7
@@ -56,7 +62,9 @@ jobs:
 
       - name: Plan
         working-directory: src
-        run: python -m push_to_dynamodb
+        run: |
+          echo "Planning \`data/\` from branch \`${GITHUB_REF_NAME}\` against the live table." >> "$GITHUB_STEP_SUMMARY"
+          python -m push_to_dynamodb
 
   apply:
     needs: plan
