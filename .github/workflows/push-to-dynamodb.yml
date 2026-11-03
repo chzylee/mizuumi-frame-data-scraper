@@ -1,20 +1,21 @@
 # Make the DynamoDB table match data/ on main. The table is live for both bots.
 # Logic: src/push_to_dynamodb.py.
 #
-# Manual dispatch only, from main. dry_run defaults to true.
+# Manual dispatch only, from main. mode defaults to plan.
 #   plan  - read role, no environment: prints the per-item diff to the job
-#           summary. A dispatch dry run stops here.
-#   write - write role (also trusts ...:ref:refs/heads/main): re-plans and writes the items
-#           that differ. Never deletes table items.
+#           summary. Plan mode stops here.
+#   apply - write role (also trusts ...:ref:refs/heads/main): re-plans and writes the
+#           items that differ. Never deletes table items.
 name: Push to DynamoDB
 
 on:
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "Dry run: plan only, write nothing"
-        type: boolean
-        default: true
+      mode:
+        description: "plan: show what would change, write nothing. apply: plan, then write."
+        type: choice
+        options: [plan, apply]
+        default: plan
 
 permissions: {}
 
@@ -53,13 +54,13 @@ jobs:
           role-to-assume: ${{ secrets.DYNAMODB_READ_ROLE_ARN }}
           aws-region: us-east-2
 
-      - name: Plan (dry run)
+      - name: Plan
         working-directory: src
         run: python -m push_to_dynamodb
 
-  write:
+  apply:
     needs: plan
-    if: ${{ !inputs.dry_run }}
+    if: ${{ inputs.mode == 'apply' }}
     runs-on: ubuntu-latest
     # No environment: the write role trusts ...:ref:refs/heads/main.
     permissions:
@@ -85,6 +86,6 @@ jobs:
           role-to-assume: ${{ secrets.DYNAMODB_WRITE_ROLE_ARN }}
           aws-region: us-east-2
 
-      - name: Write
+      - name: Apply
         working-directory: src
-        run: python -m push_to_dynamodb --write
+        run: python -m push_to_dynamodb --apply

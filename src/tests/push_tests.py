@@ -24,8 +24,8 @@ class PushTestCase(unittest.TestCase):
     def data(self, *items):
         dataset.mirror(self.dir, list(items))
 
-    def run_push(self, table, dry_run=False):
-        return {p["name"]: p for p in push.run(table, self.dir, dry_run=dry_run)}
+    def run_push(self, table, apply=True):
+        return {p["name"]: p for p in push.run(table, self.dir, apply=apply)}
 
 
 class TestPlan(PushTestCase):
@@ -107,10 +107,10 @@ class TestPlan(PushTestCase):
 
 
 class TestDryRun(PushTestCase):
-    def test_dry_run_plans_the_same_but_writes_nothing(self):
+    def test_plan_mode_plans_the_same_but_writes_nothing(self):
         self.data(item(moves=[move("5A", guard="L")]))
         table = FakeTable([item()])
-        dry = self.run_push(table, dry_run=True)
+        dry = self.run_push(table, apply=False)
         self.assertEqual(dry["kouma/crescent_kouma"]["result"], "would write")
         self.assertEqual(table.put_count, 0)
         real = self.run_push(table)
@@ -123,7 +123,7 @@ class TestDryRun(PushTestCase):
             handle.write("{")
         table = FakeTable([item()])
         with self.assertRaises(ValueError):
-            push.run(table, self.dir, dry_run=False)
+            push.run(table, self.dir, apply=True)
         self.assertEqual(table.put_count, 0)
 
 
@@ -142,19 +142,19 @@ class TestCli(PushTestCase):
         with open(summary, encoding="utf-8") as handle:
             return code, out.getvalue(), handle.read()
 
-    def test_default_is_a_dry_run_and_summary_has_the_diff(self):
+    def test_default_is_plan_mode_and_summary_has_the_diff(self):
         self.data(item(moves=[move("5A", guard="L")]))
         self.table = FakeTable([item()])
         code, out, summary = self.call()
         self.assertEqual(code, 0)
-        self.assertIn("DRY RUN", out)
+        self.assertIn("PLAN, nothing written", out)
         self.assertIn("guard: (absent) -> 'L'", summary)
         self.assertEqual(self.table.put_count, 0)
 
     def test_write_flag_writes(self):
         self.data(item(moves=[move("5A", guard="L")]))
         self.table = FakeTable([item()])
-        code, out, _ = self.call("--write")
+        code, out, _ = self.call("--apply")
         self.assertEqual(code, 0)
         self.assertEqual(self.table.put_count, 1)
 

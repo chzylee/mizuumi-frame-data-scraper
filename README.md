@@ -10,8 +10,8 @@ match it. Nothing on a local machine writes to DynamoDB; every change goes throu
 
 There is exactly one table, shared by the dev and prod bot. **A push is live for both
 bots right away.** Every workflow is manually triggered: merging to `main` changes
-nothing in the table until someone runs *Push to DynamoDB*. Run it with `dry_run`
-checked first; that plan is the only preview.
+nothing in the table until someone runs *Push to DynamoDB*. Run it in `plan` mode
+first; that plan is the only preview.
 
 ## Start the viewer
 
@@ -26,8 +26,8 @@ Then open http://127.0.0.1:5174. The first time, run `npm install` in `viewer/` 
 `npm start`. Keep the terminal open while you use it; saving needs the local server.
 
 To ship an edit: **Save edits** in the viewer, commit and push the `data/` change to
-`main` (or merge a PR), then run *Push to DynamoDB* from the Actions tab, with `dry_run`
-checked first. More in [Viewer](#viewer).
+`main` (or merge a PR), then run *Push to DynamoDB* from the Actions tab: `plan` first,
+then `apply`. More in [Viewer](#viewer).
 
 ## Layout
 
@@ -148,13 +148,13 @@ that exist on only one side, and it never guesses.
 
 ### Push: [push-to-dynamodb.yml](./.github/workflows/push-to-dynamodb.yml)
 
-Manual dispatch only, from `main`, with `dry_run` (default **true**). Uncheck
-`dry_run` to write.
+Manual dispatch only, from `main`, with `mode`: **`plan`** (the default) shows what
+would change and writes nothing; **`apply`** plans, then writes.
 Concurrent runs queue rather than race.
 
 - The `plan` job (read role, no environment) prints every insert/update with a per-move
-  diff to the log and the job summary. A dry run stops there.
-- The `write` job (write role) re-plans against the live table and writes the items
+  diff to the log and the job summary. Plan mode stops there.
+- The `apply` job (write role) re-plans against the live table and writes the items
   that differ. There is no approval step: merging a `data/` change to `main` is the
   approval.
 
@@ -165,7 +165,7 @@ content hash, computed the same way over the table item (minus its stored
 overwritten with `data/`. Each write is a plain `put_item` of the `data/` item plus
 `content_hash`.
 
-Logic: `src/push_to_dynamodb.py` (`--write` to write; without it, a dry run of the same
+Logic: `src/push_to_dynamodb.py` (`--apply` to write; without it, plan mode on the same
 code path).
 
 ### Check: [check.yml](./.github/workflows/check.yml)
@@ -235,8 +235,8 @@ Then ship it like any other `data/` change:
 
 1. Review `git diff data/` and commit.
 2. Push to `main`, or open a PR and merge it once CI passes.
-3. Run *Push to DynamoDB* with `dry_run` checked, check the plan, then run it again
-   unchecked to write.
+3. Run *Push to DynamoDB* in `plan` mode, check the plan, then run it again in `apply` mode
+   to write.
 
 Its TypeScript copies of the `dataset.py` serializer, `path_for` and validation must
 match Python byte for byte; `npm run test:parity` (Python on `PATH`, or set `PYTHON`)
@@ -247,7 +247,7 @@ compares them over the test fixtures and, when present, every file in
 
 - Repo secrets `DYNAMODB_READ_ROLE_ARN` (used by pull and the push `plan` job; the role
   trusts `repo:chzylee/mizuumi-frame-data-scraper:ref:refs/heads/main`) and
-  `DYNAMODB_WRITE_ROLE_ARN` (used by the push `write` job; the role trusts
+  `DYNAMODB_WRITE_ROLE_ARN` (used by the push `apply` job; the role trusts
   `repo:chzylee/mizuumi-frame-data-scraper:ref:refs/heads/main`). Region `us-east-2`.
   The code calls only `dynamodb:Scan` (both roles) and `dynamodb:PutItem` (write role).
 - Settings → Actions → General → "Allow GitHub Actions to create and approve pull
@@ -260,15 +260,15 @@ URLs that exist nowhere else.
 
 1. **Pull:** locally, on a new branch, run `AWS_PROFILE=mizuumi-read python -m pull_from_dynamodb`
    from `src`, commit `data/`, and open a PR. (Or run *Pull from DynamoDB* on `main`.)
-2. **Merge:** let CI pass, review the PR (it's the whole table), and merge it. A dry-run
-   push should report every item `unchanged`.
+2. **Merge:** let CI pass, review the PR (it's the whole table), and merge it. A `plan`
+   run should report every item `unchanged`.
 3. **Backfill guard:** run `python main.py`, then `python -m fill_from_scrape --fields guard`.
    Review `git diff data/` and the reported unmatched moves, and open a PR. (The viewer can
    do this too, but its save also writes any moves or items that exist only in the
    scrape, so the plan in step 4 would show more than `guard`.)
-4. **Merge**, then run *Push to DynamoDB* with `dry_run` checked and confirm the
+4. **Merge**, then run *Push to DynamoDB* in `plan` mode and confirm the
    `plan` summary shows only `guard` changes.
-5. **Push:** run it again with `dry_run` unchecked to write.
+5. **Push:** run it again in `apply` mode to write.
 
 ## Testing
 

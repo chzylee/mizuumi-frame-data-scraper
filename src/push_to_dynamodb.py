@@ -1,10 +1,9 @@
 """Push: make the DynamoDB table match data/. The only table writer.
 
-Run by .github/workflows/push-to-dynamodb.yml on every push to main that
-changes data/ (and on manual dispatch). Without --write it is a dry run of the
-same code path that stops short of put_item.
+Run by .github/workflows/push-to-dynamodb.yml (manual dispatch). Plan mode is the
+default: the same code path, stopping short of put_item. --apply writes.
 
-    python -m push_to_dynamodb [--write]
+    python -m push_to_dynamodb [--apply]
 
 Per item (named by its data/ path without .json), the plan is one of:
   insert     - no table item yet
@@ -90,12 +89,12 @@ def plan(desired: Dict[str, dict], live: Dict[str, dict]) -> List[dict]:
     return plans
 
 
-def execute(table, plans: List[dict], dry_run: bool) -> None:
-    """Write every insert/update (unless dry_run). Sets entry["result"] on each."""
+def execute(table, plans: List[dict], apply: bool) -> None:
+    """Write every insert/update when applying. Sets entry["result"] on each."""
     for entry in plans:
         if entry["status"] not in WRITE_STATUSES:
             entry["result"] = "not written"
-        elif dry_run:
+        elif not apply:
             entry["result"] = "would write"
         else:
             item = entry["item"]
@@ -103,8 +102,8 @@ def execute(table, plans: List[dict], dry_run: bool) -> None:
             entry["result"] = "written"
 
 
-def run(table, data_dir: str, dry_run: bool = True) -> List[dict]:
-    """Validate data/, read the table, plan, and (unless dry_run) write."""
+def run(table, data_dir: str, apply: bool = False) -> List[dict]:
+    """Validate data/, read the table, plan, and (when applying) write."""
     errors = dataset.validate_dir(data_dir)
     if errors:
         raise ValueError("data/ is invalid, refusing to push:\n" + "\n".join(errors))
@@ -113,7 +112,7 @@ def run(table, data_dir: str, dry_run: bool = True) -> List[dict]:
     for raw in dynamo.scan_all(table):
         live[dataset.path_for(raw)] = dataset.item_from_table(raw)
     plans = plan(desired, live)
-    execute(table, plans, dry_run)
+    execute(table, plans, apply)
     return plans
 
 
@@ -121,8 +120,8 @@ def _counts(plans: List[dict]) -> str:
     return ", ".join(f"{s}: {sum(1 for p in plans if p['status'] == s)}" for s in REPORT_ORDER)
 
 
-def format_text(plans: List[dict], dry_run: bool) -> str:
-    lines = [f"=== Push plan ({'DRY RUN, nothing written' if dry_run else 'WRITE'}) ==="]
+def format_text(plans: List[dict], apply: bool) -> str:
+    lines = [f"=== Push to DynamoDB: {'APPLY' if apply else 'PLAN, nothing written'} ==="]
     for entry in plans:
         if entry["status"] == "unchanged":
             continue
@@ -132,8 +131,8 @@ def format_text(plans: List[dict], dry_run: bool) -> str:
     return "\n".join(lines)
 
 
-def format_markdown(plans: List[dict], dry_run: bool) -> str:
-    lines = [f"## Push to DynamoDB: {'plan (dry run, nothing written)' if dry_run else 'write'}",
+def format_markdown(plans: List[dict], apply: bool) -> str:
+    lines = [f"## Push to DynamoDB: {'apply' if apply else 'plan (nothing written)'}",
              "", f"**{_counts(plans)}**", ""]
     for entry in plans:
         if entry["status"] == "unchanged":
@@ -144,18 +143,17 @@ def format_markdown(plans: List[dict], dry_run: bool) -> str:
 
 
 def main(argv: List[str]) -> int:
-    parser = argparse.ArgumentParser(description="Make the DynamoDB table match data/ (dry run by default).")
-    parser.add_argument("--write", action="store_true", help="actually write (default: dry run)")
+    parser = argparse.ArgumentParser(description="Make the DynamoDB table match data/ (plan mode by default).")
+    parser.add_argument("--apply", action="store_true", help="write the planned changes (default: plan only)")
     parser.add_argument("--data-dir", default=dataset.DATA_DIRECTORY)
     parser.add_argument("--summary-file", default=os.environ.get("GITHUB_STEP_SUMMARY"))
     args = parser.parse_args(argv)
 
-    dry_run = not args.write
-    plans = run(dynamo.get_table(), args.data_dir, dry_run)
-    print(format_text(plans, dry_run))
+    plans = run(dynamo.get_table(), args.data_dir, args.apply)
+    print(format_text(plans, args.apply))
     if args.summary_file:
         with open(args.summary_file, "a", encoding="utf-8") as summary:
-            summary.write(format_markdown(plans, dry_run))
+            summary.write(format_markdown(plans, args.apply))
     return 0
 
 
