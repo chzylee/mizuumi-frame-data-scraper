@@ -19,7 +19,6 @@ checked first; that plan is the only preview.
 | --- | --- | --- |
 | `data/` | yes | One JSON file per table item: the item as stored, minus the `content_hash` bookkeeping attribute. Canonical format, checked by CI. |
 | `local-data/scraped/` | no | `main.py` scrape output, same layout as `data/`. Raw material, never pushed as-is. |
-| `local-data/overrides/` | no | Reserved for local hand edits (a future local web app). Not used yet. |
 | `src/` | yes | Scraper and pipeline code; run everything from here. |
 
 **Paths.** An item lives at `data/<short>/<moon>_<short>.json`, where `<short>` is the

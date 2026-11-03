@@ -50,5 +50,18 @@ class TestWriteJsonIfChanged(unittest.TestCase):
         )
 
 
+class TestLocalDataDirs(unittest.TestCase):
+    def test_only_the_scraped_directory_is_created(self):
+        root = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, root, ignore_errors=True)
+        scraped = os.path.join(root, "local-data", "scraped")
+        original = filehelper.SCRAPED_DIRECTORY
+        filehelper.SCRAPED_DIRECTORY = scraped
+        self.addCleanup(setattr, filehelper, "SCRAPED_DIRECTORY", original)
+        filehelper.ensure_local_data_dirs_exist()
+        self.assertEqual(os.listdir(os.path.join(root, "local-data")), ["scraped"])
+        self.assertFalse(hasattr(filehelper, "OVERRIDES_DIRECTORY"))
+
+
 if __name__ == "__main__":
     unittest.main()

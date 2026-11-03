@@ -7,15 +7,12 @@ from typing import Any
 # Paths are anchored at the repo root so it doesn't matter where you run from.
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # local-data/ is gitignored working space, never the record of the table:
-#   scraped/   - main.py's scrape output (one file per char/moon)
-#   overrides/ - reserved for local hand edits (future local web app)
+#   scraped/ - main.py's scrape output (one file per char/moon)
 LOCAL_DATA_DIRECTORY = os.path.join(REPO_ROOT, "local-data")
 SCRAPED_DIRECTORY = os.path.join(LOCAL_DATA_DIRECTORY, "scraped")
-OVERRIDES_DIRECTORY = os.path.join(LOCAL_DATA_DIRECTORY, "overrides")
 
 def ensure_local_data_dirs_exist() -> None:
-    for directory in (SCRAPED_DIRECTORY, OVERRIDES_DIRECTORY):
-        os.makedirs(directory, exist_ok=True)
+    os.makedirs(SCRAPED_DIRECTORY, exist_ok=True)
 
 def content_hash(data: Any) -> str:
     # Canonical hash of the data's meaning, independent of key order or formatting,
