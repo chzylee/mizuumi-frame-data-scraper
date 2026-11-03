@@ -33,93 +33,15 @@ change between the read and the write fails instead of being overwritten.
 """
 import argparse
 import os
-import subprocess
 import sys
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional, Set
 
 import dataset
 import dynamo
-
-BASELINE_TAG = "dynamodb-deployed"
-# Marker in a known-states set meaning "no item / no file".
-ABSENT = "<absent>"
+from baseline import ABSENT, BASELINE_TAG, known_states, state_of  # noqa: F401 (re-exported)
 
 WRITE_STATUSES = ("insert", "update")
 REPORT_ORDER = ("insert", "update", "unchanged", "table-only", "refused")
-
-
-# --- known states from git -------------------------------------------------------
-
-def _git(repo_dir: str, *args: str) -> str:
-    result = subprocess.run(
-        ["git", *args], cwd=repo_dir, capture_output=True, text=True, encoding="utf-8"
-    )
-    if result.returncode != 0:
-        raise RuntimeError(f"git {' '.join(args)} failed: {result.stderr.strip()}")
-    return result.stdout
-
-
-def resolve_tag(repo_dir: str, tag: str) -> Optional[str]:
-    result = subprocess.run(
-        ["git", "rev-parse", "--verify", "--quiet", f"refs/tags/{tag}^{{commit}}"],
-        cwd=repo_dir, capture_output=True, text=True,
-    )
-    return result.stdout.strip() if result.returncode == 0 else None
-
-
-def known_states(repo_dir: str, head: str, tag: str = BASELINE_TAG,
-                 data_path: str = "data") -> Tuple[Dict[str, Set[str]], str]:
-    """Canonical text of every recorded version of each data/ file since the baseline.
-
-    Returns ({filename: {canonical text or ABSENT}}, description of the baseline).
-    """
-    tag_commit = resolve_tag(repo_dir, tag)
-    if tag_commit is None:
-        commits = _git(repo_dir, "rev-list", head).split()
-        baseline = f"no `{tag}` tag yet: every commit in the pushed history ({len(commits)})"
-    else:
-        ancestor = subprocess.run(
-            ["git", "merge-base", "--is-ancestor", tag_commit, head], cwd=repo_dir
-        )
-        if ancestor.returncode != 0:
-            raise RuntimeError(
-                f"tag {tag} ({tag_commit[:7]}) is not an ancestor of {head}; "
-                "main's history was rewritten. Re-establish the baseline (see README)."
-            )
-        commits = [tag_commit] + _git(repo_dir, "rev-list", f"{tag_commit}..{head}").split()
-        baseline = f"`{tag}` at {tag_commit[:7]} plus {len(commits) - 1} later commit(s)"
-
-    blobs_by_file: Dict[str, Set[str]] = {}
-    present_in: List[Set[str]] = []
-    for commit in commits:
-        present = set()
-        for line in _git(repo_dir, "ls-tree", "-r", commit, "--", f"{data_path}/").splitlines():
-            meta, path = line.split("\t", 1)
-            name = path[len(data_path) + 1:]
-            if "/" in name or not name.endswith(".json"):
-                continue
-            present.add(name)
-            blobs_by_file.setdefault(name, set()).add(meta.split()[2])
-        present_in.append(present)
-
-    states: Dict[str, Set[str]] = {}
-    blob_text: Dict[str, Optional[str]] = {}
-    for name, blobs in blobs_by_file.items():
-        for blob in blobs:
-            if blob not in blob_text:
-                try:
-                    blob_text[blob] = dataset.dumps(dataset.loads(_git(repo_dir, "cat-file", "-p", blob)))
-                except ValueError:
-                    blob_text[blob] = None  # unparseable version can't match a live item
-            if blob_text[blob] is not None:
-                states.setdefault(name, set()).add(blob_text[blob])
-        if any(name not in present for present in present_in):
-            states.setdefault(name, set()).add(ABSENT)
-    return states, baseline
-
-
-def state_of(item: Optional[dict]) -> str:
-    return ABSENT if item is None else dataset.dumps(item)
 
 
 # --- planning ----------------------------------------------------------------------
