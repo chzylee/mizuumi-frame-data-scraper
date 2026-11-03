@@ -1,8 +1,7 @@
 # Make the DynamoDB table match data/ on main. The table is live for both bots.
 # Logic: src/push_to_dynamodb.py.
 #
-# Runs on every push to main that changes data/ (writes for real), and on manual
-# dispatch (dry run by default).
+# Manual dispatch only, from main. dry_run defaults to true.
 #   plan  - read role, no environment: prints the per-item diff to the job
 #           summary. A dispatch dry run stops here.
 #   write - write role (also trusts ...:ref:refs/heads/main): re-plans and writes the items
@@ -10,9 +9,6 @@
 name: Push to DynamoDB
 
 on:
-  push:
-    branches: [main]
-    paths: ["data/**"]
   workflow_dispatch:
     inputs:
       dry_run:
@@ -63,7 +59,7 @@ jobs:
 
   write:
     needs: plan
-    if: ${{ github.event_name == 'push' || !inputs.dry_run }}
+    if: ${{ !inputs.dry_run }}
     runs-on: ubuntu-latest
     # No environment: the write role trusts ...:ref:refs/heads/main.
     permissions:

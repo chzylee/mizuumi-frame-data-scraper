@@ -8,9 +8,10 @@ keeps the `MBAACC-Frame-Data` DynamoDB table that
 GitHub Actions workflow makes the table match it. Nothing on a local machine writes to
 DynamoDB; every change goes through a reviewed PR to `data/`.
 
-There is exactly one table, shared by the dev and prod bot. **Merging a `data/` change
-to `main` is live for both bots right away.** Review the PR diff; the push workflow's
-`plan` job (and a manual dry run) is the only other preview.
+There is exactly one table, shared by the dev and prod bot. **A push is live for both
+bots right away.** Every workflow is manually triggered: merging to `main` changes
+nothing in the table until someone runs *Push to DynamoDB*. Run it with `dry_run`
+checked first; that plan is the only preview.
 
 ## Layout
 
@@ -84,9 +85,9 @@ after Cancel), e.g. `L`, `H`, `LH`.
 ## The pipeline
 
 ```
-           pull (read role)                       push (write role, `dynamodb` env)
+           pull (read role)                       push (write role, manual)       
 DynamoDB ──────────────────► PR to data/ ─► main ──────────────────────────────────► DynamoDB
-                                   ▲               (runs on every data/ change)
+                                   ▲               (manual dispatch from main) 
 local-data/scraped/ ─ fill_from_scrape (or a hand edit)
 ```
 
@@ -112,8 +113,8 @@ changed, opens a PR from a fresh `dynamodb-pull/<run id>-<attempt>` branch. It n
 pushes to `main`.
 
 A pull makes `data/` match the table, so it undoes any `data/` edit that hasn't reached
-the table yet. Since every merge to `main` pushes, that only happens if a push failed;
-the PR diff shows it.
+the table yet, i.e. anything merged to `main` but not pushed. The PR diff shows it;
+push pending `data/` changes before pulling.
 
 ### Fill fields from the scrape: `fill_from_scrape`
 
@@ -131,8 +132,8 @@ that exist on only one side, and it never guesses.
 
 ### Push: [push-to-dynamodb.yml](./.github/workflows/push-to-dynamodb.yml)
 
-Runs automatically on every push to `main` that changes `data/**`, and writes for real.
-It can also be dispatched manually from `main`, with `dry_run` (default **true**).
+Manual dispatch only, from `main`, with `dry_run` (default **true**). Uncheck
+`dry_run` to write.
 Concurrent runs queue rather than race.
 
 - The `plan` job (read role, no environment) prints every insert/update with a per-move
@@ -179,14 +180,13 @@ URLs that exist nowhere else.
 
 1. **Pull:** locally, on a new branch, run `AWS_PROFILE=mizuumi-read python -m pull_from_dynamodb`
    from `src`, commit `data/`, and open a PR. (Or run *Pull from DynamoDB* on `main`.)
-2. **Merge:** let CI pass, review the PR (it's the whole table), and merge it. That
-   triggers a push, which should report every item `unchanged`.
+2. **Merge:** let CI pass, review the PR (it's the whole table), and merge it. A dry-run
+   push should report every item `unchanged`.
 3. **Backfill guard:** run `python main.py`, then `python -m fill_from_scrape --fields guard`.
    Review `git diff data/` and the reported unmatched moves, and open a PR.
-4. **Preview:** the PR diff is the change. If you want the table-side view first, run
-   *Push to DynamoDB* manually with `dry_run` checked; it plans `main` against the table.
-5. **Merge:** the push runs and writes the `guard` updates. Check the `plan` summary
-   shows only `guard` changes.
+4. **Merge**, then run *Push to DynamoDB* with `dry_run` checked and confirm the
+   `plan` summary shows only `guard` changes.
+5. **Push:** run it again with `dry_run` unchecked to write.
 
 ## Testing
 
