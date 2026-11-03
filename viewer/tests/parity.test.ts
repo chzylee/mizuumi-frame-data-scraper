@@ -10,7 +10,7 @@
  * Python is a dev/test dependency only. Set PYTHON to pick the interpreter.
  */
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterAll, describe, expect, it } from "vitest";
@@ -18,6 +18,9 @@ import { dumps, loads, MOON_ORDER, parseCharMappings, pathFor, validateItem, typ
 import { listJsonFiles, readUtf8 } from "../shared/files";
 import { isObject, JsonEncodeError, JsonParseError } from "../shared/pyjson";
 import { MAPPINGS_FILE, REPO_ROOT } from "../server/config";
+import { saveFiles } from "../server/store";
+import { buildWorkspace, pendingChanges, saveRequest } from "../shared/workspace";
+import { item, move, snapshot } from "./helpers";
 
 const FIXTURES = join(import.meta.dirname, "fixtures");
 const SCRAPED = join(REPO_ROOT, "local-data", "scraped");
@@ -172,6 +175,33 @@ describe("parity with src/dataset.py", () => {
 
   it("path_for agrees for every mapped name x moon and awkward keys", () => {
     expect(keys.map(pathOrError)).toEqual(python.keys);
+  });
+
+  it("a data dir written by the viewer server passes `python -m dataset check`", async () => {
+    const dataDir = join(tempDir, "server-data");
+    const data = [item([move("5A"), move("2C"), move("2C")]), item([move("5A")], "Ciel", "Half_Moon")];
+    const scraped = [
+      item([move("5A", { guard: "LH" }), move("2C", { guard: "L" }), move("NEW"), move("2C", { guard: "H" })]),
+      item([move("5A", { guard: "H" })], "Ciel", "Full_Moon"),
+      item([move("5A", { guard: "H" })], "Not: Mapped", "Half_Moon"),
+    ];
+    const snap = snapshot(data, scraped);
+    if (snap.data.status !== "ok") throw new Error("setup");
+    for (const f of snap.data.files) {
+      mkdirSync(join(dataDir, f.path, ".."), { recursive: true });
+      writeFileSync(join(dataDir, f.path), f.text, "utf-8");
+    }
+    const request = saveRequest(pendingChanges(buildWorkspace(snap)));
+    expect(request.files).toHaveLength(3);
+    const config = { dataDir, scrapedDir: join(tempDir, "none"), mappingsFile: MAPPINGS_FILE, port: 0 };
+    const result = await saveFiles(config, request);
+    expect(result.written.map((w) => w.status).sort()).toEqual(["created", "created", "updated"]);
+    const check = spawnSync(process.env.PYTHON ?? "python", ["-m", "dataset", "check", dataDir], {
+      cwd: join(REPO_ROOT, "src"),
+      encoding: "utf-8",
+    });
+    expect(check.stdout).toContain("4 file(s) checked, 0 problem(s), 1 warning(s)");
+    expect(check.status).toBe(0);
   });
 
   it.each(files.map((path) => [path.replace(REPO_ROOT, "").replace(tempDir, "<generated>"), path]))(
