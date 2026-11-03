@@ -180,8 +180,8 @@ at other directories (default `data/` and `local-data/scraped/`, from the repo r
 wherever you run it). If `data/` is missing or empty, the viewer says so and edits
 nothing: `data/` only ever comes from a pull. A `data/` file that can't be loaded (a
 merge conflict, say) is listed at the top with its error; fix or restore it and reload.
-Until then it is skipped, and nothing from the scrape is staged in its place, so the
-rest can still be saved.
+Until then it is skipped, and its scraped copy isn't shown in its place, so the rest can
+still be saved.
 
 **Browse.** Pick a character, then a moon. Each move shows its hitbox image and every
 field it has, known fields in canonical order and any others after them.
@@ -198,13 +198,15 @@ in red italics beside it), blue exists only in the scrape. `image` is never comp
 colored. Things only in `data/` are left uncolored. Characters, moons and moves take
 their children's worst status (red, then blue, then green).
 
-**What the scrape adds.** Anything only in the scrape (an item, a move, or a field such
-as `guard`) is staged automatically when the viewer loads and counted in **Save edits**,
-but written only when you confirm a save. A new move is placed right after the move
-that precedes it in the scrape (at the top if none does), and never before a move with
-the same input, so existing moves keep their identity. A new item goes at its
-`path_for` path. Because a save writes every staged change, use `fill_from_scrape` when
-you want a PR that carries only certain fields.
+**What only the scrape has is a preview, never saved.** The scraper gets things wrong
+(unlabelled variants, mislabelled chains), so nothing from it reaches `data/` on its
+own. With **Show diffs** on, an item, move, or field (such as `guard`) that exists only
+in the scrape is shown in blue, read-only, marked "preview, not saved". A preview move
+sits right after the move that precedes it in the scrape (at the top if none does), and
+never before a move with the same input. A save writes only your own edits. New moves
+(for example a release adding Shield Bunker, Heat or Arc Drives) are added to `data/`
+by hand, and `python -m fill_from_scrape --fields guard` fills a field on moves that
+already exist.
 
 **Save.** **Save edits** lists every pending change by character, moon and move, old
 value to new. On confirm, the server re-checks every file (the `dataset.py` validation

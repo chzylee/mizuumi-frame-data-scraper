@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { draftKey, editorReducer, initialEditor, isEditable, openDrafts, type EditorState } from "../shared/editing";
 import { PyNumber } from "../shared/pyjson";
-import { buildWorkspace, countChanges, countEdits, itemStatus, pendingChanges, saveRequest } from "../shared/workspace";
+import { buildWorkspace, countChanges, itemStatus, pendingChanges, saveRequest } from "../shared/workspace";
 import { item, move, snapshot } from "./helpers";
 
 function setup(): { state: EditorState; itemId: string; uid: string } {
@@ -117,7 +117,7 @@ describe("lock / stage", () => {
     expect(after.fields.first_active).toBe("green");
     expect(after.fields.guard).toBe("blue");
     expect(after.scraped!.guard).toBe("H"); // still the scrape's second 2C
-    expect(s.ws.items[0]!.moves[1]!.fields.guard).toBe("H");
+    expect(s.ws.items[0]!.moves[1]!.scrapeOnlyFields).toEqual(["guard"]);
   });
 
   it("non-string values are read-only", () => {
@@ -135,31 +135,24 @@ describe("lock / stage", () => {
   });
 });
 
-describe("edit count (navbar)", () => {
-  it("counts only the user's edits, not scrape additions staged at load", () => {
-    // The scrape adds a field (guard) and a new move: both are staged at load.
-    const ws = buildWorkspace(
-      snapshot([item([move("5A", { active: "3" })])], [item([move("5A", { active: "3", guard: "LH" }), move("5B")])]),
-    );
+describe("scrape-only previews", () => {
+  it("are read-only: unlock and image edits on a preview move do nothing", () => {
+    const ws = buildWorkspace(snapshot([item([move("5A")])], [item([move("5A"), move("6C")])]));
     const it = ws.items[0]!;
-    let s = initialEditor(ws);
-    expect(countChanges(pendingChanges(s.ws))).toBeGreaterThan(0); // additions are pending...
-    expect(countEdits(s.loaded, s.ws)).toBe(0); // ...but are not edits
+    const preview = it.moves.find((m) => m.isNew)!;
+    const start = initialEditor(ws);
+    let s = editorReducer(start, { type: "unlock", itemId: it.id, uid: preview.uid, field: "active" });
+    expect(openDrafts(s)).toBe(0);
+    s = editorReducer(s, { type: "setImage", itemId: it.id, uid: preview.uid, value: "https://example.invalid/x.png" });
+    expect(s.ws).toBe(ws);
+    expect(countChanges(pendingChanges(s.ws))).toBe(0);
+  });
 
+  it("a field only the scrape has can't be unlocked on a data move (it's a preview)", () => {
+    const ws = buildWorkspace(snapshot([item([move("5A")])], [item([move("5A", { guard: "LH" })])]));
+    const it = ws.items[0]!;
     const uid = it.moves[0]!.uid;
-    s = editorReducer(s, { type: "unlock", itemId: it.id, uid, field: "active" });
-    s = editorReducer(s, { type: "draft", uid, field: "active", value: "9" });
-    expect(countEdits(s.loaded, s.ws)).toBe(0); // an open draft isn't staged yet
-    s = editorReducer(s, { type: "relock", itemId: it.id, uid, field: "active" });
-    expect(countEdits(s.loaded, s.ws)).toBe(1);
-
-    s = editorReducer(s, { type: "setImage", itemId: it.id, uid, value: "https://example.invalid/x.png" });
-    expect(countEdits(s.loaded, s.ws)).toBe(2);
-
-    // Editing a scrape-added field counts as an edit too.
-    s = editorReducer(s, { type: "unlock", itemId: it.id, uid, field: "guard" });
-    s = editorReducer(s, { type: "draft", uid, field: "guard", value: "H" });
-    s = editorReducer(s, { type: "relock", itemId: it.id, uid, field: "guard" });
-    expect(countEdits(s.loaded, s.ws)).toBe(3);
+    expect(editorReducer(initialEditor(ws), { type: "unlock", itemId: it.id, uid, field: "guard" }).drafts).toEqual({});
+    expect(pendingChanges(ws)).toEqual([]);
   });
 });

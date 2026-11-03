@@ -14,16 +14,13 @@ function show(value: Json | undefined) {
 /** Every pending change, grouped character -> moon -> move, confirmed or cancelled. */
 export function SaveModal(props: {
   changes: ItemChanges[];
-  /** The user's own edits since load. */
-  edits: number;
-  /** Scrape additions staged at load (new characters, moons, moves, fields). */
-  additions: number;
+  count: number;
   openDrafts: number;
   state: SaveState;
   onCancel: () => void;
   onConfirm: () => void;
 }) {
-  const { changes, edits, additions, openDrafts, state, onCancel, onConfirm } = props;
+  const { changes, count, openDrafts, state, onCancel, onConfirm } = props;
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     dialog.current?.showModal();
@@ -39,10 +36,7 @@ export function SaveModal(props: {
   return (
     <dialog ref={dialog} className="modal" aria-labelledby="save-title" onCancel={(e) => { e.preventDefault(); if (!saving) onCancel(); }}>
       <header className="modal-head">
-        <h2 id="save-title">
-          Save {edits} edit{edits === 1 ? "" : "s"}
-          {additions > 0 && <> and {additions} new from the scrape</>} to {changes.length} file{changes.length === 1 ? "" : "s"}?
-        </h2>
+        <h2 id="save-title">Save {count} edit{count === 1 ? "" : "s"} to {changes.length} file{changes.length === 1 ? "" : "s"}?</h2>
         <p className="muted">Written to data/ only. Nothing is committed or pushed.</p>
       </header>
       <div className="modal-body">
@@ -65,19 +59,16 @@ export function SaveModal(props: {
               <div key={item.id} className="change-moon">
                 <h4>
                   {moonLabel(item.key.moon)} <code className="muted">data/{item.path}</code>
-                  {item.isNew && <span className="tag new">new file</span>}
                 </h4>
                 <ul className="change-moves">
                   {moves.map((move) => (
                     <li key={move.uid}>
                       <span className="change-move">{move.label}</span>
-                      {move.isNew && <span className="tag new">new move</span>}
                       <ul className="change-fields">
                         {move.fields.map((f) => (
                           <li key={f.field}>
                             <span className="field-name">{f.field}</span>{" "}
-                            {move.isNew ? show(f.new) : <>{show(f.old)} → {show(f.new)}</>}
-                            {!move.isNew && f.old === undefined && <span className="tag new">new</span>}
+                            {show(f.old)} → {show(f.new)}
                           </li>
                         ))}
                       </ul>

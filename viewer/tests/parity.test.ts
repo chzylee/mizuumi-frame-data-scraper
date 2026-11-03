@@ -10,6 +10,7 @@
  *   - path_for for every CHAR_MAPPINGS name x moon, plus awkward keys.
  * Python is a dev/test dependency only. Set PYTHON to pick the interpreter.
  */
+import { setField } from "../shared/editing";
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -199,16 +200,23 @@ describe("parity with src/dataset.py", () => {
       mkdirSync(join(dataDir, f.path, ".."), { recursive: true });
       writeFileSync(join(dataDir, f.path), f.text, "utf-8");
     }
-    const request = saveRequest(pendingChanges(buildWorkspace(snap)));
-    expect(request.files).toHaveLength(3);
+    // Scrape-only moves and items are previews, so only hand edits are written.
+    let ws = buildWorkspace(snap);
+    expect(pendingChanges(ws)).toEqual([]);
+    const kouma = ws.items.find((it) => !it.isNew && it.key.character_name !== "Ciel")!;
+    const ciel = ws.items.find((it) => it.key.character_name === "Ciel" && !it.isNew)!;
+    ws = setField(ws, kouma.id, kouma.moves[1]!.uid, "guard", "L");
+    ws = setField(ws, ciel.id, ciel.moves[0]!.uid, "active", "\u00e9 9");
+    const request = saveRequest(pendingChanges(ws));
+    expect(request.files).toHaveLength(2);
     const config = { dataDir, scrapedDir: join(tempDir, "none"), mappingsFile: MAPPINGS_FILE, port: 0 };
     const result = await saveFiles(config, request);
-    expect(result.written.map((w) => w.status).sort()).toEqual(["created", "created", "updated"]);
+    expect(result.written.map((w) => w.status).sort()).toEqual(["updated", "updated"]);
     const check = spawnSync(process.env.PYTHON ?? "python", ["-m", "dataset", "check", dataDir], {
       cwd: join(REPO_ROOT, "src"),
       encoding: "utf-8",
     });
-    expect(check.stdout).toContain("4 file(s) checked, 0 problem(s), 1 warning(s)");
+    expect(check.stdout).toContain("2 file(s) checked, 0 problem(s), 0 warning(s)");
     expect(check.status).toBe(0);
   });
 

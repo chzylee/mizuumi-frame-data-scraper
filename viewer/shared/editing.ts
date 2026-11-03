@@ -11,8 +11,6 @@ import { cloneJson, type Workspace } from "./workspace";
 
 export interface EditorState {
   ws: Workspace;
-  /** The workspace as loaded (scrape additions already staged), before any user edit. */
-  loaded: Workspace;
   /** Open drafts, keyed by draftKey(uid, field). */
   drafts: Record<string, Json>;
 }
@@ -35,8 +33,11 @@ export function isEditable(field: string, value: Json | undefined): boolean {
 }
 
 function currentValue(ws: Workspace, itemId: string, uid: string, field: string): Json | undefined {
-  const move = ws.items.find((item) => item.id === itemId)?.moves.find((m) => m.uid === uid);
-  return move?.fields[field];
+  const item = ws.items.find((it) => it.id === itemId);
+  const move = item?.moves.find((m) => m.uid === uid);
+  // Scrape-only previews are read-only: nothing on them can be unlocked or set.
+  if (!item || !move || item.isNew || move.isNew) return undefined;
+  return move.fields[field];
 }
 
 export function setField(ws: Workspace, itemId: string, uid: string, field: string, value: Json): Workspace {
@@ -59,7 +60,7 @@ export function setField(ws: Workspace, itemId: string, uid: string, field: stri
 }
 
 export function initialEditor(ws: Workspace): EditorState {
-  return { ws, loaded: ws, drafts: {} };
+  return { ws, drafts: {} };
 }
 
 export function editorReducer(state: EditorState, action: EditorAction): EditorState {
@@ -86,6 +87,7 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       return { ...state, ws, drafts };
     }
     case "setImage":
+      if (currentValue(state.ws, action.itemId, action.uid, "image") === undefined) return state;
       return { ...state, ws: setField(state.ws, action.itemId, action.uid, "image", action.value) };
   }
 }

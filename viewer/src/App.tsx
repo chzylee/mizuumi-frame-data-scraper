@@ -9,7 +9,6 @@ import { editorReducer, initialEditor, openDrafts } from "../shared/editing";
 import {
   buildWorkspace,
   countChanges,
-  countEdits,
   groupCharacters,
   itemStatus,
   pendingChanges,
@@ -50,13 +49,12 @@ export function App({ source }: { source: DataSource }) {
   }, [load]);
 
   const ws = state.ws;
-  const groups = useMemo(() => groupCharacters(ws), [ws]);
+  // Characters and moons only in the scrape are previews: listed only while diffs are on.
+  const visible = useMemo(() => (showDiffs ? ws : { ...ws, items: ws.items.filter((item) => !item.isNew) }), [ws, showDiffs]);
+  const groups = useMemo(() => groupCharacters(visible), [visible]);
   const statuses = useMemo(() => new Map<string, ItemStatus>(ws.items.map((item) => [item.id, itemStatus(item)])), [ws]);
   const changes = useMemo(() => pendingChanges(ws), [ws]);
   const pending = countChanges(changes);
-  // The navbar counts only the user's own edits; scrape additions are staged at load.
-  const edits = useMemo(() => countEdits(state.loaded, ws), [state.loaded, ws]);
-  const additions = useMemo(() => countChanges(pendingChanges(state.loaded)), [state.loaded]);
   const drafts = openDrafts(state);
 
   // Pick a character and moon once data arrives (and keep the pick across reloads).
@@ -69,10 +67,9 @@ export function App({ source }: { source: DataSource }) {
     });
   }, [groups]);
 
-  // Block refresh/close while the user's own edits would be lost. Scrape additions
-  // are rebuilt on every load, so they don't need the warning.
+  // Block refresh/close while edits would be lost.
   useEffect(() => {
-    if (edits === 0 && drafts === 0) return;
+    if (pending === 0 && drafts === 0) return;
     const warn = (event: BeforeUnloadEvent) => {
       // preventDefault() is what asks current browsers to prompt. Some older ones
       // prompt only when returnValue is set to a non-empty string; none show the text.
@@ -81,7 +78,7 @@ export function App({ source }: { source: DataSource }) {
     };
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
-  }, [edits, drafts]);
+  }, [pending, drafts]);
 
   const confirmSave = async () => {
     if (!source.save) return;
@@ -109,7 +106,6 @@ export function App({ source }: { source: DataSource }) {
         onShowDiffs={setShowDiffs}
         scrapedAvailable={ws.scrapedAvailable}
         pending={pending}
-        edits={edits}
         canSave={Boolean(source.save)}
         onSave={() => {
           setSaveState({ kind: "idle" });
@@ -186,8 +182,7 @@ export function App({ source }: { source: DataSource }) {
       {modalOpen && (
         <SaveModal
           changes={changes}
-          edits={edits}
-          additions={additions}
+          count={pending}
           openDrafts={drafts}
           state={saveState}
           onCancel={() => setModalOpen(false)}

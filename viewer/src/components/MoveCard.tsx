@@ -13,23 +13,27 @@ interface Props {
   drafts: Record<string, Json>;
   dispatch: Dispatch<EditorAction>;
   showDiffs: boolean;
+  /** A scrape-only preview (the move or its whole item): shown, never editable or saved. */
+  preview: boolean;
 }
 
 /** One move: its hitbox image and every field present, rendered generically. */
-export const MoveCard = memo(function MoveCard({ itemId, move, label, status, drafts, dispatch, showDiffs }: Props) {
+export const MoveCard = memo(function MoveCard({ itemId, move, label, status, drafts, dispatch, showDiffs, preview }: Props) {
   const image = move.fields.image;
   const fields = fieldOrder(move.fields).filter((field) => field !== "image");
+  // Fields only the scrape has: shown in blue when diffs are on, never saved.
+  const scrapeOnly = showDiffs && !preview ? move.scrapeOnlyFields : [];
   return (
-    <article className={`move${showDiffs ? ` s-${status.status}` : ""}`} aria-label={`Move ${label}`}>
+    <article className={`move${showDiffs ? ` s-${status.status}` : ""}${preview ? " preview" : ""}`} aria-label={`Move ${label}`}>
       <header className="move-head">
         <h3>{label}</h3>
-        {move.isNew && <span className="tag">new move</span>}
+        {preview && <span className="tag">only in scrape · preview, not saved</span>}
         <StatusDot status={status.status} show={showDiffs} />
       </header>
       <div className="move-body">
         <div className="hitbox">
           <HitboxPreview src={typeof image === "string" ? image : ""} label={label} />
-          {typeof image === "string" ? (
+          {typeof image === "string" && !preview ? (
             <label className="image-field">
               <span className="field-name">image</span>
               <input
@@ -40,7 +44,7 @@ export const MoveCard = memo(function MoveCard({ itemId, move, label, status, dr
               />
             </label>
           ) : (
-            image !== undefined && <code className="readonly">{displayValue(image)}</code>
+            image !== undefined && <code className="readonly image-url">{displayValue(image)}</code>
           )}
         </div>
         <table className="fields">
@@ -57,7 +61,17 @@ export const MoveCard = memo(function MoveCard({ itemId, move, label, status, dr
                 fieldStatus={showDiffs ? status.fields[field] ?? "none" : "none"}
                 scraped={status.scraped && has(status.scraped, field) ? status.scraped[field] : undefined}
                 dispatch={dispatch}
+                readOnly={preview}
               />
+            ))}
+            {scrapeOnly.map((field) => (
+              <tr key={field} className="field s-blue" title="Only in the scrape: not in data/, not saved">
+                <th scope="row" className="field-name">{field}</th>
+                <td className="field-value">
+                  <span className="scraped scrape-only">{displayValue(status.scraped?.[field])}</span>
+                </td>
+                <td className="lock-cell" />
+              </tr>
             ))}
           </tbody>
         </table>
@@ -98,9 +112,10 @@ function FieldRow(props: {
   fieldStatus: MoveStatus["fields"][string];
   scraped: Json | undefined;
   dispatch: Dispatch<EditorAction>;
+  readOnly: boolean;
 }) {
-  const { itemId, uid, field, value, draft, unlocked, fieldStatus, scraped, dispatch } = props;
-  const editable = isEditable(field, value);
+  const { itemId, uid, field, value, draft, unlocked, fieldStatus, scraped, dispatch, readOnly } = props;
+  const editable = !readOnly && isEditable(field, value);
   const toggle = () => dispatch({ type: unlocked ? "relock" : "unlock", itemId, uid, field });
   const setDraft = (next: Json) => dispatch({ type: "draft", uid, field, value: next });
   return (

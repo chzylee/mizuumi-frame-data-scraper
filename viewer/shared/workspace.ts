@@ -51,13 +51,17 @@ export function rollup(statuses: Iterable<Status>): Status {
 export interface MoveState {
   /** Stable across edits (an edit to `input` changes identity, not uid). */
   uid: string;
-  /** Only in the scrape: staged for insertion. */
+  /**
+   * Only in the scrape: shown as a read-only preview when diffs are on, never
+   * staged or saved. New moves are added to data/ by hand.
+   */
   isNew: boolean;
   /** Index in the data/ item's moves; null for a new move. */
   dataIndex: number | null;
+  /** The move's fields as in data/ (plus the user's edits). */
   fields: JsonObject;
-  /** Fields copied in from the scrape onto this data move (staged, blue). */
-  addedFields: readonly string[];
+  /** Fields the paired scraped move has and this move lacks: preview only, never saved. */
+  scrapeOnlyFields: readonly string[];
   /**
    * Index of the scraped move this move is compared with, fixed at load by
    * (input, occurrence) on data/ as loaded; null when it has none. Edits never
@@ -69,8 +73,9 @@ export interface MoveState {
 export interface ItemState {
   id: string;
   key: ItemKey;
-  /** Existing file path, or pathFor(key) for a new item. */
+  /** Existing file path, or pathFor(key) for a scrape-only item. */
   path: string;
+  /** Only in the scrape: a read-only preview, never saved. */
   isNew: boolean;
   baseHash: string | null;
   /** The item as on disk; null for a new item. */
@@ -155,7 +160,7 @@ function mergeMoves(id: string, dataMoves: JsonObject[], scrapedMoves: JsonObjec
     isNew: false,
     dataIndex: index,
     fields: cloneJson(move),
-    addedFields: [],
+    scrapeOnlyFields: [],
     scrapedIndex: null,
   }));
   if (!scrapedMoves) return merged;
@@ -168,10 +173,8 @@ function mergeMoves(id: string, dataMoves: JsonObject[], scrapedMoves: JsonObjec
     if (matchedUid !== undefined) {
       const at = merged.findIndex((move) => move.uid === matchedUid);
       const move = merged[at]!;
-      const added = Object.keys(scrapedMove).filter((field) => field !== "image" && !has(move.fields, field));
-      const fields = cloneJson(move.fields);
-      for (const field of added) setKey(fields, field, cloneJson(scrapedMove[field]!));
-      merged[at] = { ...move, fields, addedFields: added, scrapedIndex: k };
+      const scrapeOnly = Object.keys(scrapedMove).filter((field) => field !== "image" && !has(move.fields, field));
+      merged[at] = { ...move, scrapeOnlyFields: scrapeOnly, scrapedIndex: k };
       cursor = at + 1;
       return;
     }
@@ -188,7 +191,7 @@ function mergeMoves(id: string, dataMoves: JsonObject[], scrapedMoves: JsonObjec
 }
 
 function newMove(id: string, scrapedMove: JsonObject, k: number): MoveState {
-  return { uid: `${id}|s${k}`, isNew: true, dataIndex: null, fields: cloneJson(scrapedMove), addedFields: [], scrapedIndex: k };
+  return { uid: `${id}|s${k}`, isNew: true, dataIndex: null, fields: cloneJson(scrapedMove), scrapeOnlyFields: [], scrapedIndex: k };
 }
 
 export function buildWorkspace(snapshot: Snapshot): Workspace {
@@ -283,10 +286,11 @@ export function itemStatus(item: ItemState): ItemStatus {
     const fields: Record<string, Status> = {};
     for (const field of Object.keys(move.fields)) {
       if (field === "image") fields[field] = "none";
-      else if (move.isNew || move.addedFields.includes(field)) fields[field] = "blue";
+      else if (move.isNew) fields[field] = "blue";
       else if (!scraped || !has(scraped, field)) fields[field] = "none";
       else fields[field] = valueKey(move.fields[field]) === valueKey(scraped[field]) ? "green" : "red";
     }
+    for (const field of move.scrapeOnlyFields) fields[field] = "blue";
     moves.set(move.uid, { status: move.isNew ? "blue" : rollup(Object.values(fields)), fields, scraped });
   });
   return { status: item.isNew ? "blue" : rollup([...moves.values()].map((m) => m.status)), moves };
@@ -360,7 +364,7 @@ export function displayValue(value: Json | undefined): string {
 
 export interface FieldChange {
   field: string;
-  /** undefined when the field is new on this move. */
+  /** undefined when the field is new on this move (added by hand). */
   old: Json | undefined;
   /** undefined when the field was removed (not possible from the UI today). */
   new: Json | undefined;
@@ -369,8 +373,6 @@ export interface FieldChange {
 export interface MoveChange {
   uid: string;
   label: string;
-  isNew: boolean;
-  /** For a new move: all of its fields. */
   fields: FieldChange[];
 }
 
@@ -379,27 +381,24 @@ export interface ItemChanges {
   moves: MoveChange[];
 }
 
-/** The item as it will be written: data/ (or the scrape, for a new item) with the current moves. */
+/** The data/ item as it will be written: its own moves with the user's edits. Previews are left out. */
 export function buildItem(item: ItemState): JsonObject {
-  const template = item.base ?? item.scraped!;
+  const base = item.base!;
   const out: JsonObject = {};
-  for (const key of Object.keys(template)) if (key !== "moves") setKey(out, key, cloneJson(template[key]!));
-  setKey(out, "moves", item.moves.map((move) => move.fields));
+  for (const key of Object.keys(base)) if (key !== "moves") setKey(out, key, cloneJson(base[key]!));
+  setKey(out, "moves", item.moves.filter((move) => !move.isNew).map((move) => move.fields));
   return out;
 }
 
 export function pendingChanges(ws: Workspace): ItemChanges[] {
   const result: ItemChanges[] = [];
   for (const item of ws.items) {
+    if (item.isNew) continue; // scrape-only preview: never saved
     const labels = moveLabels(item);
     const baseMoves = (item.base?.moves ?? []) as JsonObject[];
     const moves: MoveChange[] = [];
     item.moves.forEach((move, index) => {
-      if (move.isNew) {
-        const fields = fieldOrder(move.fields).map((field) => ({ field, old: undefined, new: move.fields[field] }));
-        moves.push({ uid: move.uid, label: labels[index]!, isNew: true, fields });
-        return;
-      }
+      if (move.isNew) return; // scrape-only preview: never saved
       const base = baseMoves[move.dataIndex!]!;
       const fields: FieldChange[] = [];
       for (const field of orderedKeys({ ...base, ...move.fields } as JsonObject, MOVE_ORDER)) {
@@ -407,48 +406,24 @@ export function pendingChanges(ws: Workspace): ItemChanges[] {
         const after = has(move.fields, field) ? move.fields[field] : undefined;
         if (valueKey(before) !== valueKey(after)) fields.push({ field, old: before, new: after });
       }
-      if (fields.length) moves.push({ uid: move.uid, label: labels[index]!, isNew: false, fields });
+      if (fields.length) moves.push({ uid: move.uid, label: labels[index]!, fields });
     });
-    if (item.isNew || moves.length) result.push({ item, moves });
+    if (moves.length) result.push({ item, moves });
   }
   return result;
 }
 
-/** The Save edits count: one per changed field on an existing move, one per new move. */
+/** The Save edits count: one per field the user changed. */
 export function countChanges(changes: ItemChanges[]): number {
   let count = 0;
-  for (const { item, moves } of changes) {
-    if (item.isNew && moves.length === 0) count += 1;
-    for (const move of moves) count += move.isNew ? 1 : move.fields.length;
-  }
-  return count;
-}
-
-/**
- * The navbar count: fields the user changed since load. Scrape additions are staged
- * at load, so they are not counted here (they are listed in the save modal).
- */
-export function countEdits(loaded: Workspace, current: Workspace): number {
-  const loadedItems = new Map(loaded.items.map((item) => [item.id, item]));
-  let count = 0;
-  for (const item of current.items) {
-    const before = new Map((loadedItems.get(item.id)?.moves ?? []).map((move) => [move.uid, move.fields]));
-    for (const move of item.moves) {
-      const old = before.get(move.uid) ?? {};
-      for (const field of new Set([...Object.keys(old), ...Object.keys(move.fields)])) {
-        const a = has(old, field) ? old[field] : undefined;
-        const b = has(move.fields, field) ? move.fields[field] : undefined;
-        if (valueKey(a) !== valueKey(b)) count += 1;
-      }
-    }
-  }
+  for (const { moves } of changes) for (const move of moves) count += move.fields.length;
   return count;
 }
 
 export function saveRequest(changes: ItemChanges[]) {
   return {
     files: changes.map(({ item }) => ({
-      path: item.isNew ? null : item.path,
+      path: item.path,
       baseHash: item.baseHash,
       text: dumps(buildItem(item)),
     })),

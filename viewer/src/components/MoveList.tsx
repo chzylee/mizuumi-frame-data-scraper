@@ -17,6 +17,9 @@ export function MoveList(props: {
 }) {
   const { group, item, status, showDiffs } = props;
   const labels = moveLabels(item);
+  // Scrape-only moves are previews: visible only while diffs are on.
+  const shown = item.moves.map((move, index) => ({ move, label: labels[index]! })).filter(({ move }) => showDiffs || !move.isNew);
+  const dataMoves = item.moves.filter((move) => !move.isNew).length;
   return (
     <section>
       <div className="item-head">
@@ -31,23 +34,30 @@ export function MoveList(props: {
               onClick={() => props.onSelectItem(it.id)}
             >
               {moonLabel(it.key.moon)}
-              {it.isNew && <span className="tag">new</span>}
+              {it.isNew && <span className="tag">preview</span>}
               <StatusDot status={props.statusOfItem(it.id)} show={showDiffs} />
             </button>
           ))}
         </div>
         <p className="path">
-          <code>data/{item.path}</code> {item.isNew && <span className="tag">new file, written on save</span>} ·{" "}
-          {item.moves.length} moves
+          {item.isNew ? (
+            <span className="tag">only in scrape · preview, not saved (no data/{item.path})</span>
+          ) : (
+            <>
+              <code>data/{item.path}</code> · {dataMoves} moves
+              {showDiffs && dataMoves < item.moves.length && <> · {item.moves.length - dataMoves} more only in scrape</>}
+            </>
+          )}
         </p>
       </div>
       <div className="moves">
-        {item.moves.map((move, index) => (
+        {shown.map(({ move, label }) => (
           <MoveCard
             key={move.uid}
             itemId={item.id}
             move={move}
-            label={labels[index]!}
+            label={label}
+            preview={item.isNew || move.isNew}
             status={status.moves.get(move.uid)!}
             drafts={props.drafts}
             dispatch={props.dispatch}

@@ -14,6 +14,7 @@ import {
   type ItemState,
   type Workspace,
 } from "../shared/workspace";
+import { setField } from "../shared/editing";
 import { file, item, move, snapshot } from "./helpers";
 
 const inputs = (it: ItemState) => it.moves.map((m) => m.fields.input);
@@ -79,20 +80,18 @@ describe("field diffs on matched moves", () => {
 });
 
 describe("new fields from the scrape (guard backfill)", () => {
-  it("stages a scrape-only field on every matched move, blue, counted", () => {
+  it("shows a scrape-only field as a blue preview, never staged or counted", () => {
     const ws = buildWorkspace(
       snapshot([item([move("5A"), move("5B")])], [item([move("5A", { guard: "LH" }), move("5B", { guard: "H" })])]),
     );
     const it0 = only(ws);
-    expect(it0.moves.map((m) => m.fields.guard)).toEqual(["LH", "H"]);
+    expect(it0.moves.map((m) => m.fields.guard)).toEqual([undefined, undefined]); // not copied into data
+    expect(it0.moves.map((m) => m.scrapeOnlyFields)).toEqual([["guard"], ["guard"]]);
     expect(statusOf(it0, 0).fields.guard).toBe("blue");
+    expect(statusOf(it0, 0).scraped!.guard).toBe("LH");
     expect(statusOf(it0, 0).status).toBe("blue");
-    const changes = pendingChanges(ws);
-    expect(changes[0]!.moves.map((m) => m.fields)).toEqual([
-      [{ field: "guard", old: undefined, new: "LH" }],
-      [{ field: "guard", old: undefined, new: "H" }],
-    ]);
-    expect(countChanges(changes)).toBe(2);
+    expect(pendingChanges(ws)).toEqual([]);
+    expect(countChanges(pendingChanges(ws))).toBe(0);
   });
 
   it("matches repeated inputs by occurrence", () => {
@@ -103,7 +102,8 @@ describe("new fields from the scrape (guard backfill)", () => {
       ),
     );
     const it0 = only(ws);
-    expect(it0.moves.map((m) => [m.fields.input, m.fields.guard])).toEqual([["2C", "L"], ["5A", "LH"], ["2C", "H"]]);
+    const pairedGuard = it0.moves.map((m, i) => [m.fields.input, statusOf(it0, i).scraped!.guard]);
+    expect(pairedGuard).toEqual([["2C", "L"], ["5A", "LH"], ["2C", "H"]]);
     expect(moveLabels(it0)).toEqual(["2C", "5A", "2C (#2)"]);
   });
 
@@ -143,11 +143,9 @@ describe("new moves", () => {
     const it0 = only(ws);
     expect(it0.moves.map((m) => m.fields.active)).toEqual(["d-B", "d-X0", "s-X1"]);
     const ids = moveIdentities(it0.moves.map((m) => m.fields));
-    expect(ids[2]).toBe(moveIdentities(scraped)[2]); // the new move keeps its scrape identity
-    // After saving, everything matches: no new moves left, all green.
-    const saved = buildWorkspace(snapshot([loads(saveRequest(pendingChanges(ws)).files[0]!.text) as JsonObject], [item(scraped)]));
-    expect(pendingChanges(saved)).toEqual([]);
-    expect(itemStatus(only(saved)).status).toBe("green");
+    expect(ids[2]).toBe(moveIdentities(scraped)[2]); // the preview keeps its scrape identity
+    expect(it0.moves.map((m) => m.isNew)).toEqual([false, false, true]);
+    expect(pendingChanges(ws)).toEqual([]); // a preview is never saved
   });
 
   it("adds extra occurrences of a repeated input in scrape order, after the existing ones", () => {
@@ -157,16 +155,13 @@ describe("new moves", () => {
     expect(only(ws).moves.map((m) => m.isNew)).toEqual([false, true, false, true]);
   });
 
-  it("counts a new move once and lists all its fields", () => {
+  it("never stages or saves a new move, even when the item has other edits", () => {
     const ws = buildWorkspace(snapshot([item([move("5A")])], [item([move("5A"), move("6C", { guard: "H" })])]));
-    const changes = pendingChanges(ws);
-    expect(countChanges(changes)).toBe(1);
-    const added = changes[0]!.moves[0]!;
-    expect(added.isNew).toBe(true);
-    expect(added.label).toBe("6C");
-    expect(added.fields.map((f) => f.field)).toEqual([
-      "input", "image", "first_active", "active", "recovery", "frame_adv", "proration", "guard", "invuln", "alts",
-    ]);
+    expect(pendingChanges(ws)).toEqual([]);
+    const it0 = only(ws);
+    const edited = setField(ws, it0.id, it0.moves[0]!.uid, "active", "9");
+    const [saved] = saveRequest(pendingChanges(edited)).files;
+    expect((loads(saved!.text) as JsonObject).moves).toHaveLength(1); // 6C left out
   });
 
   it("leaves data-only moves alone and uncolored", () => {
@@ -177,7 +172,7 @@ describe("new moves", () => {
 });
 
 describe("new items", () => {
-  it("adds a scrape-only moon and character as new items at pathFor", () => {
+  it("shows a scrape-only moon and character as preview items at pathFor, never saved", () => {
     const ws = buildWorkspace(
       snapshot(
         [item([move("5A")], "Kouma_Kishima", "Crescent_Moon")],
@@ -200,16 +195,8 @@ describe("new items", () => {
     const kouma = groups.find((g) => g.name === "Kouma_Kishima")!;
     expect(kouma.items.map((it) => it.key.moon)).toEqual(["Crescent_Moon", "Full_Moon"]);
     expect(rollup(kouma.items.map((it) => itemStatus(it).status))).toBe("blue");
-    const changes = pendingChanges(ws);
-    expect(changes.map((c) => c.item.path).sort()).toEqual(
-      ["_unmapped/Brand%3A New/Half_Moon.json", "ciel/half_ciel.json", "kouma/full_kouma.json"],
-    );
-    expect(countChanges(changes)).toBe(4); // one per new move
-    const request = saveRequest(changes);
-    const ciel = request.files.find((f) => f.text.includes('"Ciel"'))!;
-    expect(ciel.path).toBeNull();
-    expect(ciel.baseHash).toBeNull();
-    expect(ciel.text).toBe(dumps(item([move("5A")], "Ciel", "Half_Moon")));
+    // Previews only: nothing is staged, so no new file is ever written.
+    expect(pendingChanges(ws)).toEqual([]);
   });
 
   it("leaves data-only items alone", () => {
@@ -248,7 +235,7 @@ describe("loading", () => {
     expect(ws.problems).toEqual([]);
   });
 
-  it("never stages a scraped item as new over a data/ file that failed to load", () => {
+  it("never shows a scraped item over a data/ file that failed to load", () => {
     const snap = snapshot([item([move("5A")])], [item([move("5A", { guard: "LH" })]), item([move("5A")], "Aoko_Aozaki", "Full_Moon")]);
     if (snap.data.status !== "ok") throw new Error("setup");
     snap.data.files.push({ path: "aoko/full_aoko.json", text: "<<<<<<< HEAD\n{}", hash: "x" });
@@ -264,15 +251,18 @@ describe("loading", () => {
       "scraped/aoko/full_aoko.json: not compared or added, because data/aoko/full_aoko.json could not be loaded; fix or restore it",
       "scraped/aoko/half_aoko.json: not compared or added, because data/aoko/half_aoko.json could not be loaded; fix or restore it",
     ]);
-    // The rest stays saveable: only the loaded item is in the save.
-    const request = saveRequest(pendingChanges(ws));
+    // The rest stays saveable: an edit saves only the loaded item.
+    const kouma = ws.items[0]!;
+    const request = saveRequest(pendingChanges(setField(ws, kouma.id, kouma.moves[0]!.uid, "guard", "LH")));
     expect(request.files.map((f) => f.path)).toEqual(["kouma/crescent_kouma.json"]);
   });
 
   it("saves the changed item byte-identical to what Python would write, extras kept", () => {
     const data = item([move("5A", { zz_extra: "keep" })]);
     (data as Record<string, unknown>).top_extra = "keep too";
-    const ws = buildWorkspace(snapshot([data], [item([move("5A", { guard: "LH" })])]));
+    const loaded = buildWorkspace(snapshot([data], [item([move("5A", { guard: "LH" })])]));
+    const it0 = only(loaded);
+    const ws = setField(loaded, it0.id, it0.moves[0]!.uid, "guard", "LH"); // added by hand
     const [file] = saveRequest(pendingChanges(ws)).files;
     expect(file!.path).toBe("kouma/crescent_kouma.json");
     const expected = loads(dumps(data)) as JsonObject;

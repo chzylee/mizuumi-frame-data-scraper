@@ -1,3 +1,4 @@
+import { setField } from "../shared/editing";
 import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync, existsSync } from "node:fs";
 import { request as httpRequest, type Server } from "node:http";
 import { tmpdir } from "node:os";
@@ -179,8 +180,10 @@ describe("POST /api/save", () => {
     put(config.scrapedDir, "aoko/full_aoko.json", dumps(item([move("5A", { guard: "L" })], "Aoko_Aozaki", "Full_Moon")));
     const base = await start();
     const snap = (await (await fetch(`${base}/api/snapshot`)).json()) as Snapshot;
-    const ws = buildWorkspace(snap);
-    expect(ws.dataErrors.map((f) => f.path)).toEqual(["aoko/full_aoko.json"]);
+    const loaded = buildWorkspace(snap);
+    expect(loaded.dataErrors.map((f) => f.path)).toEqual(["aoko/full_aoko.json"]);
+    const kouma = loaded.items.find((it) => it.path === KOUMA)!;
+    const ws = setField(loaded, kouma.id, kouma.moves[0]!.uid, "active", "9");
     const res = await save(base, saveRequest(pendingChanges(ws)));
     expect(res).toEqual({ status: 200, body: { written: [{ path: KOUMA, status: "updated" }], warnings: [] } });
     expect(read("aoko/full_aoko.json")).toBe(conflicted);
