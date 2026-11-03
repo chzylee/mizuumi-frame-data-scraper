@@ -4,31 +4,41 @@ Scrapes MBAACC frame data from the Mizuumi wiki (`requests` + `BeautifulSoup4`) 
 keeps the `MBAACC-Frame-Data` DynamoDB table that
 [melty-frame-data-bot](https://github.com/chzylee/melty-frame-data-bot) reads.
 
-**The committed `data/` directory is the record of what is in the table.** Nothing on a
-local machine writes to DynamoDB. The table is read and written only by manually
-triggered GitHub Actions workflows, and every change to it goes through a reviewed PR
-to `data/` first.
+**`data/` on `main` is the truth.** Whenever a change to `data/` lands on `main`, a
+GitHub Actions workflow makes the table match it. Nothing on a local machine writes to
+DynamoDB; every change goes through a reviewed PR to `data/`.
 
-There is exactly one table, shared by the dev and prod bot. **A push is live for both
-bots immediately; the push workflow's dry run is the only preview.**
+There is exactly one table, shared by the dev and prod bot. **Merging a `data/` change
+to `main` is live for both bots right away.** Review the PR diff; the push workflow's
+`plan` job (and a manual dry run) is the only other preview.
 
 ## Layout
 
 | Path | Committed | What it is |
 | --- | --- | --- |
-| `data/` | yes | One JSON file per table item (e.g. `akiha-C.json`): the item as stored, minus the `content_hash` bookkeeping attribute. Canonical format, checked by CI. |
-| `local-data/scraped/` | no | `main.py` scrape output, one file per char/moon. Raw material, never pushed as-is. |
+| `data/` | yes | One JSON file per table item: the item as stored, minus the `content_hash` bookkeeping attribute. Canonical format, checked by CI. |
+| `local-data/scraped/` | no | `main.py` scrape output, same layout as `data/`. Raw material, never pushed as-is. |
 | `local-data/overrides/` | no | Reserved for local hand edits (a future local web app). Not used yet. |
 | `src/` | yes | Scraper and pipeline code; run everything from here. |
 
-`data/` format: 2-space-indented UTF-8 JSON with an LF newline at the end. Keys come in a
+**Paths.** An item lives at `data/<short>/<moon>_<short>.json`, where `<short>` is the
+bot's short character name (the first alias for that character in
+`src/data/mizuumi.py` `CHAR_MAPPINGS`) and `<moon>` is `crescent`, `half` or `full`.
+For example: `data/akiha/crescent_akiha.json`, `data/hime/half_hime.json`,
+`data/maids/full_maids.json`. **Reordering the aliases in `CHAR_MAPPINGS` renames files.**
+A key with no short name, or with an unknown moon, still gets a file, at
+`data/_unmapped/<character_name>/<moon key>.json`, with Windows-illegal characters
+(`<>:"/\|?*`) percent-encoded. Validation reports these as warnings, not errors. The key
+stored inside each file is authoritative; paths are never decoded back into keys, and
+validation checks that each file sits at the path its key maps to (`dataset.path_for`).
+
+**Format.** 2-space-indented UTF-8 JSON with an LF newline at the end. Keys come in a
 fixed order (`character_name`, `moon`, `moves`; each move as `input`, `image`,
 `first_active`, `active`, `recovery`, `frame_adv`, `proration`, `guard`, `invuln`, `alts`;
 any other keys after those, alphabetically), and move order is preserved because it is
 display order. A move is identified by `(input, occurrence)`, since an input can repeat
-within one item (variants). An item whose key doesn't map to a known character/moon is
-still recorded, as `unmapped--<char>--<moon>--<hash>.json`. If you hand-edit a file, run
-`python -m dataset format` and then `python -m dataset check` before opening a PR.
+within one item (variants). If you hand-edit a file, run `python -m dataset format` and
+then `python -m dataset check` before opening a PR.
 
 ## Setup
 
@@ -74,40 +84,36 @@ after Cancel), e.g. `L`, `H`, `LH`.
 ## The pipeline
 
 ```
-           pull workflow (read role)            push workflow (write role, `dynamodb` env)
-DynamoDB ─────────────────────────► PR to data/ ─► main ─────────────────────────────────► DynamoDB
-                                        ▲
-local-data/scraped/ ─ fill_from_scrape ─┘   (or a hand edit)
+           pull (read role)                       push (write role, `dynamodb` env)
+DynamoDB ──────────────────► PR to data/ ─► main ──────────────────────────────────► DynamoDB
+                                   ▲               (runs on every data/ change)
+local-data/scraped/ ─ fill_from_scrape (or a hand edit)
 ```
 
 ### Pull: [pull-from-dynamodb.yml](./.github/workflows/pull-from-dynamodb.yml)
 
-Manually dispatched, main only. It scans the whole table (paginated, read-only) and
-rewrites `data/` to mirror it exactly; a file whose item no longer exists is deleted. If
-anything changed, it opens a PR from a fresh `dynamodb-pull/<run id>` branch. It never
-pushes to `main`. Use it any time the table may have been edited outside the pipeline
-(for example a fix made in the console).
+A pull brings the table into `data/`, for the initial sync and whenever the table might
+have been edited outside the pipeline (for example in the console). It scans the whole
+table (paginated, read-only) and rewrites `data/` to mirror it exactly; a file whose item
+no longer exists is deleted.
 
-The same entrypoint runs locally, using boto3's default credential chain:
+Locally, using boto3's default credential chain:
 
 ```sh
 cd src
 AWS_PROFILE=mizuumi-read python -m pull_from_dynamodb   # or: python src/pull_from_dynamodb.py from the repo root
 ```
 
-It rewrites `data/` in your working copy and prints the created / updated / unchanged /
-removed files. It reads git only to look up the baseline tag; it never commits, branches
-or checks out. Review with `git diff data/` and open the PR yourself.
+It rewrites `data/` in your working copy, prints the created / updated / unchanged /
+removed files, and runs no git commands. Review with `git diff data/` and open a PR.
 
-**Pending-edit warning.** A pull makes `data/` match the table, so it reverts any `data/`
-edit that differs from the `dynamodb-deployed` tag, i.e. an edit approved on `main` (or
-made locally) but never pushed. Every file where the pull did that is listed in a loud
-warning: in the CLI output, and in the workflow's job summary, a `::warning::`
-annotation, and the top of the PR body. The pull is not blocked. Don't merge such a PR
-unless the table's version should win; usually you want to push first. With no tag yet,
-the check is skipped and the output says so.
+The workflow (manually dispatched, main only) runs the same entrypoint and, if anything
+changed, opens a PR from a fresh `dynamodb-pull/<run id>-<attempt>` branch. It never
+pushes to `main`.
 
-Logic: `src/pull_from_dynamodb.py`.
+A pull makes `data/` match the table, so it undoes any `data/` edit that hasn't reached
+the table yet. Since every merge to `main` pushes, that only happens if a push failed;
+the PR diff shows it.
 
 ### Fill fields from the scrape: `fill_from_scrape`
 
@@ -118,65 +124,39 @@ python -m fill_from_scrape --fields guard
 git diff data/                                       # review, then open a PR
 ```
 
-For each move in `data/`, it sets only the named fields from the scraped move with the
-same file, input and occurrence. It never touches `image` unless you name it. It reports
-unmatched moves on both sides, scraped moves that lack a named field, and files that
-exist on only one side, and it never guesses.
+For each move in `data/`, it sets only the named fields from the scraped move at the same
+path with the same input and occurrence. It never touches `image` unless you name it. It
+reports unmatched moves on both sides, scraped moves that lack a named field, and files
+that exist on only one side, and it never guesses.
 
 ### Push: [push-to-dynamodb.yml](./.github/workflows/push-to-dynamodb.yml)
 
-Manually dispatched, main only. Inputs: `dry_run` (default **true**), `force`, and
-`allow_move_removal`. The last two take comma-separated item names, which are `data/`
-filenames without `.json`, e.g. `akiha-C,ciel-H`.
+Runs automatically on every push to `main` that changes `data/**`, and writes for real.
+It can also be dispatched manually from `main`, with `dry_run` (default **true**).
+Concurrent runs queue rather than race.
 
-- The `plan` job always runs: it uses the read role and no environment, and prints the plan
-  to the log and the job summary. With `dry_run` true, that's all that happens.
-- With `dry_run` false, the `write` job runs after `plan` in the `dynamodb` environment
-  (its required reviewers approve it, so read the `plan` summary first). It re-plans
-  against the live table and writes.
+- The `plan` job (read role, no environment) prints every insert/update with a per-move
+  diff to the log and the job summary. A dry run stops there.
+- The `write` job (`dynamodb` environment, write role) re-plans against the live table
+  and writes the items that differ. If the environment has required reviewers, it waits
+  for approval; read the `plan` summary first.
 
-Per item, the plan is `insert`, `update` (with a per-move diff), `unchanged`,
-`table-only` (in the table with no `data/` file: reported, **never deleted**), or
-`refused`:
-
-- **drift:** the live item matches no version of its `data/` file recorded at or after
-  the baseline (below), so someone changed it outside the pipeline. Run the pull workflow
-  to capture the change in a PR instead. Naming the item in `force` overwrites it anyway.
-- **move-removal:** the update would remove moves (by `(input, occurrence)`). Name the
-  item in `allow_move_removal` to permit it.
-
-Each write is a `put_item` that stores `content_hash` and is conditional on every live
-attribute still being exactly what was read. A change made between the read and the
-write makes that item fail as a conflict rather than be overwritten. A refused or
-conflicted item doesn't stop the other items, but it fails the `write` job.
+Per item, the plan is `insert`, `update`, `unchanged`, or `table-only` (in the table with
+no `data/` file: reported, **never deleted**). An item counts as unchanged when its
+content hash, computed the same way over the table item (minus its stored
+`content_hash`) and the `data/` file, matches. So a console edit is noticed and
+overwritten with `data/`. Each write is a plain `put_item` of the `data/` item plus
+`content_hash`.
 
 Logic: `src/push_to_dynamodb.py` (`--write` to write; without it, a dry run of the same
 code path).
-
-### The drift baseline: the `dynamodb-deployed` tag
-
-After a `write` run where nothing was refused or conflicted, the workflow moves the
-`dynamodb-deployed` tag to the commit it pushed. A live item counts as known (safe to
-overwrite) when it equals its `data/` file **at the tag, or at any later commit on
-`main`**. So a pull PR merged since the last push counts, and a console edit that was never
-pulled does not.
-
-**When the tag doesn't exist yet** (the first push), every commit in `main`'s history
-counts. `data/` first enters `main` through the bootstrap pull PR, so that pull is
-effectively the baseline: a console edit made after it is refused. No manual tagging is
-needed.
-
-If `main`'s history is ever rewritten so that the tag is no longer an ancestor, push
-refuses to run. Run a pull, merge it, then delete the tag
-(`git push --delete origin dynamodb-deployed`). The next push then falls back to the
-no-tag rule above.
 
 ### Check: [check.yml](./.github/workflows/check.yml)
 
 Runs on every PR and every push to `main`, without AWS: the unit tests, plus
 `python -m dataset check` (every file parses, has the required keys, has a unique key,
-has a filename that matches its key, and is byte-for-byte canonical). A badly formatted
-hand edit fails CI.
+sits at the path its key maps to, and is byte-for-byte canonical; `_unmapped/` files are
+warnings). A badly formatted hand edit fails CI.
 
 PRs opened by the pull workflow use `GITHUB_TOKEN`, so GitHub holds their check runs
 until someone with write access clicks **Approve workflows to run** on the PR. The pull
@@ -189,8 +169,8 @@ workflow also runs the data check itself and puts the result in the PR body.
   `DYNAMODB_WRITE_ROLE_ARN` (used by the push `write` job; the role trusts
   `repo:chzylee/mizuumi-frame-data-scraper:environment:dynamodb`). Region `us-east-2`.
   The code calls only `dynamodb:Scan` (both roles) and `dynamodb:PutItem` (write role).
-- GitHub environment `dynamodb`, with required reviewers and a deployment-branch rule
-  allowing only `main`.
+- GitHub environment `dynamodb` with a deployment-branch rule allowing only `main`
+  (required reviewers optional).
 - Settings → Actions → General → "Allow GitHub Actions to create and approve pull
   requests" turned on, so the pull workflow can open its PR.
 
@@ -199,20 +179,16 @@ workflow also runs the data check itself and puts the result in the PR body.
 `data/` must come from the table, never from the scrape: the table holds hand-fixed image
 URLs that exist nowhere else.
 
-1. **Pull:** locally, run `AWS_PROFILE=mizuumi-read python -m pull_from_dynamodb` from
-   `src` on a new branch, commit `data/`, and open a PR. (Running *Pull from DynamoDB*
-   on `main` does the same and opens the PR for you.)
-2. **Merge:** let CI pass, review the PR (it's the whole table), and merge it.
-3. **Baseline:** nothing to do. With no `dynamodb-deployed` tag, the merged pull is the
-   baseline (see above). Don't edit the table in the console from here on; if you do,
-   start again at step 1.
-4. **Backfill guard:** run `python main.py`, then `python -m fill_from_scrape --fields guard`.
-   Review `git diff data/` and the reported unmatched moves, then open a PR.
-5. **Merge** that PR once CI passes.
-6. **Push, dry run:** run *Push to DynamoDB* with `dry_run` checked. Read the `plan` job
-   summary. Expect `update` with only `guard` changes and no `refused` items.
-7. **Push for real:** run it again with `dry_run` unchecked, approve the `write` job, and
-   confirm the `dynamodb-deployed` tag now points at that commit.
+1. **Pull:** locally, on a new branch, run `AWS_PROFILE=mizuumi-read python -m pull_from_dynamodb`
+   from `src`, commit `data/`, and open a PR. (Or run *Pull from DynamoDB* on `main`.)
+2. **Merge:** let CI pass, review the PR (it's the whole table), and merge it. That
+   triggers a push, which should report every item `unchanged`.
+3. **Backfill guard:** run `python main.py`, then `python -m fill_from_scrape --fields guard`.
+   Review `git diff data/` and the reported unmatched moves, and open a PR.
+4. **Preview:** the PR diff is the change. If you want the table-side view first, run
+   *Push to DynamoDB* manually with `dry_run` checked; it plans `main` against the table.
+5. **Merge:** the push runs and writes the `guard` updates. Check the `plan` summary
+   shows only `guard` changes.
 
 ## Testing
 
@@ -223,10 +199,8 @@ python -m unittest discover -s tests -p "*_tests.py"
 ```
 
 - The pipeline is unit-tested without AWS against an in-memory fake table
-  (`tests/fakes.py`, which supports scan pagination and the push's condition
-  expressions). The drift-baseline logic is tested against real throwaway git repos.
-  The scraper tests need `beautifulsoup4` (`pip install -r requirements.txt`) and are
-  skipped without it; CI installs it.
+  (`tests/fakes.py`, with scan pagination). The scraper tests need `beautifulsoup4`
+  (`pip install -r requirements.txt`) and are skipped without it; CI installs it.
 - `tests/scraper_regression_tests.py` parses saved wiki snapshots in `tests/fixtures/`
   and asserts known frame data (including `guard`). These snapshots exist because a
   MediaWiki **heading-markup change** (the section `id` moved from a child
