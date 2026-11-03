@@ -256,6 +256,7 @@
       "recovery": "14",
       "frame_adv": "-4",
       "proration": "70% (O)",
+      "guard": "LH",
       "invuln": "-",
       "alts": []
     },

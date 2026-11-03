@@ -310,6 +310,7 @@
       "recovery": "2531",
       "frame_adv": "52",
       "proration": "70% (M)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "214C6/2/4"
@@ -475,6 +476,7 @@
       "recovery": "12",
       "frame_adv": "2320",
       "proration": "70% (M)",
+      "guard": "LHA",
       "invuln": "-",
       "alts": [
         "j.214C~6",

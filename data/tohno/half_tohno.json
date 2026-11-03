@@ -359,6 +359,7 @@
       "recovery": "18",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "L",
       "invuln": "Full 1-8, High 9-12",
       "alts": [
         "214C Whiff",

@@ -208,6 +208,7 @@
       "recovery": "26 (30)",
       "frame_adv": "-",
       "proration": "-",
+      "guard": "-",
       "invuln": "-",
       "alts": [
         "Flight"
