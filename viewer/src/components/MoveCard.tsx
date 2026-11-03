@@ -66,11 +66,26 @@ export const MoveCard = memo(function MoveCard({ itemId, move, label, status, dr
   );
 });
 
+// Images load eagerly: a moon has ~40 moves, and lazy loading left the wiki's slow
+// responses looking like missing images while scrolling. A placeholder shows until
+// each one arrives.
 function HitboxPreview({ src, label }: { src: string; label: string }) {
   const [failed, setFailed] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState<string | null>(null);
   if (!src) return <div className="no-image">no image URL</div>;
   if (failed === src) return <div className="no-image">image did not load</div>;
-  return <img src={src} alt={`Hitbox for ${label}`} loading="lazy" onError={() => setFailed(src)} />;
+  return (
+    <>
+      {loaded !== src && <div className="no-image">loading image…</div>}
+      <img
+        src={src}
+        alt={`Hitbox for ${label}`}
+        style={loaded === src ? undefined : { display: "none" }}
+        onLoad={() => setLoaded(src)}
+        onError={() => setFailed(src)}
+      />
+    </>
+  );
 }
 
 function FieldRow(props: {

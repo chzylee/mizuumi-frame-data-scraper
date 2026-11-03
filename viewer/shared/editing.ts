@@ -11,6 +11,8 @@ import { cloneJson, type Workspace } from "./workspace";
 
 export interface EditorState {
   ws: Workspace;
+  /** The workspace as loaded (scrape additions already staged), before any user edit. */
+  loaded: Workspace;
   /** Open drafts, keyed by draftKey(uid, field). */
   drafts: Record<string, Json>;
 }
@@ -57,7 +59,7 @@ export function setField(ws: Workspace, itemId: string, uid: string, field: stri
 }
 
 export function initialEditor(ws: Workspace): EditorState {
-  return { ws, drafts: {} };
+  return { ws, loaded: ws, drafts: {} };
 }
 
 export function editorReducer(state: EditorState, action: EditorAction): EditorState {
@@ -81,7 +83,7 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       const { [key]: draft, ...drafts } = state.drafts;
       const current = currentValue(state.ws, action.itemId, action.uid, action.field);
       const ws = valueKey(draft) === valueKey(current) ? state.ws : setField(state.ws, action.itemId, action.uid, action.field, draft!);
-      return { ws, drafts };
+      return { ...state, ws, drafts };
     }
     case "setImage":
       return { ...state, ws: setField(state.ws, action.itemId, action.uid, "image", action.value) };

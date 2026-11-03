@@ -14,13 +14,16 @@ function show(value: Json | undefined) {
 /** Every pending change, grouped character -> moon -> move, confirmed or cancelled. */
 export function SaveModal(props: {
   changes: ItemChanges[];
-  count: number;
+  /** The user's own edits since load. */
+  edits: number;
+  /** Scrape additions staged at load (new characters, moons, moves, fields). */
+  additions: number;
   openDrafts: number;
   state: SaveState;
   onCancel: () => void;
   onConfirm: () => void;
 }) {
-  const { changes, count, openDrafts, state, onCancel, onConfirm } = props;
+  const { changes, edits, additions, openDrafts, state, onCancel, onConfirm } = props;
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     dialog.current?.showModal();
@@ -36,7 +39,10 @@ export function SaveModal(props: {
   return (
     <dialog ref={dialog} className="modal" aria-labelledby="save-title" onCancel={(e) => { e.preventDefault(); if (!saving) onCancel(); }}>
       <header className="modal-head">
-        <h2 id="save-title">Save {count} pending change{count === 1 ? "" : "s"} to {changes.length} file{changes.length === 1 ? "" : "s"}?</h2>
+        <h2 id="save-title">
+          Save {edits} edit{edits === 1 ? "" : "s"}
+          {additions > 0 && <> and {additions} new from the scrape</>} to {changes.length} file{changes.length === 1 ? "" : "s"}?
+        </h2>
         <p className="muted">Written to data/ only. Nothing is committed or pushed.</p>
       </header>
       <div className="modal-body">
@@ -85,7 +91,7 @@ export function SaveModal(props: {
       </div>
       <footer className="modal-foot">
         <button onClick={onCancel} disabled={saving}>Cancel</button>
-        <button className="primary" onClick={onConfirm} disabled={saving || count === 0} autoFocus>
+        <button className="primary" onClick={onConfirm} disabled={saving || changes.length === 0} autoFocus>
           {saving ? "Saving…" : "Confirm and write files"}
         </button>
       </footer>

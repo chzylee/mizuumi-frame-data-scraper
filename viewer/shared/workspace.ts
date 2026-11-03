@@ -424,6 +424,27 @@ export function countChanges(changes: ItemChanges[]): number {
   return count;
 }
 
+/**
+ * The navbar count: fields the user changed since load. Scrape additions are staged
+ * at load, so they are not counted here (they are listed in the save modal).
+ */
+export function countEdits(loaded: Workspace, current: Workspace): number {
+  const loadedItems = new Map(loaded.items.map((item) => [item.id, item]));
+  let count = 0;
+  for (const item of current.items) {
+    const before = new Map((loadedItems.get(item.id)?.moves ?? []).map((move) => [move.uid, move.fields]));
+    for (const move of item.moves) {
+      const old = before.get(move.uid) ?? {};
+      for (const field of new Set([...Object.keys(old), ...Object.keys(move.fields)])) {
+        const a = has(old, field) ? old[field] : undefined;
+        const b = has(move.fields, field) ? move.fields[field] : undefined;
+        if (valueKey(a) !== valueKey(b)) count += 1;
+      }
+    }
+  }
+  return count;
+}
+
 export function saveRequest(changes: ItemChanges[]) {
   return {
     files: changes.map(({ item }) => ({
