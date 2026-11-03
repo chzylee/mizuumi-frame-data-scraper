@@ -11,7 +11,7 @@ from scraper import Scraper
 from data import melty
 from models.dynamodb import MeltyChar
 
-BASE_URL = "https://wiki.gbl.gg"
+BASE_URL = "https://mizuumi.wiki"
 # Identify the scraper honestly and give the wiki a contact point.
 USER_AGENT = (
     "mizuumi-frame-data-scraper/1.0 "
