@@ -1,0 +1,30 @@
+# Unit tests + data/ validation. No AWS access.
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Unit tests
+        working-directory: src
+        run: python -m unittest discover -s tests -p "*_tests.py" -v
+
+      - name: Validate data/
+        working-directory: src
+        run: python -m dataset check
