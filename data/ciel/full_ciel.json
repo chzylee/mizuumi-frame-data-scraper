@@ -476,7 +476,7 @@
     },
     {
       "input": "j.214B",
-      "image": "https://wiki.gbl.gg/images/thumb/4/4a/MBCCielj214B4BB.png/175px-MBCCielj214B4BB.png",
+      "image": "https://wiki.gbl.gg/images/thumb/7/7e/MBHCielj214AB.png/175px-MBHCielj214AB.png",
       "first_active": "15",
       "active": "X",
       "recovery": "15",
@@ -488,7 +488,7 @@
     },
     {
       "input": "j.214B~4B",
-      "image": "https://wiki.gbl.gg/images/thumb/2/2c/MBFCielj214C.png/175px-MBFCielj214C.png",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4a/MBCCielj214B4BB.png/175px-MBCCielj214B4BB.png",
       "first_active": "4",
       "active": "X",
       "recovery": "15",
@@ -503,8 +503,8 @@
       ]
     },
     {
-      "input": "j.214B~4B",
-      "image": "https://wiki.gbl.gg/images/thumb/2/2c/MBFCielj214C.png/175px-MBFCielj214C.png",
+      "input": "j.214B~4B~4B",
+      "image": "https://wiki.gbl.gg/images/thumb/4/4a/MBCCielj214B4BB.png/175px-MBCCielj214B4BB.png",
       "first_active": "13",
       "active": "X",
       "recovery": "18",
@@ -513,13 +513,13 @@
       "guard": "LHA",
       "invuln": "-",
       "alts": [
-        "j.214B4B",
-        "j.214BB",
-        "j.214B~B"
+        "j.214B4B4B",
+        "j.214BBB",
+        "j.214B~B~B"
       ]
     },
     {
-      "input": "j.214C~4B",
+      "input": "j.214C",
       "image": "https://wiki.gbl.gg/images/thumb/2/2c/MBFCielj214C.png/175px-MBFCielj214C.png",
       "first_active": "1+9",
       "active": "X6 (4) 6 (4) 6",
@@ -532,22 +532,6 @@
         "j.214C4B",
         "j.214CB",
         "j.214C~B"
-      ]
-    },
-    {
-      "input": "j.214~4B",
-      "image": "https://wiki.gbl.gg/images/thumb/2/2c/MBFCielj214C.png/175px-MBFCielj214C.png",
-      "first_active": "13",
-      "active": "6 (4) 6 (4) 6",
-      "recovery": "-",
-      "frame_adv": "-",
-      "proration": "70%",
-      "guard": "LH",
-      "invuln": "-",
-      "alts": [
-        "j.2144B",
-        "j.214B",
-        "j.214~B"
       ]
     },
     {
