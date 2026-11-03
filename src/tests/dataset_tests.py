@@ -62,23 +62,39 @@ class TestCanonicalFormat(unittest.TestCase):
         self.assertIn("→", text)
 
 
-class TestFilenames(unittest.TestCase):
-    def test_known_key_uses_scrape_convention(self):
-        self.assertEqual(dataset.filename_for_key("Akiha_Tohno", "Crescent_Moon"), "akiha-C.json")
-        self.assertEqual(dataset.filename_for_key("Archetype:_Earth", "Half_Moon"), "hime-H.json")
+def key(char, moon):
+    return {"character_name": char, "moon": moon}
 
-    def test_unknown_key_gets_a_safe_stable_name(self):
-        name = dataset.filename_for_key("Some: Weird/Char", "Full_Moon")
-        self.assertTrue(name.startswith(dataset.UNMAPPED_PREFIX))
-        self.assertTrue(name.endswith(".json"))
-        self.assertNotRegex(name, r"[:/\\ ]")
-        self.assertEqual(name, dataset.filename_for_key("Some: Weird/Char", "Full_Moon"))
+
+class TestPaths(unittest.TestCase):
+    def test_known_key_uses_short_name_dir_and_moon_short_file(self):
+        self.assertEqual(dataset.path_for(key("Akiha_Tohno", "Crescent_Moon")), "akiha/crescent_akiha.json")
+        self.assertEqual(dataset.path_for(key("Archetype:_Earth", "Half_Moon")), "hime/half_hime.json")
+        self.assertEqual(dataset.path_for(key("Hisui_%26_Kohaku", "Full_Moon")), "maids/full_maids.json")
+
+    def test_every_known_character_and_moon_maps_to_a_distinct_safe_path(self):
+        from data import melty
+        paths = [dataset.path_for(key(c, m)) for c in melty.char_paths for m in melty.moon_paths]
+        self.assertEqual(len(set(paths)), len(paths))
+        for path in paths:
+            self.assertFalse(dataset.is_unmapped(path), path)
+            self.assertNotRegex(path, r'[<>:"\|?*]')
+
+    def test_unknown_character_goes_under_unmapped_with_illegal_chars_encoded(self):
+        path = dataset.path_for(key('Some: Weird/Char?', "Full_Moon"))
+        self.assertEqual(path, "_unmapped/Some%3A Weird%2FChar%3F/Full_Moon.json")
+        self.assertTrue(dataset.is_unmapped(path))
+
+    def test_percent_already_in_a_key_is_kept_literally(self):
+        self.assertEqual(dataset.path_for(key("New_%26_Char", "Half_Moon")),
+                         "_unmapped/New_%26_Char/Half_Moon.json")
 
     def test_unknown_moon_on_known_character_is_not_dropped(self):
-        self.assertTrue(dataset.filename_for_key("Ciel", "Eclipse").startswith(dataset.UNMAPPED_PREFIX))
+        self.assertEqual(dataset.path_for(key("Ciel", "Eclipse_Moon")), "_unmapped/Ciel/Eclipse_Moon.json")
 
-    def test_keys_that_slug_the_same_do_not_collide(self):
-        self.assertNotEqual(dataset.filename_for_key("A B", "X"), dataset.filename_for_key("A_B", "X"))
+    def test_dot_keys_are_rejected(self):
+        with self.assertRaises(ValueError):
+            dataset.path_for(key("..", "Full_Moon"))
 
 
 class TestMoveIdentities(unittest.TestCase):
@@ -98,6 +114,7 @@ class DirTestCase(unittest.TestCase):
         return os.path.join(self.dir, name)
 
     def write_raw(self, name, text):
+        os.makedirs(os.path.dirname(self.path(name)), exist_ok=True)
         with open(self.path(name), "w", encoding="utf-8", newline="") as handle:
             handle.write(text)
 
@@ -105,18 +122,19 @@ class DirTestCase(unittest.TestCase):
 class TestMirror(DirTestCase):
     def test_writes_unchanged_and_removes(self):
         first = dataset.mirror(self.dir, [item(char="Ciel"), item(char="Kouma_Kishima")])
-        self.assertEqual(first["created"], ["ciel-C.json", "kouma-C.json"])
+        self.assertEqual(first["created"], ["ciel/crescent_ciel.json", "kouma/crescent_kouma.json"])
         changed = dataset.mirror(self.dir, [item(char="Ciel", moves=[move("5B")]), item(char="Kouma_Kishima")])
-        self.assertEqual(changed["updated"], ["ciel-C.json"])
-        self.assertEqual(changed["unchanged"], ["kouma-C.json"])
+        self.assertEqual(changed["updated"], ["ciel/crescent_ciel.json"])
+        self.assertEqual(changed["unchanged"], ["kouma/crescent_kouma.json"])
         second = dataset.mirror(self.dir, [item(char="Ciel", moves=[move("5B")])])
-        self.assertEqual(second["unchanged"], ["ciel-C.json"])
-        self.assertEqual(second["removed"], ["kouma-C.json"])
-        self.assertEqual(dataset.list_files(self.dir), ["ciel-C.json"])
+        self.assertEqual(second["unchanged"], ["ciel/crescent_ciel.json"])
+        self.assertEqual(second["removed"], ["kouma/crescent_kouma.json"])
+        self.assertEqual(dataset.list_files(self.dir), ["ciel/crescent_ciel.json"])
+        self.assertFalse(os.path.exists(self.path("kouma")))  # emptied dir removed
 
     def test_files_use_lf_line_endings(self):
         dataset.mirror(self.dir, [item()])
-        with open(self.path("kouma-C.json"), "rb") as handle:
+        with open(self.path("kouma/crescent_kouma.json"), "rb") as handle:
             self.assertNotIn(b"\r\n", handle.read())
 
     def test_two_items_for_one_file_is_an_error(self):
@@ -137,51 +155,61 @@ class TestValidate(DirTestCase):
         self.assertTrue(any(needle in e for e in errors), errors)
 
     def test_invalid_json(self):
-        self.write_raw("kouma-C.json", "{not json")
+        self.write_raw("kouma/crescent_kouma.json", "{not json")
         self.assertOneError("not valid JSON")
 
     def test_missing_required_move_key(self):
         bad = item()
         del bad["moves"][0]["invuln"]
-        self.write_raw("kouma-C.json", dataset.dumps(bad))
+        self.write_raw("kouma/crescent_kouma.json", dataset.dumps(bad))
         self.assertOneError("missing invuln")
 
     def test_missing_guard_is_allowed(self):
-        self.write_raw("kouma-C.json", dataset.dumps(item()))
+        self.write_raw("kouma/crescent_kouma.json", dataset.dumps(item()))
         self.assertEqual(dataset.validate_dir(self.dir), [])
 
     def test_missing_top_level_key(self):
         bad = item()
         del bad["moon"]
-        self.write_raw("kouma-C.json", dataset.dumps(bad))
+        self.write_raw("kouma/crescent_kouma.json", dataset.dumps(bad))
         self.assertOneError("'moon' must be a non-empty string")
 
     def test_content_hash_not_allowed(self):
-        self.write_raw("kouma-C.json", dataset.dumps(item(content_hash="x")))
+        self.write_raw("kouma/crescent_kouma.json", dataset.dumps(item(content_hash="x")))
         self.assertOneError("bookkeeping")
 
-    def test_filename_must_match_key(self):
-        self.write_raw("ciel-C.json", dataset.dumps(item()))
-        self.assertOneError("belongs in kouma-C.json")
+    def test_path_must_match_key(self):
+        self.write_raw("ciel/crescent_ciel.json", dataset.dumps(item()))
+        self.assertOneError("belongs at kouma/crescent_kouma.json")
+
+    def test_flat_file_at_data_root_fails_path_check(self):
+        self.write_raw("kouma-C.json", dataset.dumps(item()))
+        self.assertOneError("belongs at kouma/crescent_kouma.json")
 
     def test_duplicate_key(self):
-        self.write_raw("kouma-C.json", dataset.dumps(item()))
-        self.write_raw("kouma-H.json", dataset.dumps(item()))
+        self.write_raw("kouma/crescent_kouma.json", dataset.dumps(item()))
+        self.write_raw("kouma/half_kouma.json", dataset.dumps(item()))
         self.assertOneError("duplicate key")
+
+    def test_unmapped_item_is_a_warning_not_an_error(self):
+        self.write_raw("_unmapped/Mystery/Crescent_Moon.json", dataset.dumps(item(char="Mystery")))
+        errors, warnings = dataset.check_dir(self.dir)
+        self.assertEqual(errors, [])
+        self.assertTrue(any("_unmapped" in w for w in warnings), warnings)
 
     def test_non_canonical_formatting_fails(self):
         import json
-        self.write_raw("kouma-C.json", json.dumps(item(), indent=4) + "\n")
+        self.write_raw("kouma/crescent_kouma.json", json.dumps(item(), indent=4) + "\n")
         self.assertOneError("not in canonical format")
 
     def test_crlf_line_endings_fail(self):
-        self.write_raw("kouma-C.json", dataset.dumps(item()).replace("\n", "\r\n"))
+        self.write_raw("kouma/crescent_kouma.json", dataset.dumps(item()).replace("\n", "\r\n"))
         self.assertOneError("not in canonical format")
 
     def test_format_dir_fixes_formatting(self):
         import json
-        self.write_raw("kouma-C.json", json.dumps(item(), indent=4))
-        self.assertEqual(dataset.format_dir(self.dir), ["kouma-C.json"])
+        self.write_raw("kouma/crescent_kouma.json", json.dumps(item(), indent=4))
+        self.assertEqual(dataset.format_dir(self.dir), ["kouma/crescent_kouma.json"])
         self.assertEqual(dataset.validate_dir(self.dir), [])
 
     def test_check_command_exit_codes(self):
@@ -189,7 +217,7 @@ class TestValidate(DirTestCase):
         dataset.mirror(self.dir, [item()])
         with contextlib.redirect_stdout(io.StringIO()):
             self.assertEqual(dataset.main(["check", self.dir]), 0)
-            self.write_raw("kouma-C.json", "{")
+            self.write_raw("kouma/crescent_kouma.json", "{")
             self.assertEqual(dataset.main(["check", self.dir]), 1)
 
 

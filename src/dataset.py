@@ -1,24 +1,22 @@
-"""The committed `data/` directory: canonical format, filenames, and validation.
+"""The committed `data/` directory: canonical format, paths, and validation.
 
 `data/` is the canonical record of what is in the DynamoDB table: one JSON file
-per table item, written in one deterministic format so a git diff only ever
+per table item at path_for(key), written in one deterministic format so a git diff only ever
 shows real changes. Every reader and writer of `data/` goes through this module.
 
 Run from `src` to validate `data/` (the PR check does this):
 
     python -m dataset check
 """
-import hashlib
 import json
 import math
 import os
-import re
 import sys
 from decimal import Decimal
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import filehelper
-from data import melty, mizuumi
+from data import mizuumi
 
 PARTITION_KEY = "character_name"
 SORT_KEY = "moon"
@@ -41,7 +39,6 @@ REQUIRED_MOVE_KEYS = (
     "input", "image", "first_active", "active", "recovery", "frame_adv",
     "proration", "invuln", "alts",
 )
-UNMAPPED_PREFIX = "unmapped--"
 
 
 # --- values ------------------------------------------------------------------
@@ -129,32 +126,58 @@ def loads(text: str) -> dict:
     return json.loads(text)
 
 
-# --- filenames ------------------------------------------------------------------
+# --- paths ----------------------------------------------------------------------
 
-def _slug(text: str) -> str:
-    return re.sub(r"[^A-Za-z0-9._-]+", "_", text).strip("._") or "_"
+# Moon key -> lowercase file prefix.
+_MOON_FILE = {"Crescent_Moon": "crescent", "Half_Moon": "half", "Full_Moon": "full"}
+UNMAPPED_DIR = "_unmapped"
+# Windows-illegal filename characters, percent-encoded in the _unmapped fallback.
+_ILLEGAL = set(r'<>:"/\|?*')
 
 
-def filename_for_key(character_name: str, moon: str) -> str:
-    """Filename for an item key: the scrape's convention (e.g. akiha-C.json).
+def _encode(text: str) -> str:
+    if text in (".", ".."):
+        raise ValueError(f"key value {text!r} cannot be used as a path component")
+    return "".join(f"%{ord(ch):02X}" if ch in _ILLEGAL else ch for ch in text)
 
-    A key that doesn't map to a known character/moon still gets a stable, safe
-    filename (rather than being dropped): prefixed, slugged, and suffixed with a
-    hash of the exact key so two odd keys can never collide.
+
+def short_name(character_name: str) -> Optional[str]:
+    """The bot's short name for a character (first alias in CHAR_MAPPINGS), or None.
+
+    NOTE: the first alias for each character in data/mizuumi.py CHAR_MAPPINGS
+    names its directory and files. Reordering those aliases renames files.
     """
-    if character_name in mizuumi.CHAR_MAPPINGS.values() and moon in melty.moon_paths:
-        return filehelper.get_filename(char_name=character_name, moon=moon)
-    digest = hashlib.sha256(f"{character_name}\x00{moon}".encode("utf-8")).hexdigest()[:8]
-    return f"{UNMAPPED_PREFIX}{_slug(str(character_name))}--{_slug(str(moon))}--{digest}.json"
+    for alias, wiki_name in mizuumi.CHAR_MAPPINGS.items():
+        if wiki_name == character_name:
+            return alias
+    return None
 
 
-def filename_for_item(item: dict) -> str:
-    return filename_for_key(item[PARTITION_KEY], item[SORT_KEY])
+def path_for(key: dict) -> str:
+    """Where an item lives, relative to data/ (or local-data/scraped/).
+
+    Known character and moon: <short>/<moon>_<short>.json, e.g.
+    akiha/crescent_akiha.json. Anything else (no short name, or an unknown moon):
+    _unmapped/<character_name>/<moon>.json with Windows-illegal characters
+    percent-encoded, so no item is ever dropped (validation warns about these).
+
+    This is the one mapping from key to path. Nothing decodes a path back into a
+    key: the key stored inside the file is authoritative.
+    """
+    character_name, moon = key[PARTITION_KEY], key[SORT_KEY]
+    short = short_name(character_name)
+    if short is not None and moon in _MOON_FILE:
+        return f"{short}/{_MOON_FILE[moon]}_{short}.json"
+    return f"{UNMAPPED_DIR}/{_encode(character_name)}/{_encode(moon)}.json"
 
 
-def item_name(filename: str) -> str:
-    """The short name used in reports and workflow inputs (filename minus .json)."""
-    return filename[:-5] if filename.endswith(".json") else filename
+def is_unmapped(path: str) -> bool:
+    return path.startswith(UNMAPPED_DIR + "/")
+
+
+def item_name(path: str) -> str:
+    """The name used in reports: the path minus .json."""
+    return path[:-5] if path.endswith(".json") else path
 
 
 # --- move identity ----------------------------------------------------------------
@@ -183,9 +206,14 @@ def describe_identity(identity: Tuple[str, int]) -> str:
 # --- reading and writing the directory ---------------------------------------------
 
 def list_files(directory: str) -> List[str]:
-    if not os.path.isdir(directory):
-        return []
-    return sorted(name for name in os.listdir(directory) if name.endswith(".json"))
+    """Every .json file under directory, as sorted relative paths with "/"."""
+    found = []
+    for root, _dirs, files in os.walk(directory):
+        for name in files:
+            if name.endswith(".json"):
+                rel = os.path.relpath(os.path.join(root, name), directory)
+                found.append(rel.replace(os.sep, "/"))
+    return sorted(found)
 
 
 def read_file(path: str) -> str:
@@ -194,7 +222,7 @@ def read_file(path: str) -> str:
 
 
 def load_dir(directory: str) -> Dict[str, dict]:
-    """{filename: item} for every JSON file in a directory."""
+    """{relative path: item} for every JSON file under a directory."""
     return {name: loads(read_file(os.path.join(directory, name))) for name in list_files(directory)}
 
 
@@ -221,12 +249,12 @@ def mirror(directory: str, items: List[dict]) -> Dict[str, List[str]]:
     """Make `directory` hold exactly these items, one canonical file each.
 
     Files whose item is not in `items` are removed, so the directory mirrors the
-    source exactly. Returns lists of filenames under "created", "updated",
-    "unchanged" and "removed".
+    source exactly (directories left empty are removed too). Returns lists of
+    paths under "created", "updated", "unchanged" and "removed".
     """
     by_name: Dict[str, dict] = {}
     for item in items:
-        name = filename_for_item(item)
+        name = path_for(item)
         if name in by_name:
             raise ValueError(f"two items map to the same file {name}")
         by_name[name] = item
@@ -239,6 +267,9 @@ def mirror(directory: str, items: List[dict]) -> Dict[str, List[str]]:
         if name not in by_name:
             os.remove(os.path.join(directory, name))
             report["removed"].append(name)
+            parent = os.path.dirname(os.path.join(directory, name))
+            if os.path.abspath(parent) != os.path.abspath(directory) and not os.listdir(parent):
+                os.rmdir(parent)
     return report
 
 
@@ -274,9 +305,15 @@ def validate_item(name: str, item: Any) -> List[str]:
 
 
 def validate_dir(directory: str) -> List[str]:
-    """Every problem with data/: parse, required keys, key uniqueness,
-    filename-matches-key, and canonical formatting (byte for byte)."""
-    errors = []
+    """Every problem with data/ (see check_dir); warnings are not included."""
+    return check_dir(directory)[0]
+
+
+def check_dir(directory: str) -> Tuple[List[str], List[str]]:
+    """(errors, warnings) for data/. Errors: parse, required keys, key
+    uniqueness, path == path_for(key), canonical formatting (byte for byte).
+    Warnings: items that live under _unmapped/."""
+    errors, warnings = [], []
     seen_keys: Dict[Tuple[str, str], str] = {}
     for name in list_files(directory):
         text = read_file(os.path.join(directory, name))
@@ -293,12 +330,19 @@ def validate_dir(directory: str) -> List[str]:
         if key in seen_keys:
             errors.append(f"{name}: duplicate key {key}, also in {seen_keys[key]}")
         seen_keys[key] = name
-        expected = filename_for_item(item)
+        try:
+            expected = path_for(item)
+        except ValueError as error:
+            errors.append(f"{name}: {error}")
+            continue
         if expected != name:
-            errors.append(f"{name}: key {key} belongs in {expected}")
+            errors.append(f"{name}: key {key} belongs at {expected}")
+        if is_unmapped(expected):
+            warnings.append(f"{name}: key {key} has no short-name mapping (data/mizuumi.py "
+                            "CHAR_MAPPINGS) or an unknown moon, so it lives under _unmapped/")
         if text != dumps(item):
             errors.append(f"{name}: not in canonical format (run `python -m dataset format` from src)")
-    return errors
+    return errors, warnings
 
 
 def format_dir(directory: str) -> List[str]:
@@ -314,10 +358,15 @@ def main(argv: List[str]) -> int:
     command = argv[0] if argv else "check"
     directory = argv[1] if len(argv) > 1 else DATA_DIRECTORY
     if command == "check":
-        errors = validate_dir(directory)
+        errors, warnings = check_dir(directory)
         for error in errors:
             print(f"ERROR {error}")
-        print(f"{len(list_files(directory))} file(s) checked, {len(errors)} problem(s)")
+        for warning in warnings:
+            print(f"WARNING {warning}")
+            if os.environ.get("GITHUB_ACTIONS") == "true":
+                print(f"::warning::{warning}")
+        print(f"{len(list_files(directory))} file(s) checked, {len(errors)} problem(s), "
+              f"{len(warnings)} warning(s)")
         return 1 if errors else 0
     if command == "format":
         for name in format_dir(directory):

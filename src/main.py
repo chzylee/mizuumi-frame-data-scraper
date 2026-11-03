@@ -5,6 +5,7 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+import dataset
 import filehelper
 from scraper import Scraper
 from data import melty
@@ -73,7 +74,7 @@ def get_all_melty_frame_data() -> dict:
     report = {"created": [], "updated": [], "unchanged": [], "failed": []}
     for char in melty.char_paths:
         for moon in melty.moon_paths:
-            file_name = filehelper.get_filename(char_name=char, moon=moon)
+            file_name = dataset.path_for({"character_name": char, "moon": moon})
             try:
                 data = get_melty_char_frame_data(session, char, moon)
                 file_path = filehelper.get_scraped_path(file_name)

@@ -1,21 +1,9 @@
 """In-memory stand-in for a boto3 DynamoDB Table (no AWS needed).
 
-Implements exactly what the pipeline uses: paginated scan, and put_item with the
-small condition-expression grammar push_to_dynamodb emits
-(attribute_exists / attribute_not_exists / `#name = :value`, joined by AND).
-Values compare with Python equality, which for the nested lists/maps here
-matches DynamoDB's deep equality.
+Implements exactly what the pipeline uses: paginated scan and put_item (which,
+like boto3, rejects floats).
 """
 import copy
-from decimal import Decimal
-
-
-class ConditionalCheckFailed(Exception):
-    """Shaped like botocore's ClientError for ConditionalCheckFailedException."""
-
-    def __init__(self):
-        super().__init__("The conditional request failed")
-        self.response = {"Error": {"Code": "ConditionalCheckFailedException"}}
 
 
 class FakeTable:
@@ -24,8 +12,6 @@ class FakeTable:
         self.page_size = page_size
         self.put_count = 0
         self.scan_calls = 0
-        # Called before each put is evaluated; lets a test simulate a concurrent edit.
-        self.before_put = None
         for item in items or []:
             self.store[self._key(item)] = copy.deepcopy(item)
 
@@ -46,39 +32,13 @@ class FakeTable:
             page["LastEvaluatedKey"] = {"character_name": last[0], "moon": last[1]}
         return page
 
-    def put_item(self, Item, ConditionExpression=None, ExpressionAttributeNames=None,
-                 ExpressionAttributeValues=None):
-        if self.before_put is not None:
-            self.before_put(self)
+    def put_item(self, Item):
         for value in _walk(Item):
             if isinstance(value, float):
                 raise TypeError("Float types are not supported. Use Decimal types instead.")
-        existing = self.store.get(self._key(Item))
-        if ConditionExpression and not self._holds(
-                existing, ConditionExpression, ExpressionAttributeNames or {}, ExpressionAttributeValues or {}):
-            raise ConditionalCheckFailed()
         self.put_count += 1
         self.store[self._key(Item)] = copy.deepcopy(Item)
         return {}
-
-    @staticmethod
-    def _holds(existing, expression, names, values):
-        for term in expression.split(" AND "):
-            term = term.strip()
-            if term.startswith("attribute_not_exists("):
-                attr = names[term[len("attribute_not_exists("):-1]]
-                if existing is not None and attr in existing:
-                    return False
-            elif term.startswith("attribute_exists("):
-                attr = names[term[len("attribute_exists("):-1]]
-                if existing is None or attr not in existing:
-                    return False
-            else:
-                left, right = (part.strip() for part in term.split("="))
-                attr = names[left]
-                if existing is None or attr not in existing or existing[attr] != values[right]:
-                    return False
-        return True
 
 
 def _walk(value):
@@ -108,4 +68,4 @@ def item(char="Kouma_Kishima", moon="Crescent_Moon", moves=None, **extra):
     return result
 
 
-__all__ = ["FakeTable", "ConditionalCheckFailed", "move", "item", "Decimal"]
+__all__ = ["FakeTable", "move", "item"]

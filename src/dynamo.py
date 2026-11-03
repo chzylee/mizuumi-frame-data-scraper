@@ -29,9 +29,3 @@ def scan_all(table) -> List[dict]:
             return items
         kwargs["ExclusiveStartKey"] = last_key
 
-
-def is_conditional_check_failure(error: Exception) -> bool:
-    """True for botocore's ConditionalCheckFailedException (checked by code so
-    this module never has to import botocore)."""
-    response = getattr(error, "response", None) or {}
-    return response.get("Error", {}).get("Code") == "ConditionalCheckFailedException"

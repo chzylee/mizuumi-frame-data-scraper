@@ -3,7 +3,6 @@ import json
 import hashlib
 import tempfile
 from typing import Any
-from data import mizuumi
 
 # Paths are anchored at the repo root so it doesn't matter where you run from.
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -62,13 +61,6 @@ def write_json_if_changed(file_path: str, data: Any) -> str:
         raise
 
     return status
-
-def get_filename(char_name: str, moon: str) -> str:
-    char_short = mizuumi.get_char_name(char_name)
-    moon_short = mizuumi.get_moon_letter(moon)
-
-    file_name = f"{char_short}-{moon_short}.json"
-    return file_name
 
 def get_scraped_path(file_name: str) -> str:
     return os.path.join(SCRAPED_DIRECTORY, file_name)
