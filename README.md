@@ -20,6 +20,7 @@ checked first; that plan is the only preview.
 | `data/` | yes | One JSON file per table item: the item as stored, minus the `content_hash` bookkeeping attribute. Canonical format, checked by CI. |
 | `local-data/scraped/` | no | `main.py` scrape output, same layout as `data/`. Raw material, never pushed as-is. |
 | `src/` | yes | Scraper and pipeline code; run everything from here. |
+| `viewer/` | yes | Local web app to browse and edit `data/` (see [Viewer](#viewer)). |
 
 **Paths.** An item lives at `data/<short>/<moon>_<short>.json`, where `<short>` is the
 bot's short character name (the first alias for that character in
@@ -87,7 +88,7 @@ after Cancel), e.g. `L`, `H`, `LH`.
            pull (read role)                       push (write role, manual)       
 DynamoDB ──────────────────► PR to data/ ─► main ──────────────────────────────────► DynamoDB
                                    ▲               (manual dispatch from main) 
-local-data/scraped/ ─ fill_from_scrape (or a hand edit)
+local-data/scraped/ ─ fill_from_scrape, the viewer, or a hand edit
 ```
 
 ### Pull: [pull-from-dynamodb.yml](./.github/workflows/pull-from-dynamodb.yml)
@@ -156,11 +157,69 @@ code path).
 Runs on every PR and every push to `main`, without AWS: the unit tests, plus
 `python -m dataset check` (every file parses, has the required keys, has a unique key,
 sits at the path its key maps to, and is byte-for-byte canonical; `_unmapped/` files are
-warnings). A badly formatted hand edit fails CI.
+warnings). A badly formatted hand edit fails CI. A second job checks the viewer:
+typecheck, unit tests, and the parity test against `src/dataset.py`.
 
 PRs opened by the pull workflow use `GITHUB_TOKEN`, so GitHub holds their check runs
 until someone with write access clicks **Approve workflows to run** on the PR. The pull
 workflow also runs the data check itself and puts the result in the PR body.
+
+## Viewer
+
+A local web app in `viewer/` for browsing and editing `data/`. It only reads and writes
+files: no git, no AWS, no Python needed to run it. The sync to DynamoDB stays manual.
+
+```sh
+cd viewer
+npm ci          # once; Node 22+
+npm start       # API on 127.0.0.1:5175, UI on http://127.0.0.1:5174
+```
+
+Both servers bind `127.0.0.1` only. `VIEWER_DATA_DIR` and `VIEWER_SCRAPED_DIR` point it
+at other directories (default `data/` and `local-data/scraped/`, from the repo root
+wherever you run it). If `data/` is missing or empty, the viewer says so and edits
+nothing: `data/` only ever comes from a pull.
+
+**Browse.** Pick a character, then a moon. Each move shows its hitbox image and every
+field it has, known fields in canonical order and any others after them.
+
+**Edit.** `image` is edited directly, with a live preview. Every other field (including
+`input` and `alts`) has a lock: click to unlock, edit, click again (or press Enter) to
+lock, which stages the edit. Fields still unlocked when you save are not saved.
+
+**Diffs.** With a scrape in `local-data/scraped/` (`python main.py` from `src`), **Show
+diffs** compares `data/` with it, matching items by key and moves by input and
+occurrence, as `fill_from_scrape` does: green matches, red differs (the scraped value
+in red italics beside it), blue exists only in the scrape. `image` is never compared or
+colored. Things only in `data/` are left uncolored. Characters, moons and moves take
+their children's worst status (red, then blue, then green).
+
+**What the scrape adds.** Anything only in the scrape (an item, a move, or a field such
+as `guard`) is staged automatically when the viewer loads and counted in **Save edits**,
+but written only when you confirm a save. A new move is placed right after the move
+that precedes it in the scrape (at the top if none does), and never before a move with
+the same input, so existing moves keep their identity. A new item goes at its
+`path_for` path. Because a save writes every staged change, use `fill_from_scrape` when
+you want a PR that carries only certain fields.
+
+**Save.** **Save edits** lists every pending change by character, moon and move, old
+value to new. On confirm, the server re-checks every file (the `dataset.py` validation
+rules, the right path for its key, and that the file hasn't changed on disk since it was
+loaded) and writes nothing if any check fails; otherwise it writes each file in the
+canonical format, atomically (temp file, then rename). The viewer warns before you close
+or reload the page with unsaved changes.
+
+Then ship it like any other `data/` change:
+
+1. Review `git diff data/` and commit.
+2. Push to `main`, or open a PR and merge it once CI passes.
+3. Run *Push to DynamoDB* with `dry_run` checked, check the plan, then run it again
+   unchecked to write.
+
+Its TypeScript copies of the `dataset.py` serializer, `path_for` and validation must
+match Python byte for byte; `npm run test:parity` (Python on `PATH`, or set `PYTHON`)
+compares them over the test fixtures and, when present, every file in
+`local-data/scraped/`. Run `npm run typecheck` and `npm test` for the rest.
 
 ## What the workflows need to run
 
@@ -182,7 +241,9 @@ URLs that exist nowhere else.
 2. **Merge:** let CI pass, review the PR (it's the whole table), and merge it. A dry-run
    push should report every item `unchanged`.
 3. **Backfill guard:** run `python main.py`, then `python -m fill_from_scrape --fields guard`.
-   Review `git diff data/` and the reported unmatched moves, and open a PR.
+   Review `git diff data/` and the reported unmatched moves, and open a PR. (The viewer can
+   do this too, but its save also writes any moves or items that exist only in the
+   scrape, so the plan in step 4 would show more than `guard`.)
 4. **Merge**, then run *Push to DynamoDB* with `dry_run` checked and confirm the
    `plan` summary shows only `guard` changes.
 5. **Push:** run it again with `dry_run` unchecked to write.
@@ -194,6 +255,9 @@ Run unit tests from the `src` directory:
 ```sh
 python -m unittest discover -s tests -p "*_tests.py"
 ```
+
+The viewer's tests run from `viewer/`: `npm run typecheck`, `npm test`, and
+`npm run test:parity` (see [Viewer](#viewer)).
 
 - The pipeline is unit-tested without AWS against an in-memory fake table
   (`tests/fakes.py`, with scan pagination). The scraper tests need `beautifulsoup4`
